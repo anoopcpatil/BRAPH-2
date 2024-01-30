@@ -1,0 +1,44 @@
+ELCLASS
+NaN
+NAME
+NaN
+DESCRIPTION
+NaN
+TEMPLATE
+NaN
+Raman Experiment ID
+1
+Raman Experiment NAME
+2
+Raman Experiment NOTES
+17
+TOSTRING
+NaN
+Raman Spectra
+16
+Researcher's Name
+3
+Experiment Date (YYYY-MM-DD)
+4
+Plant Name
+5
+Plant Type
+6
+Plant Type Comment (mutant type)
+7
+Plant Age (days)
+8
+Leaf Number
+9
+Growth Medium
+10
+Stress Type
+11
+Setup
+12
+Laser Wavelength
+13
+Laser Power (mW)
+14
+Acquisition Time (s)
+15
