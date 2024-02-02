@@ -105,9 +105,7 @@ classdef REAnalysisModule < ConcreteElement
 	% To print full list of constants, click here <a href="matlab:metaclass = ?REAnalysisModule; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">REAnalysisModule constants</a>.
 	%
 	%
-	% See also RamanExperiment, Spectrum
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.
+	% See also RamanExperiment, Spectrum.
 	
 	properties (Constant) % properties
 		RE_IN = 9; %CET: Computational Efficiency Trick

@@ -79,20 +79,20 @@ re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
 value = re_out;
 
 
-% %%% ¡prop!
-% REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
-% %%%% ¡settings!
-% 'RamanExperimentPF'
-% %%%% ¡postprocessing!
-% if isa(ream.getr('REPF'), 'NoValue')
-%     ream.memorize('REPF').set('RE', ream.get('RE_OUT'))
-% end
-% %%%% ¡gui!
-% pr = PanelPropItem('EL', ream, 'PROP', REAnalysisModule.REPF, ...
-%     'WAITBAR', true, ...
-%     'GUICLASS', 'GUIFig', ...
-%     'BUTTON_TEXT', 'Plot Raman Experiment', ...
-%     varargin{:});
+%%% ¡prop!
+REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+%%%% ¡settings!
+'RamanExperimentPF'
+%%%% ¡postprocessing!
+if isa(ream.getr('REPF'), 'NoValue')
+    ream.memorize('REPF').set('RE', ream.get('RE_OUT'))
+end
+%%%% ¡gui!
+pr = PanelPropItem('EL', ream, 'PROP', REAnalysisModule.REPF, ...
+    'WAITBAR', true, ...
+    'GUICLASS', 'GUIFig', ...
+    'BUTTON_TEXT', 'Plot Raman Experiment', ...
+    varargin{:});
 
 
 
