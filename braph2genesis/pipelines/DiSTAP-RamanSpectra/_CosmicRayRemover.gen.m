@@ -60,8 +60,10 @@ for n = 1:1:dict_length
      raw_intensities = re_out.get('SP_DICT').get('IT', n).get('INTENSITIES');
      fixed_intensities = medfilt1(raw_intensities);
      sp = Spectrum('INTENSITIES', fixed_intensities)
-     re_out.memorize('SP_DICT').get('ADD', sp)
+     re_out.get('SP_DICT').get('ADD', sp)
+
 end
+re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
 value = re_out;
 
 
