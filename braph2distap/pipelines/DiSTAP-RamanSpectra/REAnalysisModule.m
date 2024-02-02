@@ -649,32 +649,6 @@ classdef REAnalysisModule < ConcreteElement
 			end
 		end
 	end
-	methods (Access=protected) % postprocessing
-		function postprocessing(ream, prop)
-			%POSTPROCESSING postprocessesing after setting.
-			%
-			% POSTPROCESSING(EL, PROP) postprocessesing of PROP after setting. By
-			%  default, this function does not do anything, so it should be implemented
-			%  in the subclasses of Element when needed.
-			%
-			% The postprocessing of all properties occurs each time set is called.
-			%
-			% See also conditioning, preset, checkProp, postset, calculateValue,
-			%  checkValue.
-			
-			switch prop
-				case 11 % REAnalysisModule.REPF
-					if isa(ream.getr('REPF'), 'NoValue')
-					    ream.memorize('REPF').set('RE', ream.get('RE_OUT'))
-					end
-					
-				otherwise
-					if prop <= 8
-						postprocessing@ConcreteElement(ream, prop);
-					end
-			end
-		end
-	end
 	methods (Access=protected) % calculate value
 		function value = calculateValue(ream, prop, varargin)
 			%CALCULATEVALUE calculates the value of a property.
@@ -710,6 +684,8 @@ classdef REAnalysisModule < ConcreteElement
 					                         varargin{:});
 					re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
 					value = re_out;
+					
+					ream.memorize('REPF').set('RE', re_out)
 					
 					rng(rng_settings_)
 					

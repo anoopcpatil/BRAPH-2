@@ -1,100 +1,68 @@
 %% ¡header!
-REAnalysisModule < ConcreteElement (ream, RE Analysis Module) is a Raman Experiment analysis element.
+CosmicRayNoiseRemover < REAnalysisModule (crnr, Cosmic Ray Noise Remover) is an REAnalysisModule that reads raw Raman spectra and outputs fixed spectra (with cosmic ray noise removed).
 
 %%% ¡description!
-A RE Analysis Module (REAnalysisModule) is the base module that 
-copies the RamanExperiment element to read the Raman spectra 
-and plots the processed spectra. 
+A Cosmic Ray Noise Remover Module (CosmicRayNoiseRemover) is an REAnalysisModule that 
+reads the raw Raman spectra and evaluates the fixed spectra with cosmic ray noise removed.
+It also provides basic functionalities to view and plot the fixed spectra. 
 
 %%% ¡seealso!
-RamanExperiment, Spectrum
+REAnalysisModule, RamanExperiment, Spectrum
 
 
 %% ¡props_update!
 
 %%% ¡prop!
-ELCLASS (constant, string) is the class of the RE Analysis Module.
+ELCLASS (constant, string) is the class of the Cosmic Ray Noise Remover.
 %%%% ¡default!
-'REAnalysisModule'
+'CosmicRayNoiseRemover'
 
 %%% ¡prop!
-NAME (constant, string) is the name of the RE Analysis Module.
+NAME (constant, string) is the name of the Cosmic Ray Noise Remover.
 %%%% ¡default!
-'REAnalysisModule'
+'CosmicRayNoiseRemover'
 
 %%% ¡prop!   
-DESCRIPTION (constant, string) is the description of RE Analysis Module.
+DESCRIPTION (constant, string) is the description of Cosmic Ray Noise Remover.
 %%%% ¡default!
-'REAnalysisModule copies the RamanExperiment element and analyzes and plots the resulting spectra.'
+'CosmicRayNoiseRemover reads and analyzes raw Raman spectra and evaluates and plots the resulting fixed spectra.'
 
 %%% ¡prop!
-TEMPLATE (parameter, item) is the template of the RE Analysis Module.
+TEMPLATE (parameter, item) is the template of the Cosmic Ray Noise Remover.
 %%%% ¡settings!
-'REAnalysisModule'
+'CosmicRayNoiseRemover'
 
 %%% ¡prop!
-ID (data, string) is a few-letter code for the RE Analysis Module.
+ID (data, string) is a few-letter code for the Cosmic Ray Noise Remover.
 %%%% ¡default!
-'REAnalysisModule ID'
+'CosmicRayNoiseRemover ID'
 
 %%% ¡prop!
-LABEL (metadata, string) is an extended label of the RE Analysis Module.
+LABEL (metadata, string) is an extended label of the Cosmic Ray Noise Remover.
 %%%% ¡default!
-'REAnalysisModule label'
+'CosmicRayNoiseRemover label'
 
 %%% ¡prop!
-NOTES (metadata, string) are some specific notes about RE Analysis Module.
+NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.
 %%%% ¡default!
-'REAnalysisModule notes'
-
-
-
-%% ¡props!
-
-%%% ¡prop!
-RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-%%%% ¡settings!
-'RamanExperiment'
+'CosmicRayNoiseRemover notes'
 
 
 %%% ¡prop!
-RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
+RE_OUT (result, item) is the output Raman Experiment with fixed spectra as a result.
 %%%% ¡settings!
 'RamanExperiment'
 %%%% ¡calculate!
-re_in = ream.get('RE_IN');
+re_out = calculateValue@REAnalysisModule(crnr, 'RE_OUT');
+dict_length = re_out.get('SP_DICT').get('LENGTH')
 
-data_props = re_in.getProps(Category.DATA);
-varargin = cell(1, 2 * length(data_props));
-for i = 1:1:length(data_props)
-    data_prop = data_props(i);
-    varargin{2 * i - 1} = data_prop;
-    varargin{2 * i} = re_in.getCallback(data_prop);    
+for n = 1:1:dict_length
+     raw_intensities = re_out.get('SP_DICT').get('IT', n).get('INTENSITIES');
+     fixed_intensities = medfilt1(raw_intensities);
+     sp = Spectrum('INTENSITIES', fixed_intensities)
+     re_out.memorize('SP_DICT').get('ADD', sp)
 end
-
-re_out = RamanExperiment('LABEL', re_in.get('LABEL'), ...
-                         'NOTES', re_in.get('NOTES'), ...
-                         varargin{:});
-re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
 value = re_out;
-
-
-%%% ¡prop!
-REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
-%%%% ¡settings!
-'RamanExperimentPF'
-%%%% ¡postprocessing!
-if isa(ream.getr('REPF'), 'NoValue')
-    ream.memorize('REPF').set('RE', ream.get('RE_OUT'))
-end
-%%%% ¡gui!
-pr = PanelPropItem('EL', ream, 'PROP', REAnalysisModule.REPF, ...
-    'WAITBAR', true, ...
-    'GUICLASS', 'GUIFig', ...
-    'BUTTON_TEXT', 'Plot Raman Experiment', ...
-    varargin{:});
-
-
 
 
 

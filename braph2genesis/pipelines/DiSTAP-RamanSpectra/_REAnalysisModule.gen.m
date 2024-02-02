@@ -78,15 +78,12 @@ re_out = RamanExperiment('LABEL', re_in.get('LABEL'), ...
 re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
 value = re_out;
 
+ream.memorize('REPF').set('RE', re_out)
 
 %%% ¡prop!
 REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
 %%%% ¡settings!
 'RamanExperimentPF'
-%%%% ¡postprocessing!
-if isa(ream.getr('REPF'), 'NoValue')
-    ream.memorize('REPF').set('RE', ream.get('RE_OUT'))
-end
 %%%% ¡gui!
 pr = PanelPropItem('EL', ream, 'PROP', REAnalysisModule.REPF, ...
     'WAITBAR', true, ...
