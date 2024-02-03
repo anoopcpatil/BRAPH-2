@@ -16,7 +16,7 @@ classdef REAnalysisModule < ConcreteElement
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about RE Analysis Module.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-	%  <strong>10</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
+	%  <strong>10</strong> <strong>RE_OUT</strong> 	RE_OUT (query, item) is the output Raman Experiment with processed spectra as a result.
 	%  <strong>11</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
 	%
 	% REAnalysisModule methods (constructor):
@@ -115,7 +115,7 @@ classdef REAnalysisModule < ConcreteElement
 		
 		RE_OUT = 10; %CET: Computational Efficiency Trick
 		RE_OUT_TAG = 'RE_OUT';
-		RE_OUT_CATEGORY = 5;
+		RE_OUT_CATEGORY = 6;
 		RE_OUT_FORMAT = 8;
 		
 		REPF = 11; %CET: Computational Efficiency Trick
@@ -144,7 +144,7 @@ classdef REAnalysisModule < ConcreteElement
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about RE Analysis Module.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-			%  <strong>10</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
+			%  <strong>10</strong> <strong>RE_OUT</strong> 	RE_OUT (query, item) is the output Raman Experiment with processed spectra as a result.
 			%  <strong>11</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
 			%
 			% See also Category, Format.
@@ -220,10 +220,8 @@ classdef REAnalysisModule < ConcreteElement
 					prop_list = 4;
 				case 4 % Category.DATA
 					prop_list = [5 9];
-				case 5 % Category.RESULT
-					prop_list = 10;
 				case 6 % Category.QUERY
-					prop_list = 8;
+					prop_list = [8 10];
 				case 9 % Category.GUI
 					prop_list = 11;
 				otherwise
@@ -264,10 +262,8 @@ classdef REAnalysisModule < ConcreteElement
 					prop_number = 1;
 				case 4 % Category.DATA
 					prop_number = 2;
-				case 5 % Category.RESULT
-					prop_number = 1;
 				case 6 % Category.QUERY
-					prop_number = 1;
+					prop_number = 2;
 				case 9 % Category.GUI
 					prop_number = 1;
 				otherwise
@@ -427,7 +423,7 @@ classdef REAnalysisModule < ConcreteElement
 			prop = REAnalysisModule.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			reanalysismodule_category_list = { 1  1  1  3  4  2  2  6  4  5  9 };
+			reanalysismodule_category_list = { 1  1  1  3  4  2  2  6  4  6  9 };
 			prop_category = reanalysismodule_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -479,7 +475,7 @@ classdef REAnalysisModule < ConcreteElement
 			prop = REAnalysisModule.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			reanalysismodule_description_list = { 'ELCLASS (constant, string) is the class of the RE Analysis Module.'  'NAME (constant, string) is the name of the RE Analysis Module.'  'DESCRIPTION (constant, string) is the description of RE Analysis Module.'  'TEMPLATE (parameter, item) is the template of the RE Analysis Module.'  'ID (data, string) is a few-letter code for the RE Analysis Module.'  'LABEL (metadata, string) is an extended label of the RE Analysis Module.'  'NOTES (metadata, string) are some specific notes about RE Analysis Module.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
+			reanalysismodule_description_list = { 'ELCLASS (constant, string) is the class of the RE Analysis Module.'  'NAME (constant, string) is the name of the RE Analysis Module.'  'DESCRIPTION (constant, string) is the description of RE Analysis Module.'  'TEMPLATE (parameter, item) is the template of the RE Analysis Module.'  'ID (data, string) is a few-letter code for the RE Analysis Module.'  'LABEL (metadata, string) is an extended label of the RE Analysis Module.'  'NOTES (metadata, string) are some specific notes about RE Analysis Module.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'RE_OUT (query, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
 			prop_description = reanalysismodule_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -667,8 +663,6 @@ classdef REAnalysisModule < ConcreteElement
 			
 			switch prop
 				case 10 % REAnalysisModule.RE_OUT
-					rng_settings_ = rng(); rng(ream.getPropSeed(10), 'twister')
-					
 					re_in = ream.get('RE_IN');
 					
 					data_props = re_in.getProps(4);
@@ -686,8 +680,6 @@ classdef REAnalysisModule < ConcreteElement
 					value = re_out;
 					
 					ream.memorize('REPF').set('RE', re_out)
-					
-					rng(rng_settings_)
 					
 				otherwise
 					if prop <= 8

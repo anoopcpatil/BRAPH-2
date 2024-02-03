@@ -54,7 +54,7 @@ RE_OUT (query, item) is the output Raman Experiment with fixed spectra as a resu
 'RamanExperiment'
 %%%% ¡calculate!
 % calculateValue using REAnalysisModule with parameters crnr and 'RE_OUT'; 
-% returns the result, which is assigned to the variable re_out
+% returns the query, which is assigned to the variable re_out
 re_out = calculateValue@REAnalysisModule(crnr, prop);
 
 % Get the number of items in the indexed dictionary SP_DICT of re_out
@@ -64,19 +64,20 @@ for n = 1:1:dict_length
      raw_intensities = re_out.get('SP_DICT').get('IT', n).get('INTENSITIES');
 
      % Apply median filter to raw intensities
-     fixed_intensities = medfilt1(raw_intensities);
+     fixed_intensities = medfilt1(raw_intensities); 
 
-     % Create a new spectrum with fixed intensities
-     % sp = Spectrum('INTENSITIES', fixed_intensities)
-
-     % Replace the new spectrum to the re_out SP_DICT query dictionary
-     %re_out.memorize('SP_DICT').get('REPLACE', sp)
-     re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
-     re_out.memorize('SP_DICT').memorize('IT', n).set('INTENSITIES', fixed_intensities)
+     % Set the intensities of the nth spectrum in the 'SP_DICT' of re_out to 
+     % fixed intensities evaluated from the nth raw spectrum of re_in
+     re_out.get('SP_DICT').get('IT', n).set('INTENSITIES', fixed_intensities)
 end
+
+% Memorize the updated 'SP_DICT'
+re_out.memorize('SP_DICT');
 
 % Set the re_out to RE_OUT
 value = re_out;
+
+
 
 
 

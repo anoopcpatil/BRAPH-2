@@ -204,10 +204,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 					prop_list = 4;
 				case 4 % Category.DATA
 					prop_list = [5 9];
-				case 5 % Category.RESULT
-					prop_list = 10;
 				case 6 % Category.QUERY
-					prop_list = 8;
+					prop_list = [8 10];
 				case 9 % Category.GUI
 					prop_list = 11;
 				otherwise
@@ -248,10 +246,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 					prop_number = 1;
 				case 4 % Category.DATA
 					prop_number = 2;
-				case 5 % Category.RESULT
-					prop_number = 1;
 				case 6 % Category.QUERY
-					prop_number = 1;
+					prop_number = 2;
 				case 9 % Category.GUI
 					prop_number = 1;
 				otherwise
@@ -411,7 +407,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			prop = CosmicRayNoiseRemover.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			cosmicraynoiseremover_category_list = { 1  1  1  3  4  2  2  6  4  5  9 };
+			cosmicraynoiseremover_category_list = { 1  1  1  3  4  2  2  6  4  6  9 };
 			prop_category = cosmicraynoiseremover_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -640,7 +636,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			switch prop
 				case 10 % CosmicRayNoiseRemover.RE_OUT
 					% calculateValue using REAnalysisModule with parameters crnr and 'RE_OUT'; 
-					% returns the result, which is assigned to the variable re_out
+					% returns the query, which is assigned to the variable re_out
 					re_out = calculateValue@REAnalysisModule(crnr, prop);
 					
 					% Get the number of items in the indexed dictionary SP_DICT of re_out
@@ -652,20 +648,20 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 					     % Apply median filter to raw intensities
 					     fixed_intensities = medfilt1(raw_intensities);
 					
-					     % Create a new spectrum with fixed intensities
-					     % sp = Spectrum('INTENSITIES', fixed_intensities)
-					
-					     % Replace the new spectrum to the re_out SP_DICT query dictionary
-					     %re_out.memorize('SP_DICT').get('REPLACE', sp)
+					     % Set the intensities of the nth spectrum in the 'SP_DICT' of re_out to 
+					     % fixed intensities evaluated from the nth raw spectrum of re_in
 					     re_out.get('SP_DICT').get('IT', n).set('INTENSITIES', fixed_intensities)
 					end
 					
 					% Set the re_out to RE_OUT
 					value = re_out;
 					
+					% Memorize the updated 'SP_DICT'
+					re_out.memorize('SP_DICT');
 					
 					
 					
+					 
 					% %% ¡tests!
 					% %% ¡test!
 					% %% ¡name!
