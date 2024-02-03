@@ -183,7 +183,7 @@ classdef REAnalysisModule < ConcreteElement
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'REAnalysisModule'  'CosmicRayNoiseRemover' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'REAnalysisModule'  'BaselineEstimator'  'BaselinedRamanGenerator'  'CosmicRayNoiseRemover'  'SmoothingFilter' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of RE Analysis Module.
@@ -663,8 +663,10 @@ classdef REAnalysisModule < ConcreteElement
 			
 			switch prop
 				case 10 % REAnalysisModule.RE_OUT
+					% Read input Raman experiment
 					re_in = ream.get('RE_IN');
 					
+					% Copy the data_props of input Raman experiment
 					data_props = re_in.getProps(4);
 					varargin = cell(1, 2 * length(data_props));
 					for i = 1:1:length(data_props)
@@ -673,12 +675,19 @@ classdef REAnalysisModule < ConcreteElement
 					    varargin{2 * i} = re_in.getCallback(data_prop);    
 					end
 					
+					% Create an output Raman experiment with metadata and data props info
 					re_out = RamanExperiment('LABEL', re_in.get('LABEL'), ...
 					                         'NOTES', re_in.get('NOTES'), ...
 					                         varargin{:});
+					
+					% Copy the 'SP_DICT' of input Raman experiment to 
+					% the 'SP_DICT' of output Raman experiment
 					re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
+					
+					% Set the re_out to 'RE_OUT' of REAnalysisModule
 					value = re_out;
 					
+					% Set re_out to 'RE' and memorize for GUI output of REAnalysisModule
 					ream.memorize('REPF').set('RE', re_out)
 					
 				otherwise

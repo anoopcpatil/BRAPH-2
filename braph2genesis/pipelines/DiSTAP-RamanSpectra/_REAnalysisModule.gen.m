@@ -62,8 +62,10 @@ RE_OUT (query, item) is the output Raman Experiment with processed spectra as a 
 %%%% ¡settings!
 'RamanExperiment'
 %%%% ¡calculate!
+% Read input Raman experiment
 re_in = ream.get('RE_IN');
 
+% Copy the data_props of input Raman experiment
 data_props = re_in.getProps(Category.DATA);
 varargin = cell(1, 2 * length(data_props));
 for i = 1:1:length(data_props)
@@ -72,13 +74,21 @@ for i = 1:1:length(data_props)
     varargin{2 * i} = re_in.getCallback(data_prop);    
 end
 
+% Create an output Raman experiment with metadata and data props info
 re_out = RamanExperiment('LABEL', re_in.get('LABEL'), ...
                          'NOTES', re_in.get('NOTES'), ...
                          varargin{:});
+
+% Copy the 'SP_DICT' of input Raman experiment to 
+% the 'SP_DICT' of output Raman experiment
 re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
+
+% Set the re_out to 'RE_OUT' of REAnalysisModule
 value = re_out;
 
+% Set re_out to 'RE' and memorize for GUI output of REAnalysisModule
 ream.memorize('REPF').set('RE', re_out)
+
 
 %%% ¡prop!
 REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
@@ -112,12 +122,18 @@ m3 = m1 + 2
 m4 = m1 + 3
 m5 = m1 + 4
 m6 = m1 + 5
-s1 = Spectrum('ID', 'id1', 'LABEL', 'label1', 'NOTES', 'notes1', 'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m1);
-s2 = Spectrum('ID', 'id2', 'LABEL', 'label2', 'NOTES', 'notes2', 'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m2);
-s3 = Spectrum('ID', 'id3', 'LABEL', 'label3', 'NOTES', 'notes3', 'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m3);
-s4 = Spectrum('ID', 'id4', 'LABEL', 'label4', 'NOTES', 'notes4', 'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m4);
-s5 = Spectrum('ID', 'id5', 'LABEL', 'label5', 'NOTES', 'notes5', 'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m5);
-s6 = Spectrum('ID', 'id6', 'LABEL', 'label6', 'NOTES', 'notes6', 'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m6);
+s1 = Spectrum('ID', 'id1', 'LABEL', 'label1', 'NOTES', 'notes1', ...
+    'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m1);
+s2 = Spectrum('ID', 'id2', 'LABEL', 'label2', 'NOTES', 'notes2', ...
+    'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m2);
+s3 = Spectrum('ID', 'id3', 'LABEL', 'label3', 'NOTES', 'notes3', ...
+    'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m3);
+s4 = Spectrum('ID', 'id4', 'LABEL', 'label4', 'NOTES', 'notes4', ...
+    'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m4);
+s5 = Spectrum('ID', 'id5', 'LABEL', 'label5', 'NOTES', 'notes5', ...
+    'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m5);
+s6 = Spectrum('ID', 'id6', 'LABEL', 'label6', 'NOTES', 'notes6', ...
+    'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m6);
 
 items = {s1, s2, s3, s4, s5, s6};
 
@@ -127,8 +143,14 @@ idict_1 = IndexedDictionary( ...
     'IT_KEY', IndexedDictionary.getPropDefault(IndexedDictionary.IT_KEY), ...
     'IT_LIST', items ...
     );
-re = RamanExperiment('ID', 'REid1', 'LABEL', 'RElabel1', 'NOTES', 'REnotes1', 'SP_DICT', idict_1);
-ream = REAnalysisModule('ID', 'REAM_TEST1', 'LABEL', 'RE Analysis Test Module 1', 'NOTES', 'Testing RE Analysis Module 1.', 'RE_IN', re);
+re = RamanExperiment('ID', 'REid1', ...
+                     'LABEL', 'RElabel1', ...
+                     'NOTES', 'REnotes1', ...
+                     'SP_DICT', idict_1);
+ream = REAnalysisModule('ID', 'REAM_TEST1', ...
+                        'LABEL', 'RE Analysis Test Module 1', ...
+                        'NOTES', 'Testing RE Analysis Module 1.', ...
+                        'RE_IN', re);
 re_out = ream.get('RE_OUT');
 
 gui = GUIElement('PE', ream, 'CLOSEREQ', false);
