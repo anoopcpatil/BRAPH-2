@@ -118,7 +118,7 @@ parfor li = 1:1:g.get('LAYERNUMBER')
     Aii = A{li, li};
     Aii = binarize(Aii);  % binarizes the adjacency matrix (removing diagonal)
     degree(li) = {sum(Aii, 2)};  % calculates the degree of a node for layer li
-end
+end 
 
 value = degree;
 

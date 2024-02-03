@@ -58,7 +58,7 @@ RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
 
 
 %%% ¡prop!
-RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
+RE_OUT (query, item) is the output Raman Experiment with processed spectra as a result.
 %%%% ¡settings!
 'RamanExperiment'
 %%%% ¡calculate!
