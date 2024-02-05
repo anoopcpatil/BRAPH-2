@@ -3,7 +3,7 @@ REAnalysisModule < ConcreteElement (ream, RE Analysis Module) is a Raman Experim
 
 %%% ¡description!
 A RE Analysis Module (REAnalysisModule) is the base module that 
-copies the RamanExperiment element to read the Raman spectra 
+copies the RamanExperiment to read and process the Raman spectra 
 and plots the processed spectra. 
 
 %%% ¡seealso!
@@ -58,7 +58,52 @@ RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
 
 
 %%% ¡prop!
-RE_OUT (query, item) is the output Raman Experiment with processed spectra as a result.
+SP_OUT (query, item) is the processed spectrum in SP_DICT of RE_IN for RE_OUT.
+%%%% ¡settings!
+'Spectrum'
+%%%% ¡calculate!
+% sp_out = ream.get('SP_OUT', SP_IN) returns the processed N-th spectrum in 
+% SP_DICT of input Raman Experiment RE_IN
+if isempty(varargin)
+    value = Spectrum();
+    return
+end
+sp_in = varargin{1};
+% Create unlocked copy of the input spectrum
+sp_out = Spectrum(...
+         'INTENSITIES', sp_in.get('INTENSITIES'), ...
+         'WAVELENGTH', sp_in.get('WAVELENGTH'), ...
+         'ID', sp_in.get('ID'), ...
+         'LABEL', sp_in.get('LABEL'), ...
+         'NOTES', sp_in.get('NOTES'));
+value = sp_out;
+
+
+%%% ¡prop!
+SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
+%%%% ¡calculate!
+% sp_dict_out = ream.get('SP_DICT_OUT') returns the
+% processed SP_DICT for input Raman Experiment RE_IN
+% Create a new IndexedDictionary
+sp_dict_out = IndexedDictionary('IT_CLASS', ream.get('RE_IN').get('SP_DICT').get('IT_CLASS'));
+
+% Get the length of SP_DICT of RE_IN. 
+dict_length = ream.get('RE_IN').get('SP_DICT').get('LENGTH');
+
+% Update sp_dict_out with processed spectra
+for n = 1:1:dict_length
+    sp_in = ream.get('RE_IN').get('SP_DICT').get('IT', n);
+    sp_out = ream.get('SP_OUT', sp_in);
+    sp_dict_out.get('ADD', sp_out);
+end 
+% Set the updated value of sp_dict_out to SP_DICT_OUT
+value = sp_dict_out;
+
+
+
+
+%%% ¡prop!
+RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
 %%%% ¡settings!
 'RamanExperiment'
 %%%% ¡calculate!
@@ -79,15 +124,16 @@ re_out = RamanExperiment('LABEL', re_in.get('LABEL'), ...
                          'NOTES', re_in.get('NOTES'), ...
                          varargin{:});
 
-% Copy the 'SP_DICT' of input Raman experiment to 
-% the 'SP_DICT' of output Raman experiment
-re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
+% Copy the processed SP_DICT of RE_IN to 
+% the SP_DICT of RE_OUT
+re_out.set('SP_DICT', ream.get('SP_DICT_OUT'))
 
-% Set the re_out to 'RE_OUT' of REAnalysisModule
+% Set the re_out to RE_OUT of REAnalysisModule
 value = re_out;
 
-% Set re_out to 'RE' and memorize for GUI output of REAnalysisModule
+% Set re_out to RE and memorize for GUI output of REAnalysisModule
 ream.memorize('REPF').set('RE', re_out)
+
 
 
 %%% ¡prop!

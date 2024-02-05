@@ -3,7 +3,7 @@
 
 delete(findall(0, 'type', 'figure'))
 close all
-clear all %#ok<CLALL>
+clear all 
 clc
 
 %% Add here all included and excluded folders and elements

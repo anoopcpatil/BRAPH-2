@@ -3,7 +3,7 @@ classdef REAnalysisModule < ConcreteElement
 	% It is a subclass of <a href="matlab:help ConcreteElement">ConcreteElement</a>.
 	%
 	% A RE Analysis Module (REAnalysisModule) is the base module that 
-	% copies the RamanExperiment element to read the Raman spectra 
+	% copies the RamanExperiment to read and process the Raman spectra 
 	% and plots the processed spectra.
 	%
 	% The list of REAnalysisModule properties is:
@@ -16,8 +16,10 @@ classdef REAnalysisModule < ConcreteElement
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about RE Analysis Module.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-	%  <strong>10</strong> <strong>RE_OUT</strong> 	RE_OUT (query, item) is the output Raman Experiment with processed spectra as a result.
-	%  <strong>11</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (query, item) is the processed spectrum in SP_DICT of RE_IN for RE_OUT.
+	%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
+	%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
+	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
 	%
 	% REAnalysisModule methods (constructor):
 	%  REAnalysisModule - constructor
@@ -113,12 +115,22 @@ classdef REAnalysisModule < ConcreteElement
 		RE_IN_CATEGORY = 4;
 		RE_IN_FORMAT = 8;
 		
-		RE_OUT = 10; %CET: Computational Efficiency Trick
+		SP_OUT = 10; %CET: Computational Efficiency Trick
+		SP_OUT_TAG = 'SP_OUT';
+		SP_OUT_CATEGORY = 6;
+		SP_OUT_FORMAT = 8;
+		
+		SP_DICT_OUT = 11; %CET: Computational Efficiency Trick
+		SP_DICT_OUT_TAG = 'SP_DICT_OUT';
+		SP_DICT_OUT_CATEGORY = 5;
+		SP_DICT_OUT_FORMAT = 10;
+		
+		RE_OUT = 12; %CET: Computational Efficiency Trick
 		RE_OUT_TAG = 'RE_OUT';
-		RE_OUT_CATEGORY = 6;
+		RE_OUT_CATEGORY = 5;
 		RE_OUT_FORMAT = 8;
 		
-		REPF = 11; %CET: Computational Efficiency Trick
+		REPF = 13; %CET: Computational Efficiency Trick
 		REPF_TAG = 'REPF';
 		REPF_CATEGORY = 9;
 		REPF_FORMAT = 8;
@@ -144,8 +156,10 @@ classdef REAnalysisModule < ConcreteElement
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about RE Analysis Module.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-			%  <strong>10</strong> <strong>RE_OUT</strong> 	RE_OUT (query, item) is the output Raman Experiment with processed spectra as a result.
-			%  <strong>11</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (query, item) is the processed spectrum in SP_DICT of RE_IN for RE_OUT.
+			%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
+			%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
+			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
 			%
 			% See also Category, Format.
 			
@@ -183,7 +197,7 @@ classdef REAnalysisModule < ConcreteElement
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'REAnalysisModule'  'BaselineEstimator'  'BaselinedRamanGenerator'  'CosmicRayNoiseRemover'  'SmoothingFilter' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'REAnalysisModule'  'CosmicRayNoiseRemover' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of RE Analysis Module.
@@ -207,7 +221,7 @@ classdef REAnalysisModule < ConcreteElement
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13];
 				return
 			end
 			
@@ -220,10 +234,12 @@ classdef REAnalysisModule < ConcreteElement
 					prop_list = 4;
 				case 4 % Category.DATA
 					prop_list = [5 9];
+				case 5 % Category.RESULT
+					prop_list = [11 12];
 				case 6 % Category.QUERY
 					prop_list = [8 10];
 				case 9 % Category.GUI
-					prop_list = 11;
+					prop_list = 13;
 				otherwise
 					prop_list = [];
 			end
@@ -249,7 +265,7 @@ classdef REAnalysisModule < ConcreteElement
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 11;
+				prop_number = 13;
 				return
 			end
 			
@@ -261,6 +277,8 @@ classdef REAnalysisModule < ConcreteElement
 				case 3 % Category.PARAMETER
 					prop_number = 1;
 				case 4 % Category.DATA
+					prop_number = 2;
+				case 5 % Category.RESULT
 					prop_number = 2;
 				case 6 % Category.QUERY
 					prop_number = 2;
@@ -296,7 +314,7 @@ classdef REAnalysisModule < ConcreteElement
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 11 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 13 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -334,7 +352,7 @@ classdef REAnalysisModule < ConcreteElement
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'RE_OUT'  'REPF' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -367,7 +385,7 @@ classdef REAnalysisModule < ConcreteElement
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'RE_OUT'  'REPF' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -396,7 +414,7 @@ classdef REAnalysisModule < ConcreteElement
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				reanalysismodule_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'RE_OUT'  'REPF' };
+				reanalysismodule_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' };
 				tag = reanalysismodule_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -423,7 +441,7 @@ classdef REAnalysisModule < ConcreteElement
 			prop = REAnalysisModule.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			reanalysismodule_category_list = { 1  1  1  3  4  2  2  6  4  6  9 };
+			reanalysismodule_category_list = { 1  1  1  3  4  2  2  6  4  6  5  5  9 };
 			prop_category = reanalysismodule_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -449,7 +467,7 @@ classdef REAnalysisModule < ConcreteElement
 			prop = REAnalysisModule.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			reanalysismodule_format_list = { 2  2  2  8  2  2  2  2  8  8  8 };
+			reanalysismodule_format_list = { 2  2  2  8  2  2  2  2  8  8  10  8  8 };
 			prop_format = reanalysismodule_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -475,7 +493,7 @@ classdef REAnalysisModule < ConcreteElement
 			prop = REAnalysisModule.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			reanalysismodule_description_list = { 'ELCLASS (constant, string) is the class of the RE Analysis Module.'  'NAME (constant, string) is the name of the RE Analysis Module.'  'DESCRIPTION (constant, string) is the description of RE Analysis Module.'  'TEMPLATE (parameter, item) is the template of the RE Analysis Module.'  'ID (data, string) is a few-letter code for the RE Analysis Module.'  'LABEL (metadata, string) is an extended label of the RE Analysis Module.'  'NOTES (metadata, string) are some specific notes about RE Analysis Module.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'RE_OUT (query, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
+			reanalysismodule_description_list = { 'ELCLASS (constant, string) is the class of the RE Analysis Module.'  'NAME (constant, string) is the name of the RE Analysis Module.'  'DESCRIPTION (constant, string) is the description of RE Analysis Module.'  'TEMPLATE (parameter, item) is the template of the RE Analysis Module.'  'ID (data, string) is a few-letter code for the RE Analysis Module.'  'LABEL (metadata, string) is an extended label of the RE Analysis Module.'  'NOTES (metadata, string) are some specific notes about RE Analysis Module.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (query, item) is the processed spectrum in SP_DICT of RE_IN for RE_OUT.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
 			prop_description = reanalysismodule_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -503,9 +521,13 @@ classdef REAnalysisModule < ConcreteElement
 			switch prop %CET: Computational Efficiency Trick
 				case 9 % REAnalysisModule.RE_IN
 					prop_settings = 'RamanExperiment';
-				case 10 % REAnalysisModule.RE_OUT
+				case 10 % REAnalysisModule.SP_OUT
+					prop_settings = 'Spectrum';
+				case 11 % REAnalysisModule.SP_DICT_OUT
+					prop_settings = Format.getFormatSettings(10);
+				case 12 % REAnalysisModule.RE_OUT
 					prop_settings = 'RamanExperiment';
-				case 11 % REAnalysisModule.REPF
+				case 13 % REAnalysisModule.REPF
 					prop_settings = 'RamanExperimentPF';
 				case 4 % REAnalysisModule.TEMPLATE
 					prop_settings = 'REAnalysisModule';
@@ -538,9 +560,13 @@ classdef REAnalysisModule < ConcreteElement
 			switch prop %CET: Computational Efficiency Trick
 				case 9 % REAnalysisModule.RE_IN
 					prop_default = Format.getFormatDefault(8, REAnalysisModule.getPropSettings(prop));
-				case 10 % REAnalysisModule.RE_OUT
+				case 10 % REAnalysisModule.SP_OUT
 					prop_default = Format.getFormatDefault(8, REAnalysisModule.getPropSettings(prop));
-				case 11 % REAnalysisModule.REPF
+				case 11 % REAnalysisModule.SP_DICT_OUT
+					prop_default = Format.getFormatDefault(10, REAnalysisModule.getPropSettings(prop));
+				case 12 % REAnalysisModule.RE_OUT
+					prop_default = Format.getFormatDefault(8, REAnalysisModule.getPropSettings(prop));
+				case 13 % REAnalysisModule.REPF
 					prop_default = Format.getFormatDefault(8, REAnalysisModule.getPropSettings(prop));
 				case 1 % REAnalysisModule.ELCLASS
 					prop_default = 'REAnalysisModule';
@@ -622,9 +648,13 @@ classdef REAnalysisModule < ConcreteElement
 			switch prop
 				case 9 % REAnalysisModule.RE_IN
 					check = Format.checkFormat(8, value, REAnalysisModule.getPropSettings(prop));
-				case 10 % REAnalysisModule.RE_OUT
+				case 10 % REAnalysisModule.SP_OUT
 					check = Format.checkFormat(8, value, REAnalysisModule.getPropSettings(prop));
-				case 11 % REAnalysisModule.REPF
+				case 11 % REAnalysisModule.SP_DICT_OUT
+					check = Format.checkFormat(10, value, REAnalysisModule.getPropSettings(prop));
+				case 12 % REAnalysisModule.RE_OUT
+					check = Format.checkFormat(8, value, REAnalysisModule.getPropSettings(prop));
+				case 13 % REAnalysisModule.REPF
 					check = Format.checkFormat(8, value, REAnalysisModule.getPropSettings(prop));
 				case 4 % REAnalysisModule.TEMPLATE
 					check = Format.checkFormat(8, value, REAnalysisModule.getPropSettings(prop));
@@ -662,7 +692,48 @@ classdef REAnalysisModule < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case 10 % REAnalysisModule.RE_OUT
+				case 10 % REAnalysisModule.SP_OUT
+					% sp_out = ream.get('SP_OUT', SP_IN) returns the processed N-th spectrum in 
+					% SP_DICT of input Raman Experiment RE_IN
+					if isempty(varargin)
+					    value = Spectrum();
+					    return
+					end
+					sp_in = varargin{1};
+					% Create unlocked copy of the input spectrum
+					sp_out = Spectrum(...
+					         'INTENSITIES', sp_in.get('INTENSITIES'), ...
+					         'WAVELENGTH', sp_in.get('WAVELENGTH'), ...
+					         'ID', sp_in.get('ID'), ...
+					         'LABEL', sp_in.get('LABEL'), ...
+					         'NOTES', sp_in.get('NOTES'));
+					value = sp_out;
+					
+				case 11 % REAnalysisModule.SP_DICT_OUT
+					rng_settings_ = rng(); rng(ream.getPropSeed(11), 'twister')
+					
+					% sp_dict_out = ream.get('SP_DICT_OUT') returns the
+					% processed SP_DICT for input Raman Experiment RE_IN
+					% Create a new IndexedDictionary
+					sp_dict_out = IndexedDictionary('IT_CLASS', ream.get('RE_IN').get('SP_DICT').get('IT_CLASS'));
+					
+					% Get the length of SP_DICT of RE_IN. 
+					dict_length = ream.get('RE_IN').get('SP_DICT').get('LENGTH');
+					
+					% Update sp_dict_out with processed spectra
+					for n = 1:1:dict_length
+					    sp_in = ream.get('RE_IN').get('SP_DICT').get('IT', n);
+					    sp_out = ream.get('SP_OUT', sp_in);
+					    sp_dict_out.get('ADD', sp_out);
+					end 
+					% Set the updated value of sp_dict_out to SP_DICT_OUT
+					value = sp_dict_out;
+					
+					rng(rng_settings_)
+					
+				case 12 % REAnalysisModule.RE_OUT
+					rng_settings_ = rng(); rng(ream.getPropSeed(12), 'twister')
+					
 					% Read input Raman experiment
 					re_in = ream.get('RE_IN');
 					
@@ -680,15 +751,17 @@ classdef REAnalysisModule < ConcreteElement
 					                         'NOTES', re_in.get('NOTES'), ...
 					                         varargin{:});
 					
-					% Copy the 'SP_DICT' of input Raman experiment to 
-					% the 'SP_DICT' of output Raman experiment
-					re_out.set('SP_DICT', re_in.get('SP_DICT').copy)
+					% Copy the processed SP_DICT of RE_IN to 
+					% the SP_DICT of RE_OUT
+					re_out.set('SP_DICT', ream.get('SP_DICT_OUT'))
 					
-					% Set the re_out to 'RE_OUT' of REAnalysisModule
+					% Set the re_out to RE_OUT of REAnalysisModule
 					value = re_out;
 					
-					% Set re_out to 'RE' and memorize for GUI output of REAnalysisModule
+					% Set re_out to RE and memorize for GUI output of REAnalysisModule
 					ream.memorize('REPF').set('RE', re_out)
+					
+					rng(rng_settings_)
 					
 				otherwise
 					if prop <= 8
@@ -717,8 +790,8 @@ classdef REAnalysisModule < ConcreteElement
 			%  PanelPropString, PanelPropStringList.
 			
 			switch prop
-				case 11 % REAnalysisModule.REPF
-					pr = PanelPropItem('EL', ream, 'PROP', 11, ...
+				case 13 % REAnalysisModule.REPF
+					pr = PanelPropItem('EL', ream, 'PROP', 13, ...
 					    'WAITBAR', true, ...
 					    'GUICLASS', 'GUIFig', ...
 					    'BUTTON_TEXT', 'Plot Raman Experiment', ...

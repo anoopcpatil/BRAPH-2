@@ -16,8 +16,10 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-	%  <strong>10</strong> <strong>RE_OUT</strong> 	RE_OUT (query, item) is the output Raman Experiment with fixed spectra as a result.
-	%  <strong>11</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the fixed spectrum in SP_DICT of RE_IN for RE_OUT.
+	%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
+	%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
+	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
 	%
 	% CosmicRayNoiseRemover methods (constructor):
 	%  CosmicRayNoiseRemover - constructor
@@ -105,7 +107,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 	% To print full list of constants, click here <a href="matlab:metaclass = ?CosmicRayNoiseRemover; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">CosmicRayNoiseRemover constants</a>.
 	%
 	%
-	% See also REAnalysisModule, RamanExperiment, Spectrum.
+	% See also RamanExperiment, Spectrum.
 	
 	methods % constructor
 		function crnr = CosmicRayNoiseRemover(varargin)
@@ -128,8 +130,10 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-			%  <strong>10</strong> <strong>RE_OUT</strong> 	RE_OUT (query, item) is the output Raman Experiment with fixed spectra as a result.
-			%  <strong>11</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the fixed spectrum in SP_DICT of RE_IN for RE_OUT.
+			%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
+			%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
+			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
 			%
 			% See also Category, Format.
 			
@@ -191,7 +195,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13];
 				return
 			end
 			
@@ -204,10 +208,12 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 					prop_list = 4;
 				case 4 % Category.DATA
 					prop_list = [5 9];
+				case 5 % Category.RESULT
+					prop_list = [11 12];
 				case 6 % Category.QUERY
 					prop_list = [8 10];
 				case 9 % Category.GUI
-					prop_list = 11;
+					prop_list = 13;
 				otherwise
 					prop_list = [];
 			end
@@ -233,7 +239,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 11;
+				prop_number = 13;
 				return
 			end
 			
@@ -245,6 +251,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 				case 3 % Category.PARAMETER
 					prop_number = 1;
 				case 4 % Category.DATA
+					prop_number = 2;
+				case 5 % Category.RESULT
 					prop_number = 2;
 				case 6 % Category.QUERY
 					prop_number = 2;
@@ -280,7 +288,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 11 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 13 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -318,7 +326,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'RE_OUT'  'REPF' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -351,7 +359,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'RE_OUT'  'REPF' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -380,7 +388,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				cosmicraynoiseremover_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'RE_OUT'  'REPF' };
+				cosmicraynoiseremover_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' };
 				tag = cosmicraynoiseremover_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -407,7 +415,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			prop = CosmicRayNoiseRemover.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			cosmicraynoiseremover_category_list = { 1  1  1  3  4  2  2  6  4  6  9 };
+			cosmicraynoiseremover_category_list = { 1  1  1  3  4  2  2  6  4  6  5  5  9 };
 			prop_category = cosmicraynoiseremover_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -433,7 +441,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			prop = CosmicRayNoiseRemover.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			cosmicraynoiseremover_format_list = { 2  2  2  8  2  2  2  2  8  8  8 };
+			cosmicraynoiseremover_format_list = { 2  2  2  8  2  2  2  2  8  8  10  8  8 };
 			prop_format = cosmicraynoiseremover_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -459,7 +467,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			prop = CosmicRayNoiseRemover.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			cosmicraynoiseremover_description_list = { 'ELCLASS (constant, string) is the class of the Cosmic Ray Noise Remover.'  'NAME (constant, string) is the name of the Cosmic Ray Noise Remover.'  'DESCRIPTION (constant, string) is the description of Cosmic Ray Noise Remover.'  'TEMPLATE (parameter, item) is the template of the Cosmic Ray Noise Remover.'  'ID (data, string) is a few-letter code for the Cosmic Ray Noise Remover.'  'LABEL (metadata, string) is an extended label of the Cosmic Ray Noise Remover.'  'NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'RE_OUT (query, item) is the output Raman Experiment with fixed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
+			cosmicraynoiseremover_description_list = { 'ELCLASS (constant, string) is the class of the Cosmic Ray Noise Remover.'  'NAME (constant, string) is the name of the Cosmic Ray Noise Remover.'  'DESCRIPTION (constant, string) is the description of Cosmic Ray Noise Remover.'  'TEMPLATE (parameter, item) is the template of the Cosmic Ray Noise Remover.'  'ID (data, string) is a few-letter code for the Cosmic Ray Noise Remover.'  'LABEL (metadata, string) is an extended label of the Cosmic Ray Noise Remover.'  'NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the fixed spectrum in SP_DICT of RE_IN for RE_OUT.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
 			prop_description = cosmicraynoiseremover_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -487,8 +495,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			switch prop %CET: Computational Efficiency Trick
 				case 4 % CosmicRayNoiseRemover.TEMPLATE
 					prop_settings = 'CosmicRayNoiseRemover';
-				case 10 % CosmicRayNoiseRemover.RE_OUT
-					prop_settings = 'RamanExperiment';
+				case 10 % CosmicRayNoiseRemover.SP_OUT
+					prop_settings = 'Spectrum';
 				otherwise
 					prop_settings = getPropSettings@REAnalysisModule(prop);
 			end
@@ -530,7 +538,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 					prop_default = 'CosmicRayNoiseRemover label';
 				case 7 % CosmicRayNoiseRemover.NOTES
 					prop_default = 'CosmicRayNoiseRemover notes';
-				case 10 % CosmicRayNoiseRemover.RE_OUT
+				case 10 % CosmicRayNoiseRemover.SP_OUT
 					prop_default = Format.getFormatDefault(8, CosmicRayNoiseRemover.getPropSettings(prop));
 				otherwise
 					prop_default = getPropDefault@REAnalysisModule(prop);
@@ -598,10 +606,10 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			switch prop
 				case 4 % CosmicRayNoiseRemover.TEMPLATE
 					check = Format.checkFormat(8, value, CosmicRayNoiseRemover.getPropSettings(prop));
-				case 10 % CosmicRayNoiseRemover.RE_OUT
+				case 10 % CosmicRayNoiseRemover.SP_OUT
 					check = Format.checkFormat(8, value, CosmicRayNoiseRemover.getPropSettings(prop));
 				otherwise
-					if prop <= 11
+					if prop <= 13
 						check = checkProp@REAnalysisModule(prop, value);
 					end
 			end
@@ -634,39 +642,41 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case 10 % CosmicRayNoiseRemover.RE_OUT
-					% calculateValue using REAnalysisModule with parameters crnr and 'RE_OUT'; 
-					% returns the query, which is assigned to the variable re_out
-					re_out = calculateValue@REAnalysisModule(crnr, prop);
+				case 10 % CosmicRayNoiseRemover.SP_OUT
+					rng_settings_ = rng(); rng(crnr.getPropSeed(10), 'twister')
 					
-					% Create a copy of REAnalysisModule 'RE_OUT' 
-					crnr_re_out = re_out;
-					
-					% Get the number of items in the indexed dictionary SP_DICT of
-					% REAnalysisModule 'RE_OUT'
-					dict_length = re_out.get('SP_DICT').get('LENGTH')
-					
-					for n = 1:1:dict_length
-					     % Read raw intensities from the REAnalysisModule 'RE_OUT'
-					     raw_intensities = re_out.get('SP_DICT').get('IT', n).get('INTENSITIES');
-					
-					     % Apply median filter to raw intensities
-					     fixed_intensities = medfilt1(raw_intensities); 
-					
-					     % Set the intensities of the nth spectrum in the 'SP_DICT' of crnr_re_out 
-					     % to fixed intensities evaluated using the nth raw spectrum of 
-					     % REAnalysisModule
-					     crnr_re_out.get('SP_DICT').get('IT', n).set('INTENSITIES', fixed_intensities)
+					% sp_out = crnr.get('SP_OUT', SP_IN) returns the fixed N-th spectrum in 
+					% 'SP_DICT' of input Raman Experiment RE_IN of crnr
+					if isempty(varargin)
+					    value = Spectrum();
+					    return
 					end
+					% Read the input spectrum
+					sp_in = varargin{1};
 					
-					% Memorize the updated 'SP_DICT'
-					crnr_re_out.memorize('SP_DICT');
+					% Read the intensities of the raw Raman spectrum
+					% raw intensities
+					raw_intensities = sp_in.get('INTENSITIES');
 					
-					% Set the re_out to RE_OUT
-					value = crnr_re_out;
+					% Apply median filter to raw intensities
+					fixed_intensities = medfilt1(raw_intensities); 
+					
+					% Create unlocked copy of the spectrum being processed
+					% Set the fixed intensities to the INTENSITIES of the spectrum 
+					sp_out = Spectrum(...
+					         'INTENSITIES', fixed_intensities, ...
+					         'WAVELENGTH', sp_in.get('WAVELENGTH'), ...
+					         'ID', sp_in.get('ID'), ...
+					         'LABEL', sp_in.get('LABEL'), ...
+					         'NOTES', sp_in.get('NOTES'));
+					
+					% Set the updated sp_out to SP_OUT
+					value = sp_out;
+					
+					rng(rng_settings_)
 					
 				otherwise
-					if prop <= 11
+					if prop <= 13
 						value = calculateValue@REAnalysisModule(crnr, prop, varargin{:});
 					else
 						value = calculateValue@Element(crnr, prop, varargin{:});

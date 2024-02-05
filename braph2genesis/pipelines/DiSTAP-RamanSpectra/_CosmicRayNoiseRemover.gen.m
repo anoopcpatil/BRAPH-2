@@ -7,7 +7,7 @@ reads the raw Raman spectra and evaluates the fixed spectra with cosmic ray nois
 It also provides basic functionalities to view and plot the fixed spectra. 
 
 %%% ¡seealso!
-REAnalysisModule, RamanExperiment, Spectrum
+RamanExperiment, Spectrum
 
 
 %% ¡props_update!
@@ -49,36 +49,35 @@ NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.
 
 
 %%% ¡prop!
-RE_OUT (query, item) is the output Raman Experiment with fixed spectra as a result.
+SP_OUT (result, item) is the fixed spectrum in SP_DICT of RE_IN for RE_OUT.
 %%%% ¡settings!
-'RamanExperiment'
+'Spectrum'
 %%%% ¡calculate!
-% calculateValue using REAnalysisModule with parameters crnr and 'RE_OUT'; 
-% returns the query, which is assigned to the variable re_out
-re_out = calculateValue@REAnalysisModule(crnr, prop);
-
-% Create a copy of REAnalysisModule 'RE_OUT' 
-crnr_re_out = re_out;
-
-% Get the number of items in the indexed dictionary SP_DICT of
-% REAnalysisModule 'RE_OUT'
-dict_length = re_out.get('SP_DICT').get('LENGTH')
-
-for n = 1:1:dict_length
-     % Read raw intensities from the REAnalysisModule 'RE_OUT'
-     raw_intensities = re_out.get('SP_DICT').get('IT', n).get('INTENSITIES');
-
-     % Apply median filter to raw intensities
-     fixed_intensities = medfilt1(raw_intensities); 
-
-     % Set the intensities of the nth spectrum in the 'SP_DICT' of crnr_re_out 
-     % to fixed intensities evaluated using the nth raw spectrum of 
-     % REAnalysisModule
-     crnr_re_out.get('SP_DICT').get('IT', n).set('INTENSITIES', fixed_intensities)
+% sp_out = crnr.get('SP_OUT', SP_IN) returns the fixed N-th spectrum in 
+% 'SP_DICT' of input Raman Experiment RE_IN of crnr
+if isempty(varargin)
+    value = Spectrum();
+    return
 end
+% Read the input spectrum
+sp_in = varargin{1};
 
-% Memorize the updated 'SP_DICT'
-crnr_re_out.memorize('SP_DICT');
+% Read the intensities of the raw Raman spectrum
+% raw intensities
+raw_intensities = sp_in.get('INTENSITIES');
 
-% Set the re_out to RE_OUT
-value = crnr_re_out;
+% Apply median filter to raw intensities
+fixed_intensities = medfilt1(raw_intensities); 
+
+% Create unlocked copy of the spectrum being processed
+% Set the fixed intensities to the INTENSITIES of the spectrum 
+sp_out = Spectrum(...
+         'INTENSITIES', fixed_intensities, ...
+         'WAVELENGTH', sp_in.get('WAVELENGTH'), ...
+         'ID', sp_in.get('ID'), ...
+         'LABEL', sp_in.get('LABEL'), ...
+         'NOTES', sp_in.get('NOTES'));
+
+% Set the updated sp_out to SP_OUT
+value = sp_out;
+
