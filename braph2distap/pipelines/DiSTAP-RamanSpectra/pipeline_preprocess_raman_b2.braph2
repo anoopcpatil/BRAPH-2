@@ -8,14 +8,18 @@
 %% Raman Experiment
 re = ImporterRamanExperiment_ASC('WAITBAR', true).get('GET_DIR').get('RE'); % Load Raman spectra from ASC files % Raman spectra
 
-%% Cosmic Ray Noise Remover
+%% Cosmic-Ray-Noise-Removed Raman
 crnr = CosmicRayNoiseRemover('RE_IN', re)
+pf = RamanExperimentPF('RE', crnr.memorize('RE_OUT'));
 
-%% Smoothing Filter
-%sf = SmoothingFilter('RE_IN', crnr.memorize('RE_OUT'))
+%% Smooth Raman
+sf = SmoothingFilter('RE_IN', crnr.memorize('RE_OUT'))
+pf = RamanExperimentPF('RE', sf.memorize('RE_OUT'));
 
-%% Baseline Estimator
-%be = BaselineEstimator('RE_IN', sf.memorize('RE_OUT'))
+%% Raman Baselines
+be = BaselineEstimator('RE_IN', sf.memorize('RE_OUT'))
+pf = RamanExperimentPF('RE', be.memorize('RE_OUT'));
 
-%% Baselined Raman Generator
-%brgen = BaselinedRamanGenerator('RE_IN', be.memorize('RE_OUT'))
+%% Baselined Raman 
+brgen = BaselinedRamanGenerator('RE_IN', sf.memorize('RE_OUT'))
+pf = RamanExperimentPF('RE', brgen.memorize('RE_OUT'));

@@ -7,7 +7,7 @@ reads the raw Raman spectra and evaluates the fixed spectra with cosmic ray nois
 It also provides basic functionalities to view and plot the fixed spectra. 
 
 %%% ¡seealso!
-RamanExperiment, Spectrum
+REAnalysisModule, RamanExperiment, Spectrum
 
 
 %% ¡props_update!
@@ -49,12 +49,12 @@ NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.
 
 
 %%% ¡prop!
-SP_OUT (result, item) is the fixed spectrum in SP_DICT of RE_IN for RE_OUT.
+SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of CosmicRayNoiseRemover.
 %%%% ¡settings!
 'Spectrum'
 %%%% ¡calculate!
-% sp_out = crnr.get('SP_OUT', SP_IN) returns the fixed N-th spectrum in 
-% 'SP_DICT' of input Raman Experiment RE_IN of crnr
+% sp_out = crnr.get('SP_OUT', SP_IN) returns the fixed N-th spectrum
+% in SP_DICT of RE_IN of CosmicRayNoiseRemover. 
 if isempty(varargin)
     value = Spectrum();
     return
@@ -80,4 +80,3 @@ sp_out = Spectrum(...
 
 % Set the updated sp_out to SP_OUT
 value = sp_out;
-

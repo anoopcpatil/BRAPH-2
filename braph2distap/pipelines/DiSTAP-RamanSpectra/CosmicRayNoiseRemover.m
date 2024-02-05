@@ -16,7 +16,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the fixed spectrum in SP_DICT of RE_IN for RE_OUT.
+	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of CosmicRayNoiseRemover.
 	%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 	%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
 	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
@@ -107,7 +107,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 	% To print full list of constants, click here <a href="matlab:metaclass = ?CosmicRayNoiseRemover; properties = metaclass.PropertyList;for i = 1:1:length(properties), if properties(i).Constant, disp([properties(i).Name newline() tostring(properties(i).DefaultValue) newline()]), end, end">CosmicRayNoiseRemover constants</a>.
 	%
 	%
-	% See also RamanExperiment, Spectrum.
+	% See also REAnalysisModule, RamanExperiment, Spectrum.
 	
 	methods % constructor
 		function crnr = CosmicRayNoiseRemover(varargin)
@@ -130,7 +130,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the fixed spectrum in SP_DICT of RE_IN for RE_OUT.
+			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of CosmicRayNoiseRemover.
 			%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 			%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
 			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
@@ -467,7 +467,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			prop = CosmicRayNoiseRemover.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			cosmicraynoiseremover_description_list = { 'ELCLASS (constant, string) is the class of the Cosmic Ray Noise Remover.'  'NAME (constant, string) is the name of the Cosmic Ray Noise Remover.'  'DESCRIPTION (constant, string) is the description of Cosmic Ray Noise Remover.'  'TEMPLATE (parameter, item) is the template of the Cosmic Ray Noise Remover.'  'ID (data, string) is a few-letter code for the Cosmic Ray Noise Remover.'  'LABEL (metadata, string) is an extended label of the Cosmic Ray Noise Remover.'  'NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the fixed spectrum in SP_DICT of RE_IN for RE_OUT.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
+			cosmicraynoiseremover_description_list = { 'ELCLASS (constant, string) is the class of the Cosmic Ray Noise Remover.'  'NAME (constant, string) is the name of the Cosmic Ray Noise Remover.'  'DESCRIPTION (constant, string) is the description of Cosmic Ray Noise Remover.'  'TEMPLATE (parameter, item) is the template of the Cosmic Ray Noise Remover.'  'ID (data, string) is a few-letter code for the Cosmic Ray Noise Remover.'  'LABEL (metadata, string) is an extended label of the Cosmic Ray Noise Remover.'  'NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of CosmicRayNoiseRemover.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
 			prop_description = cosmicraynoiseremover_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -645,8 +645,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 				case 10 % CosmicRayNoiseRemover.SP_OUT
 					rng_settings_ = rng(); rng(crnr.getPropSeed(10), 'twister')
 					
-					% sp_out = crnr.get('SP_OUT', SP_IN) returns the fixed N-th spectrum in 
-					% 'SP_DICT' of input Raman Experiment RE_IN of crnr
+					% sp_out = crnr.get('SP_OUT', SP_IN) returns the fixed N-th spectrum
+					% in SP_DICT of RE_IN of CosmicRayNoiseRemover. 
 					if isempty(varargin)
 					    value = Spectrum();
 					    return
