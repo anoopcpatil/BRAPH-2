@@ -1,6 +1,6 @@
 %% DiSTAP Pipeline Load Raman from ASC
 
-% This is the pipeline script to load the Raman scectra corresponding to an experiment.
+% This is the pipeline script to load the Raman spectra corresponding to an experiment.
 % 1. It loads an experiment from a series of ASC files contained in a directory.
 % 2. It visualizes the spectra for quality control.
 
