@@ -47,84 +47,63 @@ NOTES (metadata, string) are some specific notes about the importer of Raman exp
 %% ¡props!
 
 %%% ¡prop!
-DIRECTORY (data, string) is the directory containing the B2 file from which the entire Raman experiment is read.
+FILE (data, string) is the loaded B2 file.
 %%%% ¡default!
-fileparts(which('test_braph2'))
+'test.b2'
 
 %%% ¡prop!
-GET_DIR (query, item) opens a dialog box to set the directory from where the B2 file can be loaded. 
+GET_FILE (query, item) opens a dialog box to get the B2 file from which the Raman Experiment can be loaded.
 %%%% ¡settings!
 'ImporterRamanExperiment_B2'
 %%%% ¡calculate!
-directory = uigetdir('Select directory');
-if ischar(directory) && isfolder(directory)
-	im.set('DIRECTORY', directory);
+[filename, filepath, filterindex] = uigetfile({'*.b2'}, 'Select B2 file');
+if filterindex
+    file = [filepath filename];
+    im.set('FILE', file);
 end
 value = im;
-
+    
 %%% ¡prop!
-RE (result, item) is a Raman experiment.
+RE (result, item) is a Raman Experiment.
 %%%% ¡settings!
 'RamanExperiment'
+%%%% ¡default!
+RamanExperiment()
 %%%% ¡calculate!
+% creates empty RamanExperiment
 re = RamanExperiment();
 
-file_path = im.get('FILE_PATH');
-if exist(file_path, 'file')
-    % Load data from the .b2 file
+% analyzes file
+file = im.get('FILE');
+
+if isfile(file)
+	wb = braph2waitbar(im.get('WAITBAR'), 0, 'Reading File ...');
+
     try
-        b2_data = load(file_path, '-mat');
-        
-        % Extract relevant information from the loaded structure (modify as needed)
-        %wavelengths = Read wavelengths;
-        %intensities = Read intensities;
-
-        % Populate RamanExperiment with data
-        sp = Spectrum( ...
-            'ID', 'Spectrum1', ...
-            'LABEL', 'Spectrum1', ...
-            'WAVELENGTH', wavelengths, ...
-            'INTENSITIES', intensities, ...
-            'NOTES', ['Spectrum loaded from ' file_path] ...
-        );
-
-        re.set( ...
-            'ID', 'RamanExperiment1', ...
-            'LABEL', 'RamanExperiment1', ...
-            'NOTES', ['Spectra loaded from ' file_path] ...
-        );
-        re.memorize('SP_DICT').get('ADD', sp);
-        
+        % loads the element EL from the b2 file
+        % also loads the BRAPH2 BUILD, the MatLab
+        % version number, and the details of the MatLab version
+        [el, build, v, vd] = Element.load(file);
+        re = el;
+       
+        braph2waitbar(wb, .15, 'Loading Raman Experiment ...');
     catch e
-        error('Error loading .b2 file: %s', e.message);
+        braph2waitbar(wb, 'close')
+        rethrow(e)
     end
+    
+	braph2waitbar(wb, 'close')
 else
-    error('File not found: %s', file_path);
+    error([BRAPH2.STR ':ImporterRamanExperiment_B2:' BRAPH2.ERR_IO], ...
+        [BRAPH2.STR ':ImporterRamanExperiment_B2:' BRAPH2.ERR_IO '\\n' ...
+        'The prop DIRECTORY must be an existing directory, but it is ''' directory '''.'] ...
+        );
 end
 
 value = re;
 
+
 %% ¡tests!
 
 %%% ¡excluded_props!
-[ImporterRamanExperiment_B2.FILE_PATH]
-
-%%% ¡test!
-%%%% ¡name!
-GUI
-%%%% ¡probability!
-.01
-%%%% ¡parallel!
-false
-%%%% ¡code!
-im_re = ImporterRamanExperiment_B2( ...
-    'FILE_PATH', [fileparts(which('RamanExperiment')) filesep 'example.b2'], ...
-    'WAITBAR', true ...
-);
-re = im_re.get('RE');
-
-gui = GUIElement('PE', re, 'CLOSEREQ', false);
-gui.get('DRAW')
-gui.get('SHOW')
-
-gui.get('CLOSE')
+[ImporterRamanExperiment_B2.GET_FILE]

@@ -6,7 +6,7 @@
 % 3. It visualizes the output spectra for quality control.
 
 %% Raman Experiment
-re = ImporterRamanExperiment_ASC('WAITBAR', true).get('GET_DIR').get('RE'); % Load Raman spectra from ASC files % Raw Raman spectra
+re = ImporterRamanExperiment_B2('WAITBAR', true).get('GET_FILE').get('RE'); % Load Raman spectra from B2 file % Raw Raman spectra
 
 %% Cosmic-Ray-Noise-Removed Raman
 crnr = CosmicRayNoiseRemover('RE_IN', re); pf = RamanExperimentPF('RE', crnr.memorize('RE_OUT')); % Generate Fixed Raman spectra % Fixed Raman spectra

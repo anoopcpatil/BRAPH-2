@@ -167,7 +167,7 @@ classdef Importer < ConcreteElement
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'Importer'  'ImporterRamanExperiment_ASC'  'ImporterRamanExperiment_TXT'  'ImporterPipelineBRAPH2' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'Importer'  'ImporterRamanExperiment_ASC'  'ImporterRamanExperiment_B2'  'ImporterRamanExperiment_TXT'  'ImporterPipelineBRAPH2' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of importer from a file.
