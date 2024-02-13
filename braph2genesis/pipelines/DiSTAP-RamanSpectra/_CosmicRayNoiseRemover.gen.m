@@ -80,3 +80,42 @@ sp_out = Spectrum(...
 
 % Set the updated sp_out to SP_OUT
 value = sp_out;
+
+
+%% ¡tests!
+
+%%% ¡excluded_props!
+[CosmicRayNoiseRemover.TEMPLATE CosmicRayNoiseRemover.REPF]
+
+
+%% ¡layout!
+
+%%% ¡prop!
+%%%% ¡id!
+CosmicRayNoiseRemover.ID
+%%%% ¡title!
+ID
+
+%%% ¡prop!
+%%%% ¡id!
+CosmicRayNoiseRemover.DESCRIPTION
+%%%% ¡title!
+DESCRIPTION
+
+%%% ¡prop!
+%%%% ¡id!
+CosmicRayNoiseRemover.RE_IN
+%%%% ¡title!
+RE_IN
+
+%%% ¡prop!
+%%%% ¡id!
+CosmicRayNoiseRemover.RE_OUT
+%%%% ¡title!
+RE_OUT
+
+%%% ¡prop!
+%%%% ¡id!
+CosmicRayNoiseRemover.REPF
+%%%% ¡title!
+Plot Cosmic-Ray-Noise-removed Spectra

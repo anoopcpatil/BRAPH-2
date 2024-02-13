@@ -3,7 +3,7 @@ BaselineEstimator < REAnalysisModule (be, Baseline Estimator) is an REAnalysisMo
 
 %%% ¡description!
 A Baseline Estimator Module (BaselineEstimator) is an REAnalysisModule that 
-reads the smooth Raman spectra (from SmoothingFilter) and evaluates 
+reads the smooth Raman spectra (from Smoothener) and evaluates 
 the baselines. It also provides basic functionalities to view and 
 plot the baselines. 
 
@@ -73,10 +73,10 @@ LFIT_POLYORDER = 5;
 % Set the number of odd points in the window for Lieberfit function
 LFIT_ITER = 100;
 % Apply Lieberfit function to smooth intensities from
-% SmoothingFilter
+% Smoothener
 [baselines, baselined_intensities] = lieberfit(smooth_intensities', ...
-                                               LFIT_POLYORDER, ...
-                                               LFIT_ITER); 
+                                               be.get('LFIT_POLYORDER'), ...
+                                               be.get('LFIT_ITER')); 
 
 % Create unlocked copy of the spectrum being processed
 % Set the baselines to the INTENSITIES of the spectrum 
@@ -89,3 +89,25 @@ sp_out = Spectrum(...
 
 % Set the updated sp_out to SP_OUT
 value = sp_out;
+
+
+%% ¡props!
+
+%Parameters for Lieberfit function for baseine estimation:
+%LFIT_POLYORDER & LFIT_ITER
+%%% ¡prop!
+LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.
+%%%% ¡default!
+5
+
+
+%%% ¡prop!
+LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieberfit function.
+%%%% ¡default!
+100
+
+
+%% ¡tests!
+
+%%% ¡excluded_props!
+[BaselineEstimator.TEMPLATE BaselineEstimator.REPF]

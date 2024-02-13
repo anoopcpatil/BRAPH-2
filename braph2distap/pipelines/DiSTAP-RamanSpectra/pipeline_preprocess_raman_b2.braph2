@@ -8,15 +8,15 @@
 %% Raman Experiment
 re = ImporterRamanExperiment_B2('WAITBAR', true).get('GET_FILE').get('RE'); % Load Raman spectra from B2 file % Raw Raman spectra
 
-%% Cosmic-Ray-Noise-Removed Raman
-crnr = CosmicRayNoiseRemover('RE_IN', re); pf = RamanExperimentPF('RE', crnr.memorize('RE_OUT')); % Generate Fixed Raman spectra % Fixed Raman spectra
+%% Spectra Visualization
+pf = RamanExperimentPF('RE', re); % View Raman spectra % View Raman spectra
 
-%% Smooth Raman
-sf = SmoothingFilter('RE_IN', crnr.memorize('RE_OUT')); pf = RamanExperimentPF('RE', sf.memorize('RE_OUT')); % Generate Smooth Raman spectra % Smooth Raman spectra
+%% Remove Cosmic Ray Noise
+crnr = CosmicRayNoiseRemover('RE_IN', re); % Remove Cosmic Ray Noise % Fixed Raman spectra
 
-%% Raman Baselines
-be = BaselineEstimator('RE_IN', sf.memorize('RE_OUT')); pf = RamanExperimentPF('RE', be.memorize('RE_OUT')); % Estimate Raman Baselines % Raman Baselines
+%% Smoothen Raman Spectra
+sf = Smoothener('RE_IN', crnr.memorize('RE_OUT')); % Smoothen Raman spectra % Smoothened Raman spectra
 
-%% Baselined Raman 
-brgen = BaselinedRamanGenerator('RE_IN', sf.memorize('RE_OUT')); pf = RamanExperimentPF('RE', brgen.memorize('RE_OUT')); % Generate Baseline-removed Raman spectra % Baselined Raman spectra
+%% Generate Baseline-removed Raman
+br = BaselineRemover('RE_IN', sf.memorize('RE_OUT')); % Generate Baseline-removed Raman spectra % Baseline-removed Raman spectra
 

@@ -1,0 +1,34 @@
+ELCLASS
+NaN
+NAME
+NaN
+DESCRIPTION
+2
+TEMPLATE
+NaN
+ID
+1
+LABEL
+NaN
+NOTES
+NaN
+TOSTRING
+NaN
+RE_IN
+5
+SP_OUT
+NaN
+SP_DICT_OUT
+NaN
+RE_OUT
+8
+Plot Baseline-removed Spectra
+9
+RE_BASELINES
+6
+Plot Estimated Baselines
+7
+LFIT_POLYORDER
+3
+LFIT_ITER
+4

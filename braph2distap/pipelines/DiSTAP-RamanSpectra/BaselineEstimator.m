@@ -3,7 +3,7 @@ classdef BaselineEstimator < REAnalysisModule
 	% It is a subclass of <a href="matlab:help REAnalysisModule">REAnalysisModule</a>.
 	%
 	% A Baseline Estimator Module (BaselineEstimator) is an REAnalysisModule that 
-	% reads the smooth Raman spectra (from SmoothingFilter) and evaluates 
+	% reads the smooth Raman spectra (from Smoothener) and evaluates 
 	% the baselines. It also provides basic functionalities to view and 
 	% plot the baselines.
 	%
@@ -21,6 +21,8 @@ classdef BaselineEstimator < REAnalysisModule
 	%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 	%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
 	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+	%  <strong>14</strong> <strong>LFIT_POLYORDER</strong> 	LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.
+	%  <strong>15</strong> <strong>LFIT_ITER</strong> 	LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieberfit function.
 	%
 	% BaselineEstimator methods (constructor):
 	%  BaselineEstimator - constructor
@@ -110,6 +112,17 @@ classdef BaselineEstimator < REAnalysisModule
 	%
 	% See also REAnalysisModule, RamanExperiment, Spectrum.
 	
+	properties (Constant) % properties
+		LFIT_POLYORDER = 14; %CET: Computational Efficiency Trick
+		LFIT_POLYORDER_TAG = 'LFIT_POLYORDER';
+		LFIT_POLYORDER_CATEGORY = 3;
+		LFIT_POLYORDER_FORMAT = 11;
+		
+		LFIT_ITER = 15; %CET: Computational Efficiency Trick
+		LFIT_ITER_TAG = 'LFIT_ITER';
+		LFIT_ITER_CATEGORY = 3;
+		LFIT_ITER_FORMAT = 11;
+	end
 	methods % constructor
 		function be = BaselineEstimator(varargin)
 			%BaselineEstimator() creates a Baseline Estimator.
@@ -135,6 +148,8 @@ classdef BaselineEstimator < REAnalysisModule
 			%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 			%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
 			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+			%  <strong>14</strong> <strong>LFIT_POLYORDER</strong> 	LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.
+			%  <strong>15</strong> <strong>LFIT_ITER</strong> 	LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieberfit function.
 			%
 			% See also Category, Format.
 			
@@ -196,7 +211,7 @@ classdef BaselineEstimator < REAnalysisModule
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15];
 				return
 			end
 			
@@ -206,7 +221,7 @@ classdef BaselineEstimator < REAnalysisModule
 				case 2 % Category.METADATA
 					prop_list = [6 7];
 				case 3 % Category.PARAMETER
-					prop_list = 4;
+					prop_list = [4 14 15];
 				case 4 % Category.DATA
 					prop_list = [5 9];
 				case 5 % Category.RESULT
@@ -240,7 +255,7 @@ classdef BaselineEstimator < REAnalysisModule
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 13;
+				prop_number = 15;
 				return
 			end
 			
@@ -250,7 +265,7 @@ classdef BaselineEstimator < REAnalysisModule
 				case 2 % Category.METADATA
 					prop_number = 2;
 				case 3 % Category.PARAMETER
-					prop_number = 1;
+					prop_number = 3;
 				case 4 % Category.DATA
 					prop_number = 2;
 				case 5 % Category.RESULT
@@ -289,7 +304,7 @@ classdef BaselineEstimator < REAnalysisModule
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 13 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 15 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -327,7 +342,7 @@ classdef BaselineEstimator < REAnalysisModule
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF'  'LFIT_POLYORDER'  'LFIT_ITER' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -360,7 +375,7 @@ classdef BaselineEstimator < REAnalysisModule
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF'  'LFIT_POLYORDER'  'LFIT_ITER' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -389,7 +404,7 @@ classdef BaselineEstimator < REAnalysisModule
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				baselineestimator_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF' };
+				baselineestimator_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'RE_IN'  'SP_OUT'  'SP_DICT_OUT'  'RE_OUT'  'REPF'  'LFIT_POLYORDER'  'LFIT_ITER' };
 				tag = baselineestimator_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -416,7 +431,7 @@ classdef BaselineEstimator < REAnalysisModule
 			prop = BaselineEstimator.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			baselineestimator_category_list = { 1  1  1  3  4  2  2  6  4  6  5  5  9 };
+			baselineestimator_category_list = { 1  1  1  3  4  2  2  6  4  6  5  5  9  3  3 };
 			prop_category = baselineestimator_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -442,7 +457,7 @@ classdef BaselineEstimator < REAnalysisModule
 			prop = BaselineEstimator.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			baselineestimator_format_list = { 2  2  2  8  2  2  2  2  8  8  10  8  8 };
+			baselineestimator_format_list = { 2  2  2  8  2  2  2  2  8  8  10  8  8  11  11 };
 			prop_format = baselineestimator_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -468,7 +483,7 @@ classdef BaselineEstimator < REAnalysisModule
 			prop = BaselineEstimator.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			baselineestimator_description_list = { 'ELCLASS (constant, string) is the class of the Baseline Estimator.'  'NAME (constant, string) is the name of the Baseline Estimator.'  'DESCRIPTION (constant, string) is the description of Baseline Estimator.'  'TEMPLATE (parameter, item) is the template of the Baseline Estimator.'  'ID (data, string) is a few-letter code for the Baseline Estimator.'  'LABEL (metadata, string) is an extended label of the Baseline Estimator.'  'NOTES (metadata, string) are some specific notes about Baseline Estimator.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Estimator.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
+			baselineestimator_description_list = { 'ELCLASS (constant, string) is the class of the Baseline Estimator.'  'NAME (constant, string) is the name of the Baseline Estimator.'  'DESCRIPTION (constant, string) is the description of Baseline Estimator.'  'TEMPLATE (parameter, item) is the template of the Baseline Estimator.'  'ID (data, string) is a few-letter code for the Baseline Estimator.'  'LABEL (metadata, string) is an extended label of the Baseline Estimator.'  'NOTES (metadata, string) are some specific notes about Baseline Estimator.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Estimator.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.'  'LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.'  'LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieberfit function.' };
 			prop_description = baselineestimator_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -494,6 +509,10 @@ classdef BaselineEstimator < REAnalysisModule
 			prop = BaselineEstimator.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
+				case 14 % BaselineEstimator.LFIT_POLYORDER
+					prop_settings = Format.getFormatSettings(11);
+				case 15 % BaselineEstimator.LFIT_ITER
+					prop_settings = Format.getFormatSettings(11);
 				case 4 % BaselineEstimator.TEMPLATE
 					prop_settings = 'BaselineEstimator';
 				case 10 % BaselineEstimator.SP_OUT
@@ -525,6 +544,10 @@ classdef BaselineEstimator < REAnalysisModule
 			prop = BaselineEstimator.getPropProp(pointer);
 			
 			switch prop %CET: Computational Efficiency Trick
+				case 14 % BaselineEstimator.LFIT_POLYORDER
+					prop_default = 5;
+				case 15 % BaselineEstimator.LFIT_ITER
+					prop_default = 100;
 				case 1 % BaselineEstimator.ELCLASS
 					prop_default = 'BaselineEstimator';
 				case 2 % BaselineEstimator.NAME
@@ -605,6 +628,10 @@ classdef BaselineEstimator < REAnalysisModule
 			prop = BaselineEstimator.getPropProp(pointer);
 			
 			switch prop
+				case 14 % BaselineEstimator.LFIT_POLYORDER
+					check = Format.checkFormat(11, value, BaselineEstimator.getPropSettings(prop));
+				case 15 % BaselineEstimator.LFIT_ITER
+					check = Format.checkFormat(11, value, BaselineEstimator.getPropSettings(prop));
 				case 4 % BaselineEstimator.TEMPLATE
 					check = Format.checkFormat(8, value, BaselineEstimator.getPropSettings(prop));
 				case 10 % BaselineEstimator.SP_OUT
@@ -665,10 +692,10 @@ classdef BaselineEstimator < REAnalysisModule
 					% Set the number of odd points in the window for Lieberfit function
 					LFIT_ITER = 100;
 					% Apply Lieberfit function to smooth intensities from
-					% SmoothingFilter
+					% Smoothener
 					[baselines, baselined_intensities] = lieberfit(smooth_intensities', ...
-					                                               LFIT_POLYORDER, ...
-					                                               LFIT_ITER); 
+					                                               be.get('LFIT_POLYORDER'), ...
+					                                               be.get('LFIT_ITER')); 
 					
 					% Create unlocked copy of the spectrum being processed
 					% Set the baselines to the INTENSITIES of the spectrum 
