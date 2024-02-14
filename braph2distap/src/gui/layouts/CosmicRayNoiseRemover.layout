@@ -2,25 +2,25 @@ ELCLASS
 NaN
 NAME
 NaN
-DESCRIPTION
-2
+MODULE INFO
+1
 TEMPLATE
 NaN
 ID
-1
+NaN
 LABEL
 NaN
 NOTES
-NaN
+5
 TOSTRING
 NaN
-RE_IN
-3
+Input Raman Spectra
+2
 SP_OUT
 NaN
 SP_DICT_OUT
 NaN
-RE_OUT
+Output Raman Spectra
+3
+PLOT
 4
-Plot Cosmic-Ray-Noise-removed Spectra
-5

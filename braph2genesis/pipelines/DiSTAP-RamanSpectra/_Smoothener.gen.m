@@ -1,5 +1,5 @@
 %% ¡header!
-Smoothener < REAnalysisModule (sf, Smoothener) is an REAnalysisModule that reads fixed Raman spectra (with cosmic ray noise removed) and outputs smooth spectra.
+Smoothener < REAnalysisModule (sm, Smoothener) is an REAnalysisModule that reads fixed Raman spectra (with cosmic ray noise removed) and outputs smooth spectra.
 
 %%% ¡description!
 A Smoothener Module (Smoothener) is an REAnalysisModule that 
@@ -27,6 +27,8 @@ NAME (constant, string) is the name of the Smoothener.
 DESCRIPTION (constant, string) is the description of Smoothener.
 %%%% ¡default!
 'Smoothener reads and analyzes fixed Raman spectra and evaluates and plots the resulting smooth spectra.'
+%%%% ¡gui!
+pr = PanelPropStringTextArea('EL', sm, 'PROP', sm.DESCRIPTION, varargin{:});
 
 %%% ¡prop!
 TEMPLATE (parameter, item) is the template of the Smoothener.
@@ -53,7 +55,7 @@ SP_OUT (result, item) is the smooth spectrum for SP_DICT_OUT and RE_OUT of Smoot
 %%%% ¡settings!
 'Spectrum'
 %%%% ¡calculate!
-% sp_out = sf.get('SP_OUT', SP_IN) returns the smooth N-th spectrum
+% sp_out = sm.get('SP_OUT', SP_IN) returns the smooth N-th spectrum
 % in SP_DICT of RE_IN of Smoothener. 
 if isempty(varargin)
     value = Spectrum();
@@ -74,8 +76,8 @@ fixed_intensities = sp_in.get('INTENSITIES');
 % Apply Savitzky-Golay filter to fixed intensities from
 % CosmicRayNoiseRemover
 smooth_intensities = sgolayfilt(fixed_intensities, ...
-                                sf.get('SGOLAY_POLYORDER'), ... 
-                                sf.get('SGOLAY_WINDOW'));  
+                                sm.get('SGOLAY_POLYORDER'), ... 
+                                sm.get('SGOLAY_WINDOW'));  
 
 % Create unlocked copy of the spectrum being processed
 % Set the smooth intensities to the INTENSITIES of the spectrum 
@@ -88,6 +90,18 @@ sp_out = Spectrum(...
 
 % Set the updated sp_out to SP_OUT
 value = sp_out;
+
+
+%%% ¡prop!
+REPF (gui, item) is a container of the panel figure for the Smoothener.
+%%%% ¡settings!
+'RamanExperimentPF'
+%%%% ¡gui!
+pr = PanelPropItem('EL', sm, 'PROP', Smoothener.REPF, ...
+    'WAITBAR', true, ...
+    'GUICLASS', 'GUIFig', ...
+    'BUTTON_TEXT', 'Plot Smoothened spectra', ...
+    varargin{:});
 
 
 %% ¡props!
@@ -115,42 +129,42 @@ SGOLAY_WINDOW (parameter, scalar) is odd number of points in the window for Savi
 
 %%% ¡prop!
 %%%% ¡id!
-Smoothener.ID
-%%%% ¡title!
-ID
-
-%%% ¡prop!
-%%%% ¡id!
 Smoothener.DESCRIPTION
 %%%% ¡title!
-DESCRIPTION
+MODULE INFO
 
 %%% ¡prop!
 %%%% ¡id!
 Smoothener.SGOLAY_POLYORDER
 %%%% ¡title!
-SGOLAY_POLYORDER
+Order of Smoothing Filter Polynomial
 
 %%% ¡prop!
 %%%% ¡id!
 Smoothener.SGOLAY_WINDOW
 %%%% ¡title!
-SGOLAY_WINDOW
+Window Size (input odd number)
 
 %%% ¡prop!
 %%%% ¡id!
 Smoothener.RE_IN
 %%%% ¡title!
-RE_IN
+Input Raman Spectra
 
 %%% ¡prop!
 %%%% ¡id!
 Smoothener.RE_OUT
 %%%% ¡title!
-RE_OUT
+Output Raman Spectra
 
 %%% ¡prop!
 %%%% ¡id!
 Smoothener.REPF
 %%%% ¡title!
-Plot Smoothened Spectra
+PLOT
+
+%%% ¡prop!
+%%%% ¡id!
+Smoothener.NOTES
+%%%% ¡title!
+NOTES

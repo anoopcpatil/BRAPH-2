@@ -2,33 +2,33 @@ ELCLASS
 NaN
 NAME
 NaN
-DESCRIPTION
-2
+MODULE INFO
+1
 TEMPLATE
 NaN
 ID
-1
+NaN
 LABEL
 NaN
 NOTES
-NaN
+9
 TOSTRING
 NaN
-RE_IN
-5
+Input Raman Spectra
+4
 SP_OUT
 NaN
 SP_DICT_OUT
 NaN
-RE_OUT
-8
-Plot Baseline-removed Spectra
-9
-RE_BASELINES
-6
-Plot Estimated Baselines
+Output Raman Spectra
 7
-LFIT_POLYORDER
+PLOT
+8
+Baselines
+5
+PLOT
+6
+Order of Polynomial Fit
+2
+Number of Iterations to Fit Baseline
 3
-LFIT_ITER
-4

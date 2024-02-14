@@ -21,11 +21,11 @@ classdef BaselineRemover < REAnalysisModule
 	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Remover.
 	%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 	%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
-	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the BaselineRemover.
 	%  <strong>14</strong> <strong>RE_BASELINES</strong> 	RE_BASELINES (result, item) is the output Raman Experiment with Raman baselines as a result.
-	%  <strong>15</strong> <strong>BAPF</strong> 	BAPF (gui, item) is a container of the panel figure for BaselineRemover.
+	%  <strong>15</strong> <strong>BAPF</strong> 	BAPF (gui, item) is a container of the panel figure for BaselineEstimator.
 	%  <strong>16</strong> <strong>LFIT_POLYORDER</strong> 	LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.
-	%  <strong>17</strong> <strong>LFIT_ITER</strong> 	LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieberfit function.
+	%  <strong>17</strong> <strong>LFIT_ITER</strong> 	LFIT_ITER (parameter, scalar) is the number of iterations for Lieberfit function.
 	%
 	% BaselineRemover methods (constructor):
 	%  BaselineRemover - constructor
@@ -160,11 +160,11 @@ classdef BaselineRemover < REAnalysisModule
 			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Remover.
 			%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 			%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
-			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the BaselineRemover.
 			%  <strong>14</strong> <strong>RE_BASELINES</strong> 	RE_BASELINES (result, item) is the output Raman Experiment with Raman baselines as a result.
-			%  <strong>15</strong> <strong>BAPF</strong> 	BAPF (gui, item) is a container of the panel figure for BaselineRemover.
+			%  <strong>15</strong> <strong>BAPF</strong> 	BAPF (gui, item) is a container of the panel figure for BaselineEstimator.
 			%  <strong>16</strong> <strong>LFIT_POLYORDER</strong> 	LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.
-			%  <strong>17</strong> <strong>LFIT_ITER</strong> 	LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieberfit function.
+			%  <strong>17</strong> <strong>LFIT_ITER</strong> 	LFIT_ITER (parameter, scalar) is the number of iterations for Lieberfit function.
 			%
 			% See also Category, Format.
 			
@@ -498,7 +498,7 @@ classdef BaselineRemover < REAnalysisModule
 			prop = BaselineRemover.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			baselineremover_description_list = { 'ELCLASS (constant, string) is the class of the Baseline Remover.'  'NAME (constant, string) is the name of the Baseline Remover.'  'DESCRIPTION (constant, string) is the description of Baseline Remover.'  'TEMPLATE (parameter, item) is the template of the Baseline Remover.'  'ID (data, string) is a few-letter code for the Baseline Remover.'  'LABEL (metadata, string) is an extended label of the Baseline Remover.'  'NOTES (metadata, string) are some specific notes about Baseline Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Remover.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.'  'RE_BASELINES (result, item) is the output Raman Experiment with Raman baselines as a result.'  'BAPF (gui, item) is a container of the panel figure for BaselineRemover.'  'LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.'  'LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieberfit function.' };
+			baselineremover_description_list = { 'ELCLASS (constant, string) is the class of the Baseline Remover.'  'NAME (constant, string) is the name of the Baseline Remover.'  'DESCRIPTION (constant, string) is the description of Baseline Remover.'  'TEMPLATE (parameter, item) is the template of the Baseline Remover.'  'ID (data, string) is a few-letter code for the Baseline Remover.'  'LABEL (metadata, string) is an extended label of the Baseline Remover.'  'NOTES (metadata, string) are some specific notes about Baseline Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Remover.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the BaselineRemover.'  'RE_BASELINES (result, item) is the output Raman Experiment with Raman baselines as a result.'  'BAPF (gui, item) is a container of the panel figure for BaselineEstimator.'  'LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.'  'LFIT_ITER (parameter, scalar) is the number of iterations for Lieberfit function.' };
 			prop_description = baselineremover_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -536,6 +536,8 @@ classdef BaselineRemover < REAnalysisModule
 					prop_settings = 'BaselineRemover';
 				case 10 % BaselineRemover.SP_OUT
 					prop_settings = 'Spectrum';
+				case 13 % BaselineRemover.REPF
+					prop_settings = 'RamanExperimentPF';
 				otherwise
 					prop_settings = getPropSettings@REAnalysisModule(prop);
 			end
@@ -586,6 +588,8 @@ classdef BaselineRemover < REAnalysisModule
 				case 7 % BaselineRemover.NOTES
 					prop_default = 'BaselineRemover notes';
 				case 10 % BaselineRemover.SP_OUT
+					prop_default = Format.getFormatDefault(8, BaselineRemover.getPropSettings(prop));
+				case 13 % BaselineRemover.REPF
 					prop_default = Format.getFormatDefault(8, BaselineRemover.getPropSettings(prop));
 				otherwise
 					prop_default = getPropDefault@REAnalysisModule(prop);
@@ -662,6 +666,8 @@ classdef BaselineRemover < REAnalysisModule
 				case 4 % BaselineRemover.TEMPLATE
 					check = Format.checkFormat(8, value, BaselineRemover.getPropSettings(prop));
 				case 10 % BaselineRemover.SP_OUT
+					check = Format.checkFormat(8, value, BaselineRemover.getPropSettings(prop));
+				case 13 % BaselineRemover.REPF
 					check = Format.checkFormat(8, value, BaselineRemover.getPropSettings(prop));
 				otherwise
 					if prop <= 13
@@ -786,12 +792,22 @@ classdef BaselineRemover < REAnalysisModule
 					pr = PanelPropItem('EL', br, 'PROP', 15, ...
 					    'WAITBAR', true, ...
 					    'GUICLASS', 'GUIFig', ...
-					    'BUTTON_TEXT', 'Plot Raman Experiment', ...
+					    'BUTTON_TEXT', 'Plot estimated baselines', ...
 					    varargin{:});
 					
 					
 					%Parameters for Lieberfit function for baseine estimation:
 					%LFIT_POLYORDER & LFIT_ITER
+					
+				case 3 % BaselineRemover.DESCRIPTION
+					pr = PanelPropStringTextArea('EL', br, 'PROP', br.DESCRIPTION, varargin{:});
+					
+				case 13 % BaselineRemover.REPF
+					pr = PanelPropItem('EL', br, 'PROP', 13, ...
+					    'WAITBAR', true, ...
+					    'GUICLASS', 'GUIFig', ...
+					    'BUTTON_TEXT', 'Plot Baseline-removed spectra', ...
+					    varargin{:});
 					
 				otherwise
 					pr = getPanelProp@REAnalysisModule(br, prop, varargin{:});

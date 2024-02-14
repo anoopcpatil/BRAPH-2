@@ -197,7 +197,7 @@ classdef REAnalysisModule < ConcreteElement
 			%
 			% See also subclasses.
 			
-			subclass_list = { 'REAnalysisModule'  'BaselineEstimator'  'BaselineRemover'  'CosmicRayNoiseRemover'  'Smoothener' }; %CET: Computational Efficiency Trick
+			subclass_list = { 'REAnalysisModule'  'BaselineEstimator'  'BaselineRemover'  'CosmicRayNoiseRemover'  'Smoothener'  'SpectraTrimmer'  'WavelengthCalibrator' }; %CET: Computational Efficiency Trick
 		end
 		function prop_list = getProps(category)
 			%GETPROPS returns the property list of RE Analysis Module.

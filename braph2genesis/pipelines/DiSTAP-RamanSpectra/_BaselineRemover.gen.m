@@ -28,6 +28,8 @@ NAME (constant, string) is the name of the Baseline Remover.
 DESCRIPTION (constant, string) is the description of Baseline Remover.
 %%%% ¡default!
 'BaselineRemover reads and analyzes smooth Raman spectra and evaluates and plots the baselined Raman spectra.'
+%%%% ¡gui!
+pr = PanelPropStringTextArea('EL', br, 'PROP', br.DESCRIPTION, varargin{:});
 
 %%% ¡prop!
 TEMPLATE (parameter, item) is the template of the Baseline Remover.
@@ -92,6 +94,18 @@ sp_out = Spectrum(...
 value = sp_out;
 
 
+%%% ¡prop!
+REPF (gui, item) is a container of the panel figure for the BaselineRemover.
+%%%% ¡settings!
+'RamanExperimentPF'
+%%%% ¡gui!
+pr = PanelPropItem('EL', br, 'PROP', BaselineRemover.REPF, ...
+    'WAITBAR', true, ...
+    'GUICLASS', 'GUIFig', ...
+    'BUTTON_TEXT', 'Plot Baseline-removed spectra', ...
+    varargin{:});
+
+
 %% ¡props!
 
 %%% ¡prop!
@@ -113,14 +127,14 @@ br.memorize('BAPF').set('RE', re_out)
 
 
 %%% ¡prop!
-BAPF (gui, item) is a container of the panel figure for BaselineRemover.
+BAPF (gui, item) is a container of the panel figure for BaselineEstimator.
 %%%% ¡settings!
 'RamanExperimentPF'
 %%%% ¡gui!
 pr = PanelPropItem('EL', br, 'PROP', BaselineRemover.BAPF, ...
     'WAITBAR', true, ...
     'GUICLASS', 'GUIFig', ...
-    'BUTTON_TEXT', 'Plot Raman Experiment', ...
+    'BUTTON_TEXT', 'Plot estimated baselines', ...
     varargin{:});
 
 
@@ -133,7 +147,7 @@ LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit 
 
 
 %%% ¡prop!
-LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieberfit function.
+LFIT_ITER (parameter, scalar) is the number of iterations for Lieberfit function.
 %%%% ¡default!
 100
 
@@ -148,54 +162,54 @@ LFIT_ITER (parameter, scalar) is the number of odd points in the window for Lieb
 
 %%% ¡prop!
 %%%% ¡id!
-BaselineRemover.ID
-%%%% ¡title!
-ID
-
-%%% ¡prop!
-%%%% ¡id!
 BaselineRemover.DESCRIPTION
 %%%% ¡title!
-DESCRIPTION
+MODULE INFO
 
 %%% ¡prop!
 %%%% ¡id!
 BaselineRemover.LFIT_POLYORDER
 %%%% ¡title!
-LFIT_POLYORDER
+Order of Polynomial Fit
 
 %%% ¡prop!
 %%%% ¡id!
 BaselineRemover.LFIT_ITER
 %%%% ¡title!
-LFIT_ITER
+Number of Iterations to Fit Baseline
 
 %%% ¡prop!
 %%%% ¡id!
 BaselineRemover.RE_IN
 %%%% ¡title!
-RE_IN
+Input Raman Spectra
 
 %%% ¡prop!
 %%%% ¡id!
 BaselineRemover.RE_BASELINES
 %%%% ¡title!
-RE_BASELINES
+Baselines
 
 %%% ¡prop!
 %%%% ¡id!
 BaselineRemover.BAPF
 %%%% ¡title!
-Plot Estimated Baselines
+PLOT
 
 %%% ¡prop!
 %%%% ¡id!
 BaselineRemover.RE_OUT
 %%%% ¡title!
-RE_OUT
+Output Raman Spectra
 
 %%% ¡prop!
 %%%% ¡id!
 BaselineRemover.REPF
 %%%% ¡title!
-Plot Baseline-removed Spectra
+PLOT
+
+%%% ¡prop!
+%%%% ¡id!
+BaselineRemover.NOTES
+%%%% ¡title!
+NOTES

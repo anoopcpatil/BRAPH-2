@@ -11,20 +11,24 @@ NaN
 LABEL
 NaN
 NOTES
-7
+9
 TOSTRING
 NaN
 Input Raman Spectra
-4
+2
 SP_OUT
 NaN
 SP_DICT_OUT
 NaN
 Output Raman Spectra
-5
+7
 PLOT
-6
-Order of Smoothing Filter Polynomial
-2
-Window Size (input odd number)
+8
+PIXEL for 620.9 nm PS Raman peak
 3
+PIXEL for 1001.4 nm PS Raman peak
+4
+PIXEL for 1031.8 nm PS Raman peak
+5
+PIXEL for 1602.3 nm PS Raman peak
+6

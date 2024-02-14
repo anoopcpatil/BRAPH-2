@@ -15,7 +15,7 @@ NOTES
 TOSTRING
 NaN
 Input Raman Spectra
-4
+2
 SP_OUT
 NaN
 SP_DICT_OUT
@@ -24,7 +24,7 @@ Output Raman Spectra
 5
 PLOT
 6
-Order of Smoothing Filter Polynomial
-2
-Window Size (input odd number)
+START_WAVELENGTH
 3
+STOP_WAVELENGTH
+4

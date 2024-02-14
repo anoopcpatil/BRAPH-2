@@ -19,7 +19,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of CosmicRayNoiseRemover.
 	%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 	%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
-	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the CosmicRayNoiseRemover.
 	%
 	% CosmicRayNoiseRemover methods (constructor):
 	%  CosmicRayNoiseRemover - constructor
@@ -133,7 +133,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of CosmicRayNoiseRemover.
 			%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 			%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
-			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the CosmicRayNoiseRemover.
 			%
 			% See also Category, Format.
 			
@@ -467,7 +467,7 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 			prop = CosmicRayNoiseRemover.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			cosmicraynoiseremover_description_list = { 'ELCLASS (constant, string) is the class of the Cosmic Ray Noise Remover.'  'NAME (constant, string) is the name of the Cosmic Ray Noise Remover.'  'DESCRIPTION (constant, string) is the description of Cosmic Ray Noise Remover.'  'TEMPLATE (parameter, item) is the template of the Cosmic Ray Noise Remover.'  'ID (data, string) is a few-letter code for the Cosmic Ray Noise Remover.'  'LABEL (metadata, string) is an extended label of the Cosmic Ray Noise Remover.'  'NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of CosmicRayNoiseRemover.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.' };
+			cosmicraynoiseremover_description_list = { 'ELCLASS (constant, string) is the class of the Cosmic Ray Noise Remover.'  'NAME (constant, string) is the name of the Cosmic Ray Noise Remover.'  'DESCRIPTION (constant, string) is the description of Cosmic Ray Noise Remover.'  'TEMPLATE (parameter, item) is the template of the Cosmic Ray Noise Remover.'  'ID (data, string) is a few-letter code for the Cosmic Ray Noise Remover.'  'LABEL (metadata, string) is an extended label of the Cosmic Ray Noise Remover.'  'NOTES (metadata, string) are some specific notes about Cosmic Ray Noise Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of CosmicRayNoiseRemover.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the CosmicRayNoiseRemover.' };
 			prop_description = cosmicraynoiseremover_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -497,6 +497,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 					prop_settings = 'CosmicRayNoiseRemover';
 				case 10 % CosmicRayNoiseRemover.SP_OUT
 					prop_settings = 'Spectrum';
+				case 13 % CosmicRayNoiseRemover.REPF
+					prop_settings = 'RamanExperimentPF';
 				otherwise
 					prop_settings = getPropSettings@REAnalysisModule(prop);
 			end
@@ -539,6 +541,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 				case 7 % CosmicRayNoiseRemover.NOTES
 					prop_default = 'CosmicRayNoiseRemover notes';
 				case 10 % CosmicRayNoiseRemover.SP_OUT
+					prop_default = Format.getFormatDefault(8, CosmicRayNoiseRemover.getPropSettings(prop));
+				case 13 % CosmicRayNoiseRemover.REPF
 					prop_default = Format.getFormatDefault(8, CosmicRayNoiseRemover.getPropSettings(prop));
 				otherwise
 					prop_default = getPropDefault@REAnalysisModule(prop);
@@ -607,6 +611,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 				case 4 % CosmicRayNoiseRemover.TEMPLATE
 					check = Format.checkFormat(8, value, CosmicRayNoiseRemover.getPropSettings(prop));
 				case 10 % CosmicRayNoiseRemover.SP_OUT
+					check = Format.checkFormat(8, value, CosmicRayNoiseRemover.getPropSettings(prop));
+				case 13 % CosmicRayNoiseRemover.REPF
 					check = Format.checkFormat(8, value, CosmicRayNoiseRemover.getPropSettings(prop));
 				otherwise
 					if prop <= 13
@@ -683,6 +689,39 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 					end
 			end
 			
+		end
+	end
+	methods % GUI
+		function pr = getPanelProp(crnr, prop, varargin)
+			%GETPANELPROP returns a prop panel.
+			%
+			% PR = GETPANELPROP(EL, PROP) returns the panel of prop PROP.
+			%
+			% PR = GETPANELPROP(EL, PROP, 'Name', Value, ...) sets the properties 
+			%  of the panel prop.
+			%
+			% See also PanelProp, PanelPropAlpha, PanelPropCell, PanelPropClass,
+			%  PanelPropClassList, PanelPropColor, PanelPropHandle,
+			%  PanelPropHandleList, PanelPropIDict, PanelPropItem, PanelPropLine,
+			%  PanelPropItemList, PanelPropLogical, PanelPropMarker, PanelPropMatrix,
+			%  PanelPropNet, PanelPropOption, PanelPropScalar, PanelPropSize,
+			%  PanelPropString, PanelPropStringList.
+			
+			switch prop
+				case 3 % CosmicRayNoiseRemover.DESCRIPTION
+					pr = PanelPropStringTextArea('EL', crnr, 'PROP', crnr.DESCRIPTION, varargin{:});
+					
+				case 13 % CosmicRayNoiseRemover.REPF
+					pr = PanelPropItem('EL', crnr, 'PROP', 13, ...
+					    'WAITBAR', true, ...
+					    'GUICLASS', 'GUIFig', ...
+					    'BUTTON_TEXT', 'Plot Cosmic-Ray-Noise-removed spectra', ...
+					    varargin{:});
+					
+				otherwise
+					pr = getPanelProp@REAnalysisModule(crnr, prop, varargin{:});
+					
+			end
 		end
 	end
 end

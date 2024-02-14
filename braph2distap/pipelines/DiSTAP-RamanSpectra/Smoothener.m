@@ -20,7 +20,7 @@ classdef Smoothener < REAnalysisModule
 	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the smooth spectrum for SP_DICT_OUT and RE_OUT of Smoothener.
 	%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 	%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
-	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the Smoothener.
 	%  <strong>14</strong> <strong>SGOLAY_POLYORDER</strong> 	SGOLAY_POLYORDER (parameter, scalar) is the order of the polynomial for Savitzky-Golay smoothing.
 	%  <strong>15</strong> <strong>SGOLAY_WINDOW</strong> 	SGOLAY_WINDOW (parameter, scalar) is odd number of points in the window for Savitzky-Golay smoothing.
 	%
@@ -124,7 +124,7 @@ classdef Smoothener < REAnalysisModule
 		SGOLAY_WINDOW_FORMAT = 11;
 	end
 	methods % constructor
-		function sf = Smoothener(varargin)
+		function sm = Smoothener(varargin)
 			%Smoothener() creates a Smoothener.
 			%
 			% Smoothener(PROP, VALUE, ...) with property PROP initialized to VALUE.
@@ -147,30 +147,30 @@ classdef Smoothener < REAnalysisModule
 			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the smooth spectrum for SP_DICT_OUT and RE_OUT of Smoothener.
 			%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 			%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
-			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the REAnalysisModule.
+			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the Smoothener.
 			%  <strong>14</strong> <strong>SGOLAY_POLYORDER</strong> 	SGOLAY_POLYORDER (parameter, scalar) is the order of the polynomial for Savitzky-Golay smoothing.
 			%  <strong>15</strong> <strong>SGOLAY_WINDOW</strong> 	SGOLAY_WINDOW (parameter, scalar) is odd number of points in the window for Savitzky-Golay smoothing.
 			%
 			% See also Category, Format.
 			
-			sf = sf@REAnalysisModule(varargin{:});
+			sm = sm@REAnalysisModule(varargin{:});
 		end
 	end
 	methods (Static) % inspection
-		function sf_class = getClass()
+		function sm_class = getClass()
 			%GETCLASS returns the class of the Smoothener.
 			%
 			% CLASS = Smoothener.GETCLASS() returns the class 'Smoothener'.
 			%
 			% Alternative forms to call this method are:
-			%  CLASS = SF.GETCLASS() returns the class of the Smoothener SF.
-			%  CLASS = Element.GETCLASS(SF) returns the class of 'SF'.
+			%  CLASS = SM.GETCLASS() returns the class of the Smoothener SM.
+			%  CLASS = Element.GETCLASS(SM) returns the class of 'SM'.
 			%  CLASS = Element.GETCLASS('Smoothener') returns 'Smoothener'.
 			%
-			% Note that the Element.GETCLASS(SF) and Element.GETCLASS('Smoothener')
+			% Note that the Element.GETCLASS(SM) and Element.GETCLASS('Smoothener')
 			%  are less computationally efficient.
 			
-			sf_class = 'Smoothener';
+			sm_class = 'Smoothener';
 		end
 		function subclass_list = getSubclasses()
 			%GETSUBCLASSES returns all subclasses of the Smoothener.
@@ -178,11 +178,11 @@ classdef Smoothener < REAnalysisModule
 			% LIST = Smoothener.GETSUBCLASSES() returns all subclasses of 'Smoothener'.
 			%
 			% Alternative forms to call this method are:
-			%  LIST = SF.GETSUBCLASSES() returns all subclasses of the Smoothener SF.
-			%  LIST = Element.GETSUBCLASSES(SF) returns all subclasses of 'SF'.
+			%  LIST = SM.GETSUBCLASSES() returns all subclasses of the Smoothener SM.
+			%  LIST = Element.GETSUBCLASSES(SM) returns all subclasses of 'SM'.
 			%  LIST = Element.GETSUBCLASSES('Smoothener') returns all subclasses of 'Smoothener'.
 			%
-			% Note that the Element.GETSUBCLASSES(SF) and Element.GETSUBCLASSES('Smoothener')
+			% Note that the Element.GETSUBCLASSES(SM) and Element.GETSUBCLASSES('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also subclasses.
@@ -199,11 +199,11 @@ classdef Smoothener < REAnalysisModule
 			%  of category CATEGORY.
 			%
 			% Alternative forms to call this method are:
-			%  PROPS = SF.GETPROPS([CATEGORY]) returns the property list of the Smoothener SF.
-			%  PROPS = Element.GETPROPS(SF[, CATEGORY]) returns the property list of 'SF'.
+			%  PROPS = SM.GETPROPS([CATEGORY]) returns the property list of the Smoothener SM.
+			%  PROPS = Element.GETPROPS(SM[, CATEGORY]) returns the property list of 'SM'.
 			%  PROPS = Element.GETPROPS('Smoothener'[, CATEGORY]) returns the property list of 'Smoothener'.
 			%
-			% Note that the Element.GETPROPS(SF) and Element.GETPROPS('Smoothener')
+			% Note that the Element.GETPROPS(SM) and Element.GETPROPS('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getPropNumber, Category.
@@ -243,11 +243,11 @@ classdef Smoothener < REAnalysisModule
 			%  of category CATEGORY
 			%
 			% Alternative forms to call this method are:
-			%  N = SF.GETPROPNUMBER([CATEGORY]) returns the property number of the Smoothener SF.
-			%  N = Element.GETPROPNUMBER(SF) returns the property number of 'SF'.
+			%  N = SM.GETPROPNUMBER([CATEGORY]) returns the property number of the Smoothener SM.
+			%  N = Element.GETPROPNUMBER(SM) returns the property number of 'SM'.
 			%  N = Element.GETPROPNUMBER('Smoothener') returns the property number of 'Smoothener'.
 			%
-			% Note that the Element.GETPROPNUMBER(SF) and Element.GETPROPNUMBER('Smoothener')
+			% Note that the Element.GETPROPNUMBER(SM) and Element.GETPROPNUMBER('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getProps, Category.
@@ -284,22 +284,22 @@ classdef Smoothener < REAnalysisModule
 			% CHECK = Smoothener.EXISTSPROP(PROP) checks whether the property PROP exists.
 			%
 			% Alternative forms to call this method are:
-			%  CHECK = SF.EXISTSPROP(PROP) checks whether PROP exists for SF.
-			%  CHECK = Element.EXISTSPROP(SF, PROP) checks whether PROP exists for SF.
+			%  CHECK = SM.EXISTSPROP(PROP) checks whether PROP exists for SM.
+			%  CHECK = Element.EXISTSPROP(SM, PROP) checks whether PROP exists for SM.
 			%  CHECK = Element.EXISTSPROP(Smoothener, PROP) checks whether PROP exists for Smoothener.
 			%
 			% Element.EXISTSPROP(PROP) throws an error if the PROP does NOT exist.
 			%  Error id: [BRAPH2:Smoothener:WrongInput]
 			%
 			% Alternative forms to call this method are:
-			%  SF.EXISTSPROP(PROP) throws error if PROP does NOT exist for SF.
+			%  SM.EXISTSPROP(PROP) throws error if PROP does NOT exist for SM.
 			%   Error id: [BRAPH2:Smoothener:WrongInput]
-			%  Element.EXISTSPROP(SF, PROP) throws error if PROP does NOT exist for SF.
+			%  Element.EXISTSPROP(SM, PROP) throws error if PROP does NOT exist for SM.
 			%   Error id: [BRAPH2:Smoothener:WrongInput]
 			%  Element.EXISTSPROP(Smoothener, PROP) throws error if PROP does NOT exist for Smoothener.
 			%   Error id: [BRAPH2:Smoothener:WrongInput]
 			%
-			% Note that the Element.EXISTSPROP(SF) and Element.EXISTSPROP('Smoothener')
+			% Note that the Element.EXISTSPROP(SM) and Element.EXISTSPROP('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getProps, existsTag.
@@ -322,22 +322,22 @@ classdef Smoothener < REAnalysisModule
 			% CHECK = Smoothener.EXISTSTAG(TAG) checks whether a property with tag TAG exists.
 			%
 			% Alternative forms to call this method are:
-			%  CHECK = SF.EXISTSTAG(TAG) checks whether TAG exists for SF.
-			%  CHECK = Element.EXISTSTAG(SF, TAG) checks whether TAG exists for SF.
+			%  CHECK = SM.EXISTSTAG(TAG) checks whether TAG exists for SM.
+			%  CHECK = Element.EXISTSTAG(SM, TAG) checks whether TAG exists for SM.
 			%  CHECK = Element.EXISTSTAG(Smoothener, TAG) checks whether TAG exists for Smoothener.
 			%
 			% Element.EXISTSTAG(TAG) throws an error if the TAG does NOT exist.
 			%  Error id: [BRAPH2:Smoothener:WrongInput]
 			%
 			% Alternative forms to call this method are:
-			%  SF.EXISTSTAG(TAG) throws error if TAG does NOT exist for SF.
+			%  SM.EXISTSTAG(TAG) throws error if TAG does NOT exist for SM.
 			%   Error id: [BRAPH2:Smoothener:WrongInput]
-			%  Element.EXISTSTAG(SF, TAG) throws error if TAG does NOT exist for SF.
+			%  Element.EXISTSTAG(SM, TAG) throws error if TAG does NOT exist for SM.
 			%   Error id: [BRAPH2:Smoothener:WrongInput]
 			%  Element.EXISTSTAG(Smoothener, TAG) throws error if TAG does NOT exist for Smoothener.
 			%   Error id: [BRAPH2:Smoothener:WrongInput]
 			%
-			% Note that the Element.EXISTSTAG(SF) and Element.EXISTSTAG('Smoothener')
+			% Note that the Element.EXISTSTAG(SM) and Element.EXISTSTAG('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getProps, existsTag.
@@ -364,11 +364,11 @@ classdef Smoothener < REAnalysisModule
 			%  of the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  PROPERTY = SF.GETPROPPROP(POINTER) returns property number of POINTER of SF.
+			%  PROPERTY = SM.GETPROPPROP(POINTER) returns property number of POINTER of SM.
 			%  PROPERTY = Element.GETPROPPROP(Smoothener, POINTER) returns property number of POINTER of Smoothener.
-			%  PROPERTY = SF.GETPROPPROP(Smoothener, POINTER) returns property number of POINTER of Smoothener.
+			%  PROPERTY = SM.GETPROPPROP(Smoothener, POINTER) returns property number of POINTER of Smoothener.
 			%
-			% Note that the Element.GETPROPPROP(SF) and Element.GETPROPPROP('Smoothener')
+			% Note that the Element.GETPROPPROP(SM) and Element.GETPROPPROP('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getPropFormat, getPropTag, getPropCategory, getPropDescription,
@@ -390,11 +390,11 @@ classdef Smoothener < REAnalysisModule
 			%  the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  TAG = SF.GETPROPTAG(POINTER) returns tag of POINTER of SF.
+			%  TAG = SM.GETPROPTAG(POINTER) returns tag of POINTER of SM.
 			%  TAG = Element.GETPROPTAG(Smoothener, POINTER) returns tag of POINTER of Smoothener.
-			%  TAG = SF.GETPROPTAG(Smoothener, POINTER) returns tag of POINTER of Smoothener.
+			%  TAG = SM.GETPROPTAG(Smoothener, POINTER) returns tag of POINTER of Smoothener.
 			%
-			% Note that the Element.GETPROPTAG(SF) and Element.GETPROPTAG('Smoothener')
+			% Note that the Element.GETPROPTAG(SM) and Element.GETPROPTAG('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getPropProp, getPropSettings, getPropCategory, getPropFormat,
@@ -418,11 +418,11 @@ classdef Smoothener < REAnalysisModule
 			%  property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  CATEGORY = SF.GETPROPCATEGORY(POINTER) returns category of POINTER of SF.
+			%  CATEGORY = SM.GETPROPCATEGORY(POINTER) returns category of POINTER of SM.
 			%  CATEGORY = Element.GETPROPCATEGORY(Smoothener, POINTER) returns category of POINTER of Smoothener.
-			%  CATEGORY = SF.GETPROPCATEGORY(Smoothener, POINTER) returns category of POINTER of Smoothener.
+			%  CATEGORY = SM.GETPROPCATEGORY(Smoothener, POINTER) returns category of POINTER of Smoothener.
 			%
-			% Note that the Element.GETPROPCATEGORY(SF) and Element.GETPROPCATEGORY('Smoothener')
+			% Note that the Element.GETPROPCATEGORY(SM) and Element.GETPROPCATEGORY('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also Category, getPropProp, getPropTag, getPropSettings,
@@ -444,11 +444,11 @@ classdef Smoothener < REAnalysisModule
 			%  format of the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  FORMAT = SF.GETPROPFORMAT(POINTER) returns format of POINTER of SF.
+			%  FORMAT = SM.GETPROPFORMAT(POINTER) returns format of POINTER of SM.
 			%  FORMAT = Element.GETPROPFORMAT(Smoothener, POINTER) returns format of POINTER of Smoothener.
-			%  FORMAT = SF.GETPROPFORMAT(Smoothener, POINTER) returns format of POINTER of Smoothener.
+			%  FORMAT = SM.GETPROPFORMAT(Smoothener, POINTER) returns format of POINTER of Smoothener.
 			%
-			% Note that the Element.GETPROPFORMAT(SF) and Element.GETPROPFORMAT('Smoothener')
+			% Note that the Element.GETPROPFORMAT(SM) and Element.GETPROPFORMAT('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also Format, getPropProp, getPropTag, getPropCategory,
@@ -470,11 +470,11 @@ classdef Smoothener < REAnalysisModule
 			%  description of the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  DESCRIPTION = SF.GETPROPDESCRIPTION(POINTER) returns description of POINTER of SF.
+			%  DESCRIPTION = SM.GETPROPDESCRIPTION(POINTER) returns description of POINTER of SM.
 			%  DESCRIPTION = Element.GETPROPDESCRIPTION(Smoothener, POINTER) returns description of POINTER of Smoothener.
-			%  DESCRIPTION = SF.GETPROPDESCRIPTION(Smoothener, POINTER) returns description of POINTER of Smoothener.
+			%  DESCRIPTION = SM.GETPROPDESCRIPTION(Smoothener, POINTER) returns description of POINTER of Smoothener.
 			%
-			% Note that the Element.GETPROPDESCRIPTION(SF) and Element.GETPROPDESCRIPTION('Smoothener')
+			% Note that the Element.GETPROPDESCRIPTION(SM) and Element.GETPROPDESCRIPTION('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getPropProp, getPropTag, getPropCategory,
@@ -483,7 +483,7 @@ classdef Smoothener < REAnalysisModule
 			prop = Smoothener.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			smoothener_description_list = { 'ELCLASS (constant, string) is the class of the Smoothener.'  'NAME (constant, string) is the name of the Smoothener.'  'DESCRIPTION (constant, string) is the description of Smoothener.'  'TEMPLATE (parameter, item) is the template of the Smoothener.'  'ID (data, string) is a few-letter code for the Smoothener.'  'LABEL (metadata, string) is an extended label of the Smoothener.'  'NOTES (metadata, string) are some specific notes about Smoothener.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the smooth spectrum for SP_DICT_OUT and RE_OUT of Smoothener.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the REAnalysisModule.'  'SGOLAY_POLYORDER (parameter, scalar) is the order of the polynomial for Savitzky-Golay smoothing.'  'SGOLAY_WINDOW (parameter, scalar) is odd number of points in the window for Savitzky-Golay smoothing.' };
+			smoothener_description_list = { 'ELCLASS (constant, string) is the class of the Smoothener.'  'NAME (constant, string) is the name of the Smoothener.'  'DESCRIPTION (constant, string) is the description of Smoothener.'  'TEMPLATE (parameter, item) is the template of the Smoothener.'  'ID (data, string) is a few-letter code for the Smoothener.'  'LABEL (metadata, string) is an extended label of the Smoothener.'  'NOTES (metadata, string) are some specific notes about Smoothener.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the smooth spectrum for SP_DICT_OUT and RE_OUT of Smoothener.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the Smoothener.'  'SGOLAY_POLYORDER (parameter, scalar) is the order of the polynomial for Savitzky-Golay smoothing.'  'SGOLAY_WINDOW (parameter, scalar) is odd number of points in the window for Savitzky-Golay smoothing.' };
 			prop_description = smoothener_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -496,11 +496,11 @@ classdef Smoothener < REAnalysisModule
 			%  settings of the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  SETTINGS = SF.GETPROPSETTINGS(POINTER) returns settings of POINTER of SF.
+			%  SETTINGS = SM.GETPROPSETTINGS(POINTER) returns settings of POINTER of SM.
 			%  SETTINGS = Element.GETPROPSETTINGS(Smoothener, POINTER) returns settings of POINTER of Smoothener.
-			%  SETTINGS = SF.GETPROPSETTINGS(Smoothener, POINTER) returns settings of POINTER of Smoothener.
+			%  SETTINGS = SM.GETPROPSETTINGS(Smoothener, POINTER) returns settings of POINTER of Smoothener.
 			%
-			% Note that the Element.GETPROPSETTINGS(SF) and Element.GETPROPSETTINGS('Smoothener')
+			% Note that the Element.GETPROPSETTINGS(SM) and Element.GETPROPSETTINGS('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getPropProp, getPropTag, getPropCategory, getPropFormat,
@@ -517,6 +517,8 @@ classdef Smoothener < REAnalysisModule
 					prop_settings = 'Smoothener';
 				case 10 % Smoothener.SP_OUT
 					prop_settings = 'Spectrum';
+				case 13 % Smoothener.REPF
+					prop_settings = 'RamanExperimentPF';
 				otherwise
 					prop_settings = getPropSettings@REAnalysisModule(prop);
 			end
@@ -531,11 +533,11 @@ classdef Smoothener < REAnalysisModule
 			%  value of the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  DEFAULT = SF.GETPROPDEFAULT(POINTER) returns the default value of POINTER of SF.
+			%  DEFAULT = SM.GETPROPDEFAULT(POINTER) returns the default value of POINTER of SM.
 			%  DEFAULT = Element.GETPROPDEFAULT(Smoothener, POINTER) returns the default value of POINTER of Smoothener.
-			%  DEFAULT = SF.GETPROPDEFAULT(Smoothener, POINTER) returns the default value of POINTER of Smoothener.
+			%  DEFAULT = SM.GETPROPDEFAULT(Smoothener, POINTER) returns the default value of POINTER of Smoothener.
 			%
-			% Note that the Element.GETPROPDEFAULT(SF) and Element.GETPROPDEFAULT('Smoothener')
+			% Note that the Element.GETPROPDEFAULT(SM) and Element.GETPROPDEFAULT('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also getPropDefaultConditioned, getPropProp, getPropTag, getPropSettings, 
@@ -564,6 +566,8 @@ classdef Smoothener < REAnalysisModule
 					prop_default = 'Smoothener notes';
 				case 10 % Smoothener.SP_OUT
 					prop_default = Format.getFormatDefault(8, Smoothener.getPropSettings(prop));
+				case 13 % Smoothener.REPF
+					prop_default = Format.getFormatDefault(8, Smoothener.getPropSettings(prop));
 				otherwise
 					prop_default = getPropDefault@REAnalysisModule(prop);
 			end
@@ -578,11 +582,11 @@ classdef Smoothener < REAnalysisModule
 			%  value of the property with tag TAG.
 			%
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  DEFAULT = SF.GETPROPDEFAULTCONDITIONED(POINTER) returns the conditioned default value of POINTER of SF.
+			%  DEFAULT = SM.GETPROPDEFAULTCONDITIONED(POINTER) returns the conditioned default value of POINTER of SM.
 			%  DEFAULT = Element.GETPROPDEFAULTCONDITIONED(Smoothener, POINTER) returns the conditioned default value of POINTER of Smoothener.
-			%  DEFAULT = SF.GETPROPDEFAULTCONDITIONED(Smoothener, POINTER) returns the conditioned default value of POINTER of Smoothener.
+			%  DEFAULT = SM.GETPROPDEFAULTCONDITIONED(Smoothener, POINTER) returns the conditioned default value of POINTER of Smoothener.
 			%
-			% Note that the Element.GETPROPDEFAULTCONDITIONED(SF) and Element.GETPROPDEFAULTCONDITIONED('Smoothener')
+			% Note that the Element.GETPROPDEFAULTCONDITIONED(SM) and Element.GETPROPDEFAULTCONDITIONED('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also conditioning, getPropDefault, getPropProp, getPropTag, 
@@ -598,28 +602,28 @@ classdef Smoothener < REAnalysisModule
 		function prop_check = checkProp(pointer, value)
 			%CHECKPROP checks whether a value has the correct format/error.
 			%
-			% CHECK = SF.CHECKPROP(POINTER, VALUE) checks whether
+			% CHECK = SM.CHECKPROP(POINTER, VALUE) checks whether
 			%  VALUE is an acceptable value for the format of the property
 			%  POINTER (POINTER = PROP or TAG).
 			% 
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  CHECK = SF.CHECKPROP(POINTER, VALUE) checks VALUE format for PROP of SF.
+			%  CHECK = SM.CHECKPROP(POINTER, VALUE) checks VALUE format for PROP of SM.
 			%  CHECK = Element.CHECKPROP(Smoothener, PROP, VALUE) checks VALUE format for PROP of Smoothener.
-			%  CHECK = SF.CHECKPROP(Smoothener, PROP, VALUE) checks VALUE format for PROP of Smoothener.
+			%  CHECK = SM.CHECKPROP(Smoothener, PROP, VALUE) checks VALUE format for PROP of Smoothener.
 			% 
-			% SF.CHECKPROP(POINTER, VALUE) throws an error if VALUE is
+			% SM.CHECKPROP(POINTER, VALUE) throws an error if VALUE is
 			%  NOT an acceptable value for the format of the property POINTER.
 			%  Error id: BRAPH2:Smoothener:WrongInput
 			% 
 			% Alternative forms to call this method are (POINTER = PROP or TAG):
-			%  SF.CHECKPROP(POINTER, VALUE) throws error if VALUE has not a valid format for PROP of SF.
+			%  SM.CHECKPROP(POINTER, VALUE) throws error if VALUE has not a valid format for PROP of SM.
 			%   Error id: BRAPH2:Smoothener:WrongInput
 			%  Element.CHECKPROP(Smoothener, PROP, VALUE) throws error if VALUE has not a valid format for PROP of Smoothener.
 			%   Error id: BRAPH2:Smoothener:WrongInput
-			%  SF.CHECKPROP(Smoothener, PROP, VALUE) throws error if VALUE has not a valid format for PROP of Smoothener.
+			%  SM.CHECKPROP(Smoothener, PROP, VALUE) throws error if VALUE has not a valid format for PROP of Smoothener.
 			%   Error id: BRAPH2:Smoothener:WrongInput]
 			% 
-			% Note that the Element.CHECKPROP(SF) and Element.CHECKPROP('Smoothener')
+			% Note that the Element.CHECKPROP(SM) and Element.CHECKPROP('Smoothener')
 			%  are less computationally efficient.
 			%
 			% See also Format, getPropProp, getPropTag, getPropSettings,
@@ -635,6 +639,8 @@ classdef Smoothener < REAnalysisModule
 				case 4 % Smoothener.TEMPLATE
 					check = Format.checkFormat(8, value, Smoothener.getPropSettings(prop));
 				case 10 % Smoothener.SP_OUT
+					check = Format.checkFormat(8, value, Smoothener.getPropSettings(prop));
+				case 13 % Smoothener.REPF
 					check = Format.checkFormat(8, value, Smoothener.getPropSettings(prop));
 				otherwise
 					if prop <= 13
@@ -654,7 +660,7 @@ classdef Smoothener < REAnalysisModule
 		end
 	end
 	methods (Access=protected) % calculate value
-		function value = calculateValue(sf, prop, varargin)
+		function value = calculateValue(sm, prop, varargin)
 			%CALCULATEVALUE calculates the value of a property.
 			%
 			% VALUE = CALCULATEVALUE(EL, PROP) calculates the value of the property
@@ -671,9 +677,9 @@ classdef Smoothener < REAnalysisModule
 			
 			switch prop
 				case 10 % Smoothener.SP_OUT
-					rng_settings_ = rng(); rng(sf.getPropSeed(10), 'twister')
+					rng_settings_ = rng(); rng(sm.getPropSeed(10), 'twister')
 					
-					% sp_out = sf.get('SP_OUT', SP_IN) returns the smooth N-th spectrum
+					% sp_out = sm.get('SP_OUT', SP_IN) returns the smooth N-th spectrum
 					% in SP_DICT of RE_IN of Smoothener. 
 					if isempty(varargin)
 					    value = Spectrum();
@@ -694,8 +700,8 @@ classdef Smoothener < REAnalysisModule
 					% Apply Savitzky-Golay filter to fixed intensities from
 					% CosmicRayNoiseRemover
 					smooth_intensities = sgolayfilt(fixed_intensities, ...
-					                                sf.get('SGOLAY_POLYORDER'), ... 
-					                                sf.get('SGOLAY_WINDOW'));  
+					                                sm.get('SGOLAY_POLYORDER'), ... 
+					                                sm.get('SGOLAY_WINDOW'));  
 					
 					% Create unlocked copy of the spectrum being processed
 					% Set the smooth intensities to the INTENSITIES of the spectrum 
@@ -713,12 +719,45 @@ classdef Smoothener < REAnalysisModule
 					
 				otherwise
 					if prop <= 13
-						value = calculateValue@REAnalysisModule(sf, prop, varargin{:});
+						value = calculateValue@REAnalysisModule(sm, prop, varargin{:});
 					else
-						value = calculateValue@Element(sf, prop, varargin{:});
+						value = calculateValue@Element(sm, prop, varargin{:});
 					end
 			end
 			
+		end
+	end
+	methods % GUI
+		function pr = getPanelProp(sm, prop, varargin)
+			%GETPANELPROP returns a prop panel.
+			%
+			% PR = GETPANELPROP(EL, PROP) returns the panel of prop PROP.
+			%
+			% PR = GETPANELPROP(EL, PROP, 'Name', Value, ...) sets the properties 
+			%  of the panel prop.
+			%
+			% See also PanelProp, PanelPropAlpha, PanelPropCell, PanelPropClass,
+			%  PanelPropClassList, PanelPropColor, PanelPropHandle,
+			%  PanelPropHandleList, PanelPropIDict, PanelPropItem, PanelPropLine,
+			%  PanelPropItemList, PanelPropLogical, PanelPropMarker, PanelPropMatrix,
+			%  PanelPropNet, PanelPropOption, PanelPropScalar, PanelPropSize,
+			%  PanelPropString, PanelPropStringList.
+			
+			switch prop
+				case 3 % Smoothener.DESCRIPTION
+					pr = PanelPropStringTextArea('EL', sm, 'PROP', sm.DESCRIPTION, varargin{:});
+					
+				case 13 % Smoothener.REPF
+					pr = PanelPropItem('EL', sm, 'PROP', 13, ...
+					    'WAITBAR', true, ...
+					    'GUICLASS', 'GUIFig', ...
+					    'BUTTON_TEXT', 'Plot Smoothened spectra', ...
+					    varargin{:});
+					
+				otherwise
+					pr = getPanelProp@REAnalysisModule(sm, prop, varargin{:});
+					
+			end
 		end
 	end
 end

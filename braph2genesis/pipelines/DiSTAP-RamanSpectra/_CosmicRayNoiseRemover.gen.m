@@ -26,6 +26,8 @@ NAME (constant, string) is the name of the Cosmic Ray Noise Remover.
 DESCRIPTION (constant, string) is the description of Cosmic Ray Noise Remover.
 %%%% ¡default!
 'CosmicRayNoiseRemover reads and analyzes raw Raman spectra and evaluates and plots the resulting fixed spectra.'
+%%%% ¡gui!
+pr = PanelPropStringTextArea('EL', crnr, 'PROP', crnr.DESCRIPTION, varargin{:});
 
 %%% ¡prop!
 TEMPLATE (parameter, item) is the template of the Cosmic Ray Noise Remover.
@@ -82,6 +84,18 @@ sp_out = Spectrum(...
 value = sp_out;
 
 
+%%% ¡prop!
+REPF (gui, item) is a container of the panel figure for the CosmicRayNoiseRemover.
+%%%% ¡settings!
+'RamanExperimentPF'
+%%%% ¡gui!
+pr = PanelPropItem('EL', crnr, 'PROP', CosmicRayNoiseRemover.REPF, ...
+    'WAITBAR', true, ...
+    'GUICLASS', 'GUIFig', ...
+    'BUTTON_TEXT', 'Plot Cosmic-Ray-Noise-removed spectra', ...
+    varargin{:});
+
+
 %% ¡tests!
 
 %%% ¡excluded_props!
@@ -92,30 +106,30 @@ value = sp_out;
 
 %%% ¡prop!
 %%%% ¡id!
-CosmicRayNoiseRemover.ID
-%%%% ¡title!
-ID
-
-%%% ¡prop!
-%%%% ¡id!
 CosmicRayNoiseRemover.DESCRIPTION
 %%%% ¡title!
-DESCRIPTION
+MODULE INFO
 
 %%% ¡prop!
 %%%% ¡id!
 CosmicRayNoiseRemover.RE_IN
 %%%% ¡title!
-RE_IN
+Input Raman Spectra
 
 %%% ¡prop!
 %%%% ¡id!
 CosmicRayNoiseRemover.RE_OUT
 %%%% ¡title!
-RE_OUT
+Output Raman Spectra
 
 %%% ¡prop!
 %%%% ¡id!
 CosmicRayNoiseRemover.REPF
 %%%% ¡title!
-Plot Cosmic-Ray-Noise-removed Spectra
+PLOT
+
+%%% ¡prop!
+%%%% ¡id!
+CosmicRayNoiseRemover.NOTES
+%%%% ¡title!
+NOTES
