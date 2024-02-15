@@ -68,10 +68,6 @@ sp_in = varargin{1};
 smooth_intensities = sp_in.get('INTENSITIES');
 
 % Baseline estimation using Lieberfit function
-% Set the order of the polynomial for Lieberfit function
-LFIT_POLYORDER = 5;
-% Set the number of odd points in the window for Lieberfit function
-LFIT_ITER = 100;
 % Apply Lieberfit function to smooth intensities from
 % Smoothener
 [baselines, baselined_intensities] = lieberfit(smooth_intensities', ...

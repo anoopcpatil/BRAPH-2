@@ -55,8 +55,8 @@ SP_OUT (result, item) is the fixed spectrum for SP_DICT_OUT and RE_OUT of Cosmic
 %%%% ¡settings!
 'Spectrum'
 %%%% ¡calculate!
-% sp_out = crnr.get('SP_OUT', SP_IN) returns the fixed N-th spectrum
-% in SP_DICT of RE_IN of CosmicRayNoiseRemover. 
+% sp_out = crnr.get('SP_OUT', SP_IN) returns the Cosmic-Ray-Noise-removed
+% (fixed) N-th spectrum in SP_DICT of RE_IN of CosmicRayNoiseRemover. 
 if isempty(varargin)
     value = Spectrum();
     return
@@ -69,10 +69,11 @@ sp_in = varargin{1};
 raw_intensities = sp_in.get('INTENSITIES');
 
 % Apply median filter to raw intensities
-fixed_intensities = medfilt1(raw_intensities); 
+fixed_intensities = medfilt1(raw_intensities'); 
+fixed_intensities = fixed_intensities'
 
 % Create unlocked copy of the spectrum being processed
-% Set the fixed intensities to the INTENSITIES of the spectrum 
+% Set the Cosmic-Ray-Noise-removed intensities to the INTENSITIES of the spectrum 
 sp_out = Spectrum(...
          'INTENSITIES', fixed_intensities, ...
          'WAVELENGTH', sp_in.get('WAVELENGTH'), ...

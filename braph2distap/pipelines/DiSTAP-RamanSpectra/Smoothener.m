@@ -692,13 +692,9 @@ classdef Smoothener < REAnalysisModule
 					% raw intensities
 					fixed_intensities = sp_in.get('INTENSITIES');
 					
-					% % Apply Savitzky-Golay smoothing to fixed intensities
-					% % Set the order of the polynomial for Savitzky-Golay smoothing
-					% SGOLAY_POLYORDER = 3;
-					% % Consider odd number of points in the window for Savitzky-Golay smoothing
-					% SGOLAY_WINDOW = 9;
 					% Apply Savitzky-Golay filter to fixed intensities from
 					% CosmicRayNoiseRemover
+					
 					smooth_intensities = sgolayfilt(fixed_intensities, ...
 					                                sm.get('SGOLAY_POLYORDER'), ... 
 					                                sm.get('SGOLAY_WINDOW'));  

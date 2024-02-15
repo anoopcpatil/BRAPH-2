@@ -14,7 +14,7 @@ pf = RamanExperimentPF('RE', re); % View Raman spectra % View Raman spectra
 %% Trim Raman spectra
 st = SpectraTrimmer('RE_IN', re); % Trim Raman spectra % Trimmed Raman spectra
 
-%% Calibrate wavelengths
+%% Calibrate wavelengths 
 wc = WavelengthCalibrator('RE_IN', st.memorize('RE_OUT')); % Calibrate wavelengths % Wavelengths calibrated
 
 %% Remove Cosmic Ray Noise

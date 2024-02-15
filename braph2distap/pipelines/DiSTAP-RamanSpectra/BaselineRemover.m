@@ -18,7 +18,7 @@ classdef BaselineRemover < REAnalysisModule
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about Baseline Remover.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Remover.
+	%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (query, item) is the processed spectrum in SP_DICT of RE_IN for RE_OUT.
 	%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 	%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
 	%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the BaselineRemover.
@@ -157,7 +157,7 @@ classdef BaselineRemover < REAnalysisModule
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about Baseline Remover.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>RE_IN</strong> 	RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.
-			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Remover.
+			%  <strong>10</strong> <strong>SP_OUT</strong> 	SP_OUT (query, item) is the processed spectrum in SP_DICT of RE_IN for RE_OUT.
 			%  <strong>11</strong> <strong>SP_DICT_OUT</strong> 	SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 			%  <strong>12</strong> <strong>RE_OUT</strong> 	RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.
 			%  <strong>13</strong> <strong>REPF</strong> 	REPF (gui, item) is a container of the panel figure for the BaselineRemover.
@@ -498,7 +498,7 @@ classdef BaselineRemover < REAnalysisModule
 			prop = BaselineRemover.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			baselineremover_description_list = { 'ELCLASS (constant, string) is the class of the Baseline Remover.'  'NAME (constant, string) is the name of the Baseline Remover.'  'DESCRIPTION (constant, string) is the description of Baseline Remover.'  'TEMPLATE (parameter, item) is the template of the Baseline Remover.'  'ID (data, string) is a few-letter code for the Baseline Remover.'  'LABEL (metadata, string) is an extended label of the Baseline Remover.'  'NOTES (metadata, string) are some specific notes about Baseline Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Remover.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the BaselineRemover.'  'RE_BASELINES (result, item) is the output Raman Experiment with Raman baselines as a result.'  'BAPF (gui, item) is a container of the panel figure for BaselineEstimator.'  'LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.'  'LFIT_ITER (parameter, scalar) is the number of iterations for Lieberfit function.' };
+			baselineremover_description_list = { 'ELCLASS (constant, string) is the class of the Baseline Remover.'  'NAME (constant, string) is the name of the Baseline Remover.'  'DESCRIPTION (constant, string) is the description of Baseline Remover.'  'TEMPLATE (parameter, item) is the template of the Baseline Remover.'  'ID (data, string) is a few-letter code for the Baseline Remover.'  'LABEL (metadata, string) is an extended label of the Baseline Remover.'  'NOTES (metadata, string) are some specific notes about Baseline Remover.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'RE_IN (data, item) is the input Raman Experiment for reading the Raman spectra.'  'SP_OUT (query, item) is the processed spectrum in SP_DICT of RE_IN for RE_OUT.'  'SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. '  'RE_OUT (result, item) is the output Raman Experiment with processed spectra as a result.'  'REPF (gui, item) is a container of the panel figure for the BaselineRemover.'  'RE_BASELINES (result, item) is the output Raman Experiment with Raman baselines as a result.'  'BAPF (gui, item) is a container of the panel figure for BaselineEstimator.'  'LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.'  'LFIT_ITER (parameter, scalar) is the number of iterations for Lieberfit function.' };
 			prop_description = baselineremover_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -534,8 +534,6 @@ classdef BaselineRemover < REAnalysisModule
 					prop_settings = Format.getFormatSettings(11);
 				case 4 % BaselineRemover.TEMPLATE
 					prop_settings = 'BaselineRemover';
-				case 10 % BaselineRemover.SP_OUT
-					prop_settings = 'Spectrum';
 				case 13 % BaselineRemover.REPF
 					prop_settings = 'RamanExperimentPF';
 				otherwise
@@ -587,8 +585,6 @@ classdef BaselineRemover < REAnalysisModule
 					prop_default = 'BaselineRemover label';
 				case 7 % BaselineRemover.NOTES
 					prop_default = 'BaselineRemover notes';
-				case 10 % BaselineRemover.SP_OUT
-					prop_default = Format.getFormatDefault(8, BaselineRemover.getPropSettings(prop));
 				case 13 % BaselineRemover.REPF
 					prop_default = Format.getFormatDefault(8, BaselineRemover.getPropSettings(prop));
 				otherwise
@@ -665,8 +661,6 @@ classdef BaselineRemover < REAnalysisModule
 					check = Format.checkFormat(11, value, BaselineRemover.getPropSettings(prop));
 				case 4 % BaselineRemover.TEMPLATE
 					check = Format.checkFormat(8, value, BaselineRemover.getPropSettings(prop));
-				case 10 % BaselineRemover.SP_OUT
-					check = Format.checkFormat(8, value, BaselineRemover.getPropSettings(prop));
 				case 13 % BaselineRemover.REPF
 					check = Format.checkFormat(8, value, BaselineRemover.getPropSettings(prop));
 				otherwise
@@ -720,44 +714,36 @@ classdef BaselineRemover < REAnalysisModule
 					
 					rng(rng_settings_)
 					
-				case 10 % BaselineRemover.SP_OUT
-					rng_settings_ = rng(); rng(br.getPropSeed(10), 'twister')
+				case 11 % BaselineRemover.SP_DICT_OUT
+					rng_settings_ = rng(); rng(br.getPropSeed(11), 'twister')
 					
-					% sp_out = br.get('SP_OUT', SP_IN) returns the baselined intensities of 
-					% the N-th spectrum in SP_DICT of RE_IN of BaselineRemover. 
-					if isempty(varargin)
-					    value = Spectrum();
-					    return
-					end
-					% Read the input spectrum
-					sp_in = varargin{1};
+					% sp_dict_out = br.get('SP_DICT_OUT') returns the
+					% processed SP_DICT for input Raman Experiment RE_IN
+					% Create a new IndexedDictionary
+					sp_dict_out = IndexedDictionary('IT_CLASS', br.get('RE_IN').get('SP_DICT').get('IT_CLASS'));
 					
-					% Read the intensities of the smooth Raman spectrum
-					% smooth intensities
-					smooth_intensities = sp_in.get('INTENSITIES');
+					% Get the length of SP_DICT of RE_IN. 
+					dict_length = br.get('RE_IN').get('SP_DICT').get('LENGTH');
 					
-					% Baselined intensities using Lieberfit function
-					% % Set the order of the polynomial for Lieberfit function
-					% LFIT_POLYORDER = 5;
-					% % Set the number of odd points in the window for Lieberfit function
-					% LFIT_ITER = 100;
-					% Apply Lieberfit function to smooth intensities from
-					% Smoothener
-					[baselines, baselined_intensities] = lieberfit(smooth_intensities', ...
-					                                               br.get('LFIT_POLYORDER'), ...
-					                                               br.get('LFIT_ITER')); 
+					% Update sp_dict_out with processed spectra
+					for n = 1:1:dict_length
+					    sp_in = br.get('RE_IN').get('SP_DICT').get('IT', n);
 					
-					% Create unlocked copy of the spectrum being processed
-					% Set the baselined intensities to the INTENSITIES of the spectrum 
-					sp_out = Spectrum(...
+					    smooth_intensities = sp_in.get('INTENSITIES');
+					    baselines = br.get('RE_BASELINES').get('SP_DICT').get('IT', n).get('INTENSITIES')
+					    baselined_intensities = smooth_intensities - baselines;
+					
+					    sp_out = Spectrum( ...
 					         'INTENSITIES', baselined_intensities, ...
-					         'WAVELENGTH', sp_in.get('WAVELENGTH'), ...
-					         'ID', sp_in.get('ID'), ...
-					         'LABEL', sp_in.get('LABEL'), ...
-					         'NOTES', sp_in.get('NOTES'));
+					         'WAVELENGTH', br.get('RE_IN').get('SP_DICT').get('IT', n).get('WAVELENGTH'), ...
+					         'ID', br.get('RE_IN').get('SP_DICT').get('IT', n).get('ID'), ...
+					         'LABEL', br.get('RE_IN').get('SP_DICT').get('IT', n).get('LABEL'), ...
+					         'NOTES', br.get('RE_IN').get('SP_DICT').get('IT', n).get('NOTES'))
 					
-					% Set the updated sp_out to SP_OUT
-					value = sp_out;
+					    sp_dict_out.get('ADD', sp_out);
+					end 
+					% Set the updated value of sp_dict_out to SP_DICT_OUT
+					value = sp_dict_out;
 					
 					rng(rng_settings_)
 					
@@ -793,7 +779,7 @@ classdef BaselineRemover < REAnalysisModule
 					    'WAITBAR', true, ...
 					    'GUICLASS', 'GUIFig', ...
 					    'BUTTON_TEXT', 'Plot estimated baselines', ...
-					    varargin{:});
+					    varargin{:});%% ¡prop!
 					
 					
 					%Parameters for Lieberfit function for baseine estimation:

@@ -651,8 +651,8 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 				case 10 % CosmicRayNoiseRemover.SP_OUT
 					rng_settings_ = rng(); rng(crnr.getPropSeed(10), 'twister')
 					
-					% sp_out = crnr.get('SP_OUT', SP_IN) returns the fixed N-th spectrum
-					% in SP_DICT of RE_IN of CosmicRayNoiseRemover. 
+					% sp_out = crnr.get('SP_OUT', SP_IN) returns the Cosmic-Ray-Noise-removed
+					% (fixed) N-th spectrum in SP_DICT of RE_IN of CosmicRayNoiseRemover. 
 					if isempty(varargin)
 					    value = Spectrum();
 					    return
@@ -665,10 +665,11 @@ classdef CosmicRayNoiseRemover < REAnalysisModule
 					raw_intensities = sp_in.get('INTENSITIES');
 					
 					% Apply median filter to raw intensities
-					fixed_intensities = medfilt1(raw_intensities); 
+					fixed_intensities = medfilt1(raw_intensities'); 
+					fixed_intensities = fixed_intensities'
 					
 					% Create unlocked copy of the spectrum being processed
-					% Set the fixed intensities to the INTENSITIES of the spectrum 
+					% Set the Cosmic-Ray-Noise-removed intensities to the INTENSITIES of the spectrum 
 					sp_out = Spectrum(...
 					         'INTENSITIES', fixed_intensities, ...
 					         'WAVELENGTH', sp_in.get('WAVELENGTH'), ...
