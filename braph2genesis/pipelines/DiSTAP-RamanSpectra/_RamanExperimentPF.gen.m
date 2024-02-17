@@ -301,8 +301,8 @@ h_axes = uiaxes( ...
     'Units', 'normalized', ...
     'OuterPosition', [.2 .2 .6 .6] ... % % % %TODO transform this into a prop?
     );
-h_axes.Toolbar.Visible = 'off';
-h_axes.Interactions = [];
+h_axes.Toolbar.Visible = 'on';
+%h_axes.Interactions = [];
 box(h_axes, 'on')
 hold(h_axes, 'on')
 value = h_axes;

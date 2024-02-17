@@ -14,12 +14,25 @@ classdef Spectrum < ConcreteElement
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the spectrum.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>CALIBRATION</strong> 	CALIBRATION (data, logical) determines whether it is a calibration spectrum.
-	%  <strong>10</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
-	%  <strong>11</strong> <strong>WAVELENGTH_LABELS</strong> 	WAVELENGTH_LABELS (query, stringlist) is the labels for the wavelengths.
-	%  <strong>12</strong> <strong>INTENSITIES</strong> 	INTENSITIES (data, matrix) is the intensities of the spectra (one spectrum per column).
-	%  <strong>13</strong> <strong>NO_AQUISITIONS</strong> 	NO_AQUISITIONS (query, scalar) is the numebr of acquisitions.
-	%  <strong>14</strong> <strong>INTENSITY</strong> 	INTENSITY (query, cvector) is the intesity of the a spectrum.
-	%  <strong>15</strong> <strong>INTENSITY_MEAN</strong> 	INTENSITY_MEAN (query, cvector) is the average intesity of the spectra.
+	%  <strong>10</strong> <strong>RESEARCHER</strong> 	RESEARCHER (data, option) is the researcher name.
+	%  <strong>11</strong> <strong>DATE</strong> 	DATE (data, rvector) is the experiment date.
+	%  <strong>12</strong> <strong>PLANT_NAME</strong> 	PLANT_NAME (data, option) is the plant name.
+	%  <strong>13</strong> <strong>PLANT_TYPE</strong> 	PLANT_TYPE (data, option) is the plant type
+	%  <strong>14</strong> <strong>PLANT_TYPE_COMMENT</strong> 	PLANT_TYPE_COMMENT (data, string) is the mutant type (when mutant is selected).
+	%  <strong>15</strong> <strong>PLANT_AGE</strong> 	PLANT_AGE (data, scalar) is the plant age (in weeks).
+	%  <strong>16</strong> <strong>LEAF_NUMBER</strong> 	LEAF_NUMBER (data, scalar) is the leaf number.
+	%  <strong>17</strong> <strong>GROWTH_MEDIUM</strong> 	GROWTH_MEDIUM (data, option) is the growth medium.
+	%  <strong>18</strong> <strong>STRESS_TYPE</strong> 	STRESS_TYPE (data, option) is the plant stress type.
+	%  <strong>19</strong> <strong>SETUP</strong> 	SETUP (data, option) is the kind of setup employed.
+	%  <strong>20</strong> <strong>LASER_WAVELENGTH</strong> 	LASER_WAVELENGTH (data, option) is the laser wavelength.
+	%  <strong>21</strong> <strong>LASER_POWER</strong> 	LASER_POWER (data, scalar) is the laser power.
+	%  <strong>22</strong> <strong>ACQUISITION_TIME</strong> 	ACQUISITION_TIME (data, scalar) is the Raman spectral acquisition time.
+	%  <strong>23</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
+	%  <strong>24</strong> <strong>WAVELENGTH_LABELS</strong> 	WAVELENGTH_LABELS (query, stringlist) is the labels for the wavelengths.
+	%  <strong>25</strong> <strong>INTENSITIES</strong> 	INTENSITIES (data, matrix) is the intensities of the spectra (one spectrum per column).
+	%  <strong>26</strong> <strong>NO_AQUISITIONS</strong> 	NO_AQUISITIONS (query, scalar) is the number of acquisitions.
+	%  <strong>27</strong> <strong>INTENSITY</strong> 	INTENSITY (query, cvector) is the intesity of the a spectrum.
+	%  <strong>28</strong> <strong>INTENSITY_MEAN</strong> 	INTENSITY_MEAN (query, cvector) is the average intesity of the spectra.
 	%
 	% Spectrum methods (constructor):
 	%  Spectrum - constructor
@@ -115,32 +128,97 @@ classdef Spectrum < ConcreteElement
 		CALIBRATION_CATEGORY = 4;
 		CALIBRATION_FORMAT = 4;
 		
-		WAVELENGTH = 10; %CET: Computational Efficiency Trick
+		RESEARCHER = 10; %CET: Computational Efficiency Trick
+		RESEARCHER_TAG = 'RESEARCHER';
+		RESEARCHER_CATEGORY = 4;
+		RESEARCHER_FORMAT = 5;
+		
+		DATE = 11; %CET: Computational Efficiency Trick
+		DATE_TAG = 'DATE';
+		DATE_CATEGORY = 4;
+		DATE_FORMAT = 12;
+		
+		PLANT_NAME = 12; %CET: Computational Efficiency Trick
+		PLANT_NAME_TAG = 'PLANT_NAME';
+		PLANT_NAME_CATEGORY = 4;
+		PLANT_NAME_FORMAT = 5;
+		
+		PLANT_TYPE = 13; %CET: Computational Efficiency Trick
+		PLANT_TYPE_TAG = 'PLANT_TYPE';
+		PLANT_TYPE_CATEGORY = 4;
+		PLANT_TYPE_FORMAT = 5;
+		
+		PLANT_TYPE_COMMENT = 14; %CET: Computational Efficiency Trick
+		PLANT_TYPE_COMMENT_TAG = 'PLANT_TYPE_COMMENT';
+		PLANT_TYPE_COMMENT_CATEGORY = 4;
+		PLANT_TYPE_COMMENT_FORMAT = 2;
+		
+		PLANT_AGE = 15; %CET: Computational Efficiency Trick
+		PLANT_AGE_TAG = 'PLANT_AGE';
+		PLANT_AGE_CATEGORY = 4;
+		PLANT_AGE_FORMAT = 11;
+		
+		LEAF_NUMBER = 16; %CET: Computational Efficiency Trick
+		LEAF_NUMBER_TAG = 'LEAF_NUMBER';
+		LEAF_NUMBER_CATEGORY = 4;
+		LEAF_NUMBER_FORMAT = 11;
+		
+		GROWTH_MEDIUM = 17; %CET: Computational Efficiency Trick
+		GROWTH_MEDIUM_TAG = 'GROWTH_MEDIUM';
+		GROWTH_MEDIUM_CATEGORY = 4;
+		GROWTH_MEDIUM_FORMAT = 5;
+		
+		STRESS_TYPE = 18; %CET: Computational Efficiency Trick
+		STRESS_TYPE_TAG = 'STRESS_TYPE';
+		STRESS_TYPE_CATEGORY = 4;
+		STRESS_TYPE_FORMAT = 5;
+		
+		SETUP = 19; %CET: Computational Efficiency Trick
+		SETUP_TAG = 'SETUP';
+		SETUP_CATEGORY = 4;
+		SETUP_FORMAT = 5;
+		
+		LASER_WAVELENGTH = 20; %CET: Computational Efficiency Trick
+		LASER_WAVELENGTH_TAG = 'LASER_WAVELENGTH';
+		LASER_WAVELENGTH_CATEGORY = 4;
+		LASER_WAVELENGTH_FORMAT = 5;
+		
+		LASER_POWER = 21; %CET: Computational Efficiency Trick
+		LASER_POWER_TAG = 'LASER_POWER';
+		LASER_POWER_CATEGORY = 4;
+		LASER_POWER_FORMAT = 11;
+		
+		ACQUISITION_TIME = 22; %CET: Computational Efficiency Trick
+		ACQUISITION_TIME_TAG = 'ACQUISITION_TIME';
+		ACQUISITION_TIME_CATEGORY = 4;
+		ACQUISITION_TIME_FORMAT = 11;
+		
+		WAVELENGTH = 23; %CET: Computational Efficiency Trick
 		WAVELENGTH_TAG = 'WAVELENGTH';
 		WAVELENGTH_CATEGORY = 4;
 		WAVELENGTH_FORMAT = 13;
 		
-		WAVELENGTH_LABELS = 11; %CET: Computational Efficiency Trick
+		WAVELENGTH_LABELS = 24; %CET: Computational Efficiency Trick
 		WAVELENGTH_LABELS_TAG = 'WAVELENGTH_LABELS';
 		WAVELENGTH_LABELS_CATEGORY = 6;
 		WAVELENGTH_LABELS_FORMAT = 3;
 		
-		INTENSITIES = 12; %CET: Computational Efficiency Trick
+		INTENSITIES = 25; %CET: Computational Efficiency Trick
 		INTENSITIES_TAG = 'INTENSITIES';
 		INTENSITIES_CATEGORY = 4;
 		INTENSITIES_FORMAT = 14;
 		
-		NO_AQUISITIONS = 13; %CET: Computational Efficiency Trick
+		NO_AQUISITIONS = 26; %CET: Computational Efficiency Trick
 		NO_AQUISITIONS_TAG = 'NO_AQUISITIONS';
 		NO_AQUISITIONS_CATEGORY = 6;
 		NO_AQUISITIONS_FORMAT = 11;
 		
-		INTENSITY = 14; %CET: Computational Efficiency Trick
+		INTENSITY = 27; %CET: Computational Efficiency Trick
 		INTENSITY_TAG = 'INTENSITY';
 		INTENSITY_CATEGORY = 6;
 		INTENSITY_FORMAT = 13;
 		
-		INTENSITY_MEAN = 15; %CET: Computational Efficiency Trick
+		INTENSITY_MEAN = 28; %CET: Computational Efficiency Trick
 		INTENSITY_MEAN_TAG = 'INTENSITY_MEAN';
 		INTENSITY_MEAN_CATEGORY = 6;
 		INTENSITY_MEAN_FORMAT = 13;
@@ -166,12 +244,25 @@ classdef Spectrum < ConcreteElement
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the spectrum.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>CALIBRATION</strong> 	CALIBRATION (data, logical) determines whether it is a calibration spectrum.
-			%  <strong>10</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
-			%  <strong>11</strong> <strong>WAVELENGTH_LABELS</strong> 	WAVELENGTH_LABELS (query, stringlist) is the labels for the wavelengths.
-			%  <strong>12</strong> <strong>INTENSITIES</strong> 	INTENSITIES (data, matrix) is the intensities of the spectra (one spectrum per column).
-			%  <strong>13</strong> <strong>NO_AQUISITIONS</strong> 	NO_AQUISITIONS (query, scalar) is the numebr of acquisitions.
-			%  <strong>14</strong> <strong>INTENSITY</strong> 	INTENSITY (query, cvector) is the intesity of the a spectrum.
-			%  <strong>15</strong> <strong>INTENSITY_MEAN</strong> 	INTENSITY_MEAN (query, cvector) is the average intesity of the spectra.
+			%  <strong>10</strong> <strong>RESEARCHER</strong> 	RESEARCHER (data, option) is the researcher name.
+			%  <strong>11</strong> <strong>DATE</strong> 	DATE (data, rvector) is the experiment date.
+			%  <strong>12</strong> <strong>PLANT_NAME</strong> 	PLANT_NAME (data, option) is the plant name.
+			%  <strong>13</strong> <strong>PLANT_TYPE</strong> 	PLANT_TYPE (data, option) is the plant type
+			%  <strong>14</strong> <strong>PLANT_TYPE_COMMENT</strong> 	PLANT_TYPE_COMMENT (data, string) is the mutant type (when mutant is selected).
+			%  <strong>15</strong> <strong>PLANT_AGE</strong> 	PLANT_AGE (data, scalar) is the plant age (in weeks).
+			%  <strong>16</strong> <strong>LEAF_NUMBER</strong> 	LEAF_NUMBER (data, scalar) is the leaf number.
+			%  <strong>17</strong> <strong>GROWTH_MEDIUM</strong> 	GROWTH_MEDIUM (data, option) is the growth medium.
+			%  <strong>18</strong> <strong>STRESS_TYPE</strong> 	STRESS_TYPE (data, option) is the plant stress type.
+			%  <strong>19</strong> <strong>SETUP</strong> 	SETUP (data, option) is the kind of setup employed.
+			%  <strong>20</strong> <strong>LASER_WAVELENGTH</strong> 	LASER_WAVELENGTH (data, option) is the laser wavelength.
+			%  <strong>21</strong> <strong>LASER_POWER</strong> 	LASER_POWER (data, scalar) is the laser power.
+			%  <strong>22</strong> <strong>ACQUISITION_TIME</strong> 	ACQUISITION_TIME (data, scalar) is the Raman spectral acquisition time.
+			%  <strong>23</strong> <strong>WAVELENGTH</strong> 	WAVELENGTH (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.
+			%  <strong>24</strong> <strong>WAVELENGTH_LABELS</strong> 	WAVELENGTH_LABELS (query, stringlist) is the labels for the wavelengths.
+			%  <strong>25</strong> <strong>INTENSITIES</strong> 	INTENSITIES (data, matrix) is the intensities of the spectra (one spectrum per column).
+			%  <strong>26</strong> <strong>NO_AQUISITIONS</strong> 	NO_AQUISITIONS (query, scalar) is the number of acquisitions.
+			%  <strong>27</strong> <strong>INTENSITY</strong> 	INTENSITY (query, cvector) is the intesity of the a spectrum.
+			%  <strong>28</strong> <strong>INTENSITY_MEAN</strong> 	INTENSITY_MEAN (query, cvector) is the average intesity of the spectra.
 			%
 			% See also Category, Format.
 			
@@ -233,7 +324,7 @@ classdef Spectrum < ConcreteElement
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15];
+				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28];
 				return
 			end
 			
@@ -245,9 +336,9 @@ classdef Spectrum < ConcreteElement
 				case 3 % Category.PARAMETER
 					prop_list = 4;
 				case 4 % Category.DATA
-					prop_list = [5 9 10 12];
+					prop_list = [5 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 25];
 				case 6 % Category.QUERY
-					prop_list = [8 11 13 14 15];
+					prop_list = [8 24 26 27 28];
 				otherwise
 					prop_list = [];
 			end
@@ -273,7 +364,7 @@ classdef Spectrum < ConcreteElement
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 15;
+				prop_number = 28;
 				return
 			end
 			
@@ -285,7 +376,7 @@ classdef Spectrum < ConcreteElement
 				case 3 % Category.PARAMETER
 					prop_number = 1;
 				case 4 % Category.DATA
-					prop_number = 4;
+					prop_number = 17;
 				case 6 % Category.QUERY
 					prop_number = 5;
 				otherwise
@@ -318,7 +409,7 @@ classdef Spectrum < ConcreteElement
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 15 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 28 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -356,7 +447,7 @@ classdef Spectrum < ConcreteElement
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'CALIBRATION'  'WAVELENGTH'  'WAVELENGTH_LABELS'  'INTENSITIES'  'NO_AQUISITIONS'  'INTENSITY'  'INTENSITY_MEAN' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'CALIBRATION'  'RESEARCHER'  'DATE'  'PLANT_NAME'  'PLANT_TYPE'  'PLANT_TYPE_COMMENT'  'PLANT_AGE'  'LEAF_NUMBER'  'GROWTH_MEDIUM'  'STRESS_TYPE'  'SETUP'  'LASER_WAVELENGTH'  'LASER_POWER'  'ACQUISITION_TIME'  'WAVELENGTH'  'WAVELENGTH_LABELS'  'INTENSITIES'  'NO_AQUISITIONS'  'INTENSITY'  'INTENSITY_MEAN' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -389,7 +480,7 @@ classdef Spectrum < ConcreteElement
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'CALIBRATION'  'WAVELENGTH'  'WAVELENGTH_LABELS'  'INTENSITIES'  'NO_AQUISITIONS'  'INTENSITY'  'INTENSITY_MEAN' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'CALIBRATION'  'RESEARCHER'  'DATE'  'PLANT_NAME'  'PLANT_TYPE'  'PLANT_TYPE_COMMENT'  'PLANT_AGE'  'LEAF_NUMBER'  'GROWTH_MEDIUM'  'STRESS_TYPE'  'SETUP'  'LASER_WAVELENGTH'  'LASER_POWER'  'ACQUISITION_TIME'  'WAVELENGTH'  'WAVELENGTH_LABELS'  'INTENSITIES'  'NO_AQUISITIONS'  'INTENSITY'  'INTENSITY_MEAN' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -418,7 +509,7 @@ classdef Spectrum < ConcreteElement
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				spectrum_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'CALIBRATION'  'WAVELENGTH'  'WAVELENGTH_LABELS'  'INTENSITIES'  'NO_AQUISITIONS'  'INTENSITY'  'INTENSITY_MEAN' };
+				spectrum_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'CALIBRATION'  'RESEARCHER'  'DATE'  'PLANT_NAME'  'PLANT_TYPE'  'PLANT_TYPE_COMMENT'  'PLANT_AGE'  'LEAF_NUMBER'  'GROWTH_MEDIUM'  'STRESS_TYPE'  'SETUP'  'LASER_WAVELENGTH'  'LASER_POWER'  'ACQUISITION_TIME'  'WAVELENGTH'  'WAVELENGTH_LABELS'  'INTENSITIES'  'NO_AQUISITIONS'  'INTENSITY'  'INTENSITY_MEAN' };
 				tag = spectrum_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -445,7 +536,7 @@ classdef Spectrum < ConcreteElement
 			prop = Spectrum.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			spectrum_category_list = { 1  1  1  3  4  2  2  6  4  4  6  4  6  6  6 };
+			spectrum_category_list = { 1  1  1  3  4  2  2  6  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  6  4  6  6  6 };
 			prop_category = spectrum_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -471,7 +562,7 @@ classdef Spectrum < ConcreteElement
 			prop = Spectrum.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			spectrum_format_list = { 2  2  2  8  2  2  2  2  4  13  3  14  11  13  13 };
+			spectrum_format_list = { 2  2  2  8  2  2  2  2  4  5  12  5  5  2  11  11  5  5  5  5  11  11  13  3  14  11  13  13 };
 			prop_format = spectrum_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -497,7 +588,7 @@ classdef Spectrum < ConcreteElement
 			prop = Spectrum.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			spectrum_description_list = { 'ELCLASS (constant, string) is the class of the spectrum.'  'NAME (constant, string) is the name of the spectrum.'  'DESCRIPTION (constant, string) is the description of the spectrum.'  'TEMPLATE (parameter, item) is the template of the spectrum.'  'ID (data, string) is a few-letter code for the spectrum.'  'LABEL (metadata, string) is an extended label of the spectrum.'  'NOTES (metadata, string) are some specific notes about the spectrum.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'CALIBRATION (data, logical) determines whether it is a calibration spectrum.'  'WAVELENGTH (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.'  'WAVELENGTH_LABELS (query, stringlist) is the labels for the wavelengths.'  'INTENSITIES (data, matrix) is the intensities of the spectra (one spectrum per column).'  'NO_AQUISITIONS (query, scalar) is the numebr of acquisitions.'  'INTENSITY (query, cvector) is the intesity of the a spectrum.'  'INTENSITY_MEAN (query, cvector) is the average intesity of the spectra.' };
+			spectrum_description_list = { 'ELCLASS (constant, string) is the class of the spectrum.'  'NAME (constant, string) is the name of the spectrum.'  'DESCRIPTION (constant, string) is the description of the spectrum.'  'TEMPLATE (parameter, item) is the template of the spectrum.'  'ID (data, string) is a few-letter code for the spectrum.'  'LABEL (metadata, string) is an extended label of the spectrum.'  'NOTES (metadata, string) are some specific notes about the spectrum.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'CALIBRATION (data, logical) determines whether it is a calibration spectrum.'  'RESEARCHER (data, option) is the researcher name.'  'DATE (data, rvector) is the experiment date.'  'PLANT_NAME (data, option) is the plant name.'  'PLANT_TYPE (data, option) is the plant type'  'PLANT_TYPE_COMMENT (data, string) is the mutant type (when mutant is selected).'  'PLANT_AGE (data, scalar) is the plant age (in weeks).'  'LEAF_NUMBER (data, scalar) is the leaf number.'  'GROWTH_MEDIUM (data, option) is the growth medium.'  'STRESS_TYPE (data, option) is the plant stress type.'  'SETUP (data, option) is the kind of setup employed.'  'LASER_WAVELENGTH (data, option) is the laser wavelength.'  'LASER_POWER (data, scalar) is the laser power.'  'ACQUISITION_TIME (data, scalar) is the Raman spectral acquisition time.'  'WAVELENGTH (data, cvector) is the vector of the wavelengths at which the spectrum is acquired.'  'WAVELENGTH_LABELS (query, stringlist) is the labels for the wavelengths.'  'INTENSITIES (data, matrix) is the intensities of the spectra (one spectrum per column).'  'NO_AQUISITIONS (query, scalar) is the number of acquisitions.'  'INTENSITY (query, cvector) is the intesity of the a spectrum.'  'INTENSITY_MEAN (query, cvector) is the average intesity of the spectra.' };
 			prop_description = spectrum_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -525,17 +616,43 @@ classdef Spectrum < ConcreteElement
 			switch prop %CET: Computational Efficiency Trick
 				case 9 % Spectrum.CALIBRATION
 					prop_settings = Format.getFormatSettings(4);
-				case 10 % Spectrum.WAVELENGTH
-					prop_settings = Format.getFormatSettings(13);
-				case 11 % Spectrum.WAVELENGTH_LABELS
-					prop_settings = Format.getFormatSettings(3);
-				case 12 % Spectrum.INTENSITIES
-					prop_settings = Format.getFormatSettings(14);
-				case 13 % Spectrum.NO_AQUISITIONS
+				case 10 % Spectrum.RESEARCHER
+					prop_settings = {'--', 'Alice', 'Benny', 'Chung Hao', 'Ekta', 'Gajendra', 'Ganga', 'Javier', 'Mervin', 'Michelle', 'Monika', 'Niha', 'Nivedita', 'Pil Joong', 'Praveen', 'Raju', 'Sally', 'Savita', 'Sayuj', 'Sayyid', 'Shilpi', 'Song Yi', 'Thinh', 'Yangyang', 'Zheng Yong'};
+				case 11 % Spectrum.DATE
+					prop_settings = Format.getFormatSettings(12);
+				case 12 % Spectrum.PLANT_NAME
+					prop_settings = {'--', 'Algae', 'Amaranth', 'Arabidopsis', 'Bell Pepper', 'Choy Sum', 'Lettuce', 'Kale', 'Pak Choi', 'Tobacco'};
+				case 13 % Spectrum.PLANT_TYPE
+					prop_settings = {'--', 'wild type', 'mutant', 'transgenic'};
+				case 14 % Spectrum.PLANT_TYPE_COMMENT
+					prop_settings = Format.getFormatSettings(2);
+				case 15 % Spectrum.PLANT_AGE
 					prop_settings = Format.getFormatSettings(11);
-				case 14 % Spectrum.INTENSITY
+				case 16 % Spectrum.LEAF_NUMBER
+					prop_settings = Format.getFormatSettings(11);
+				case 17 % Spectrum.GROWTH_MEDIUM
+					prop_settings = {'--', 'soil', 'hydroponics'};
+				case 18 % Spectrum.STRESS_TYPE
+					prop_settings = {'--', 'bacterial', 'drought', 'fungal', 'high light', 'mechanical damage', 'nutrient', 'salt', 'SAS', 'spraying', 'water-logged'};
+				case 19 % Spectrum.SETUP
+					prop_settings = {'--', 'Raman microscope', 'benchtop', 'portable', 'hand-held'};
+				case 20 % Spectrum.LASER_WAVELENGTH
+					prop_settings = {'--', '532 nm', '785 nm', '830 nm', '1064 nm'};
+				case 21 % Spectrum.LASER_POWER
+					prop_settings = Format.getFormatSettings(11);
+				case 22 % Spectrum.ACQUISITION_TIME
+					prop_settings = Format.getFormatSettings(11);
+				case 23 % Spectrum.WAVELENGTH
 					prop_settings = Format.getFormatSettings(13);
-				case 15 % Spectrum.INTENSITY_MEAN
+				case 24 % Spectrum.WAVELENGTH_LABELS
+					prop_settings = Format.getFormatSettings(3);
+				case 25 % Spectrum.INTENSITIES
+					prop_settings = Format.getFormatSettings(14);
+				case 26 % Spectrum.NO_AQUISITIONS
+					prop_settings = Format.getFormatSettings(11);
+				case 27 % Spectrum.INTENSITY
+					prop_settings = Format.getFormatSettings(13);
+				case 28 % Spectrum.INTENSITY_MEAN
 					prop_settings = Format.getFormatSettings(13);
 				case 4 % Spectrum.TEMPLATE
 					prop_settings = 'Spectrum';
@@ -568,22 +685,48 @@ classdef Spectrum < ConcreteElement
 			switch prop %CET: Computational Efficiency Trick
 				case 9 % Spectrum.CALIBRATION
 					prop_default = Format.getFormatDefault(4, Spectrum.getPropSettings(prop));
-				case 10 % Spectrum.WAVELENGTH
-					prop_default = Format.getFormatDefault(13, Spectrum.getPropSettings(prop));
-				case 11 % Spectrum.WAVELENGTH_LABELS
-					prop_default = Format.getFormatDefault(3, Spectrum.getPropSettings(prop));
-				case 12 % Spectrum.INTENSITIES
-					prop_default = Format.getFormatDefault(14, Spectrum.getPropSettings(prop));
-				case 13 % Spectrum.NO_AQUISITIONS
+				case 10 % Spectrum.RESEARCHER
+					prop_default = Format.getFormatDefault(5, Spectrum.getPropSettings(prop));
+				case 11 % Spectrum.DATE
+					prop_default = [2000 1 1];
+				case 12 % Spectrum.PLANT_NAME
+					prop_default = Format.getFormatDefault(5, Spectrum.getPropSettings(prop));
+				case 13 % Spectrum.PLANT_TYPE
+					prop_default = Format.getFormatDefault(5, Spectrum.getPropSettings(prop));
+				case 14 % Spectrum.PLANT_TYPE_COMMENT
+					prop_default = Format.getFormatDefault(2, Spectrum.getPropSettings(prop));
+				case 15 % Spectrum.PLANT_AGE
 					prop_default = Format.getFormatDefault(11, Spectrum.getPropSettings(prop));
-				case 14 % Spectrum.INTENSITY
+				case 16 % Spectrum.LEAF_NUMBER
+					prop_default = Format.getFormatDefault(11, Spectrum.getPropSettings(prop));
+				case 17 % Spectrum.GROWTH_MEDIUM
+					prop_default = Format.getFormatDefault(5, Spectrum.getPropSettings(prop));
+				case 18 % Spectrum.STRESS_TYPE
+					prop_default = Format.getFormatDefault(5, Spectrum.getPropSettings(prop));
+				case 19 % Spectrum.SETUP
+					prop_default = Format.getFormatDefault(5, Spectrum.getPropSettings(prop));
+				case 20 % Spectrum.LASER_WAVELENGTH
+					prop_default = Format.getFormatDefault(5, Spectrum.getPropSettings(prop));
+				case 21 % Spectrum.LASER_POWER
+					prop_default = Format.getFormatDefault(11, Spectrum.getPropSettings(prop));
+				case 22 % Spectrum.ACQUISITION_TIME
+					prop_default = Format.getFormatDefault(11, Spectrum.getPropSettings(prop));
+				case 23 % Spectrum.WAVELENGTH
 					prop_default = Format.getFormatDefault(13, Spectrum.getPropSettings(prop));
-				case 15 % Spectrum.INTENSITY_MEAN
+				case 24 % Spectrum.WAVELENGTH_LABELS
+					prop_default = Format.getFormatDefault(3, Spectrum.getPropSettings(prop));
+				case 25 % Spectrum.INTENSITIES
+					prop_default = Format.getFormatDefault(14, Spectrum.getPropSettings(prop));
+				case 26 % Spectrum.NO_AQUISITIONS
+					prop_default = Format.getFormatDefault(11, Spectrum.getPropSettings(prop));
+				case 27 % Spectrum.INTENSITY
+					prop_default = Format.getFormatDefault(13, Spectrum.getPropSettings(prop));
+				case 28 % Spectrum.INTENSITY_MEAN
 					prop_default = Format.getFormatDefault(13, Spectrum.getPropSettings(prop));
 				case 1 % Spectrum.ELCLASS
 					prop_default = 'Spectrum';
 				case 2 % Spectrum.NAME
-					prop_default = 'spectrum';
+					prop_default = 'Spectrum';
 				case 3 % Spectrum.DESCRIPTION
 					prop_default = 'Spectrum contains an acquired spectrum including its wavelength and intensity.';
 				case 4 % Spectrum.TEMPLATE
@@ -660,17 +803,43 @@ classdef Spectrum < ConcreteElement
 			switch prop
 				case 9 % Spectrum.CALIBRATION
 					check = Format.checkFormat(4, value, Spectrum.getPropSettings(prop));
-				case 10 % Spectrum.WAVELENGTH
-					check = Format.checkFormat(13, value, Spectrum.getPropSettings(prop));
-				case 11 % Spectrum.WAVELENGTH_LABELS
-					check = Format.checkFormat(3, value, Spectrum.getPropSettings(prop));
-				case 12 % Spectrum.INTENSITIES
-					check = Format.checkFormat(14, value, Spectrum.getPropSettings(prop));
-				case 13 % Spectrum.NO_AQUISITIONS
+				case 10 % Spectrum.RESEARCHER
+					check = Format.checkFormat(5, value, Spectrum.getPropSettings(prop));
+				case 11 % Spectrum.DATE
+					check = Format.checkFormat(12, value, Spectrum.getPropSettings(prop));
+				case 12 % Spectrum.PLANT_NAME
+					check = Format.checkFormat(5, value, Spectrum.getPropSettings(prop));
+				case 13 % Spectrum.PLANT_TYPE
+					check = Format.checkFormat(5, value, Spectrum.getPropSettings(prop));
+				case 14 % Spectrum.PLANT_TYPE_COMMENT
+					check = Format.checkFormat(2, value, Spectrum.getPropSettings(prop));
+				case 15 % Spectrum.PLANT_AGE
 					check = Format.checkFormat(11, value, Spectrum.getPropSettings(prop));
-				case 14 % Spectrum.INTENSITY
+				case 16 % Spectrum.LEAF_NUMBER
+					check = Format.checkFormat(11, value, Spectrum.getPropSettings(prop));
+				case 17 % Spectrum.GROWTH_MEDIUM
+					check = Format.checkFormat(5, value, Spectrum.getPropSettings(prop));
+				case 18 % Spectrum.STRESS_TYPE
+					check = Format.checkFormat(5, value, Spectrum.getPropSettings(prop));
+				case 19 % Spectrum.SETUP
+					check = Format.checkFormat(5, value, Spectrum.getPropSettings(prop));
+				case 20 % Spectrum.LASER_WAVELENGTH
+					check = Format.checkFormat(5, value, Spectrum.getPropSettings(prop));
+				case 21 % Spectrum.LASER_POWER
+					check = Format.checkFormat(11, value, Spectrum.getPropSettings(prop));
+				case 22 % Spectrum.ACQUISITION_TIME
+					check = Format.checkFormat(11, value, Spectrum.getPropSettings(prop));
+				case 23 % Spectrum.WAVELENGTH
 					check = Format.checkFormat(13, value, Spectrum.getPropSettings(prop));
-				case 15 % Spectrum.INTENSITY_MEAN
+				case 24 % Spectrum.WAVELENGTH_LABELS
+					check = Format.checkFormat(3, value, Spectrum.getPropSettings(prop));
+				case 25 % Spectrum.INTENSITIES
+					check = Format.checkFormat(14, value, Spectrum.getPropSettings(prop));
+				case 26 % Spectrum.NO_AQUISITIONS
+					check = Format.checkFormat(11, value, Spectrum.getPropSettings(prop));
+				case 27 % Spectrum.INTENSITY
+					check = Format.checkFormat(13, value, Spectrum.getPropSettings(prop));
+				case 28 % Spectrum.INTENSITY_MEAN
 					check = Format.checkFormat(13, value, Spectrum.getPropSettings(prop));
 				case 4 % Spectrum.TEMPLATE
 					check = Format.checkFormat(8, value, Spectrum.getPropSettings(prop));
@@ -708,13 +877,13 @@ classdef Spectrum < ConcreteElement
 			%  postset, postprocessing, checkValue.
 			
 			switch prop
-				case 11 % Spectrum.WAVELENGTH_LABELS
+				case 24 % Spectrum.WAVELENGTH_LABELS
 					value = arrayfun(@(wavelength) [num2str(wavelength) ' cm-1'], sp.get('WAVELENGTH')', 'UniformOutput', false);
 					
-				case 13 % Spectrum.NO_AQUISITIONS
+				case 26 % Spectrum.NO_AQUISITIONS
 					value = size(sp.get('INTENSITIES'), 2);
 					
-				case 14 % Spectrum.INTENSITY
+				case 27 % Spectrum.INTENSITY
 					% INTENSITY = sp.get('INTENSITY', N) returns the intenities of the N-th spectrum.
 					if isempty(varargin)
 					    value = [];
@@ -724,7 +893,7 @@ classdef Spectrum < ConcreteElement
 					intensities = sp.get('INTENSITIES');
 					value = intensities(:, n);
 					
-				case 15 % Spectrum.INTENSITY_MEAN
+				case 28 % Spectrum.INTENSITY_MEAN
 					value = mean(sp.get('INTENSITIES'), 2);
 					
 				otherwise
@@ -754,9 +923,15 @@ classdef Spectrum < ConcreteElement
 			%  PanelPropString, PanelPropStringList.
 			
 			switch prop
-				case 12 % Spectrum.INTENSITIES
-					pr = PanelPropMatrix('EL', sp, 'PROP', 12, ...
+				case 11 % Spectrum.DATE
+					pr = PanelPropRVectorDate('EL', sp, 'PROP', 11);
+					
+				case 25 % Spectrum.INTENSITIES
+					pr = PanelPropMatrix('EL', sp, 'PROP', 25, ...
 					    'ROWNAME', sp.getCallback('WAVELENGTH_LABELS'));
+					
+				case 3 % Spectrum.DESCRIPTION
+					pr = PanelPropStringTextArea('EL', sp, 'PROP', sp.DESCRIPTION, varargin{:});
 					
 				case 5 % Spectrum.ID
 					pr = DistapPP_ID('EL', sp, 'PROP', 5);

@@ -14,19 +14,6 @@ classdef RamanExperiment < ConcreteElement
 	%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the Raman spectroscopy experiment.
 	%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 	%  <strong>9</strong> <strong>SP_DICT</strong> 	SP_DICT (data, idict) contains the aquired Raman spectra.
-	%  <strong>10</strong> <strong>RESEARCHER</strong> 	RESEARCHER (data, option) is the researcher name.
-	%  <strong>11</strong> <strong>DATE</strong> 	DATE (data, rvector) is the experiment date.
-	%  <strong>12</strong> <strong>PLANT_NAME</strong> 	PLANT_NAME (data, option) is the plant name.
-	%  <strong>13</strong> <strong>PLANT_TYPE</strong> 	PLANT_TYPE (data, option) is the plant type
-	%  <strong>14</strong> <strong>PLANT_TYPE_COMMENT</strong> 	PLANT_TYPE_COMMENT (data, string) is the mutant type (when mutant is selected).
-	%  <strong>15</strong> <strong>PLANT_AGE</strong> 	PLANT_AGE (data, scalar) is the plant age (in weeks).
-	%  <strong>16</strong> <strong>LEAF_NUMBER</strong> 	LEAF_NUMBER (data, scalar) is the leaf number.
-	%  <strong>17</strong> <strong>GROWTH_MEDIUM</strong> 	GROWTH_MEDIUM (data, option) is the growth medium.
-	%  <strong>18</strong> <strong>STRESS_TYPE</strong> 	STRESS_TYPE (data, option) is the lant stress type.
-	%  <strong>19</strong> <strong>SETUP</strong> 	SETUP (data, option) is the kind of setup employed.
-	%  <strong>20</strong> <strong>LASER_WAVELENGTH</strong> 	LASER_WAVELENGTH (data, option) is the laser wavelength.
-	%  <strong>21</strong> <strong>LASER_POWER</strong> 	LASER_POWER (data, scalar) is the laser power.
-	%  <strong>22</strong> <strong>ACQUISITION_TIME</strong> 	ACQUISITION_TIME (data, scalar) is the Raman spectral acquisition time.
 	%
 	% RamanExperiment methods (constructor):
 	%  RamanExperiment - constructor
@@ -119,71 +106,6 @@ classdef RamanExperiment < ConcreteElement
 		SP_DICT_TAG = 'SP_DICT';
 		SP_DICT_CATEGORY = 4;
 		SP_DICT_FORMAT = 10;
-		
-		RESEARCHER = 10; %CET: Computational Efficiency Trick
-		RESEARCHER_TAG = 'RESEARCHER';
-		RESEARCHER_CATEGORY = 4;
-		RESEARCHER_FORMAT = 5;
-		
-		DATE = 11; %CET: Computational Efficiency Trick
-		DATE_TAG = 'DATE';
-		DATE_CATEGORY = 4;
-		DATE_FORMAT = 12;
-		
-		PLANT_NAME = 12; %CET: Computational Efficiency Trick
-		PLANT_NAME_TAG = 'PLANT_NAME';
-		PLANT_NAME_CATEGORY = 4;
-		PLANT_NAME_FORMAT = 5;
-		
-		PLANT_TYPE = 13; %CET: Computational Efficiency Trick
-		PLANT_TYPE_TAG = 'PLANT_TYPE';
-		PLANT_TYPE_CATEGORY = 4;
-		PLANT_TYPE_FORMAT = 5;
-		
-		PLANT_TYPE_COMMENT = 14; %CET: Computational Efficiency Trick
-		PLANT_TYPE_COMMENT_TAG = 'PLANT_TYPE_COMMENT';
-		PLANT_TYPE_COMMENT_CATEGORY = 4;
-		PLANT_TYPE_COMMENT_FORMAT = 2;
-		
-		PLANT_AGE = 15; %CET: Computational Efficiency Trick
-		PLANT_AGE_TAG = 'PLANT_AGE';
-		PLANT_AGE_CATEGORY = 4;
-		PLANT_AGE_FORMAT = 11;
-		
-		LEAF_NUMBER = 16; %CET: Computational Efficiency Trick
-		LEAF_NUMBER_TAG = 'LEAF_NUMBER';
-		LEAF_NUMBER_CATEGORY = 4;
-		LEAF_NUMBER_FORMAT = 11;
-		
-		GROWTH_MEDIUM = 17; %CET: Computational Efficiency Trick
-		GROWTH_MEDIUM_TAG = 'GROWTH_MEDIUM';
-		GROWTH_MEDIUM_CATEGORY = 4;
-		GROWTH_MEDIUM_FORMAT = 5;
-		
-		STRESS_TYPE = 18; %CET: Computational Efficiency Trick
-		STRESS_TYPE_TAG = 'STRESS_TYPE';
-		STRESS_TYPE_CATEGORY = 4;
-		STRESS_TYPE_FORMAT = 5;
-		
-		SETUP = 19; %CET: Computational Efficiency Trick
-		SETUP_TAG = 'SETUP';
-		SETUP_CATEGORY = 4;
-		SETUP_FORMAT = 5;
-		
-		LASER_WAVELENGTH = 20; %CET: Computational Efficiency Trick
-		LASER_WAVELENGTH_TAG = 'LASER_WAVELENGTH';
-		LASER_WAVELENGTH_CATEGORY = 4;
-		LASER_WAVELENGTH_FORMAT = 5;
-		
-		LASER_POWER = 21; %CET: Computational Efficiency Trick
-		LASER_POWER_TAG = 'LASER_POWER';
-		LASER_POWER_CATEGORY = 4;
-		LASER_POWER_FORMAT = 11;
-		
-		ACQUISITION_TIME = 22; %CET: Computational Efficiency Trick
-		ACQUISITION_TIME_TAG = 'ACQUISITION_TIME';
-		ACQUISITION_TIME_CATEGORY = 4;
-		ACQUISITION_TIME_FORMAT = 11;
 	end
 	methods % constructor
 		function re = RamanExperiment(varargin)
@@ -206,19 +128,6 @@ classdef RamanExperiment < ConcreteElement
 			%  <strong>7</strong> <strong>NOTES</strong> 	NOTES (metadata, string) are some specific notes about the Raman spectroscopy experiment.
 			%  <strong>8</strong> <strong>TOSTRING</strong> 	TOSTRING (query, string) returns a string that represents the concrete element.
 			%  <strong>9</strong> <strong>SP_DICT</strong> 	SP_DICT (data, idict) contains the aquired Raman spectra.
-			%  <strong>10</strong> <strong>RESEARCHER</strong> 	RESEARCHER (data, option) is the researcher name.
-			%  <strong>11</strong> <strong>DATE</strong> 	DATE (data, rvector) is the experiment date.
-			%  <strong>12</strong> <strong>PLANT_NAME</strong> 	PLANT_NAME (data, option) is the plant name.
-			%  <strong>13</strong> <strong>PLANT_TYPE</strong> 	PLANT_TYPE (data, option) is the plant type
-			%  <strong>14</strong> <strong>PLANT_TYPE_COMMENT</strong> 	PLANT_TYPE_COMMENT (data, string) is the mutant type (when mutant is selected).
-			%  <strong>15</strong> <strong>PLANT_AGE</strong> 	PLANT_AGE (data, scalar) is the plant age (in weeks).
-			%  <strong>16</strong> <strong>LEAF_NUMBER</strong> 	LEAF_NUMBER (data, scalar) is the leaf number.
-			%  <strong>17</strong> <strong>GROWTH_MEDIUM</strong> 	GROWTH_MEDIUM (data, option) is the growth medium.
-			%  <strong>18</strong> <strong>STRESS_TYPE</strong> 	STRESS_TYPE (data, option) is the lant stress type.
-			%  <strong>19</strong> <strong>SETUP</strong> 	SETUP (data, option) is the kind of setup employed.
-			%  <strong>20</strong> <strong>LASER_WAVELENGTH</strong> 	LASER_WAVELENGTH (data, option) is the laser wavelength.
-			%  <strong>21</strong> <strong>LASER_POWER</strong> 	LASER_POWER (data, scalar) is the laser power.
-			%  <strong>22</strong> <strong>ACQUISITION_TIME</strong> 	ACQUISITION_TIME (data, scalar) is the Raman spectral acquisition time.
 			%
 			% See also Category, Format.
 			
@@ -280,7 +189,7 @@ classdef RamanExperiment < ConcreteElement
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_list = [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22];
+				prop_list = [1 2 3 4 5 6 7 8 9];
 				return
 			end
 			
@@ -292,7 +201,7 @@ classdef RamanExperiment < ConcreteElement
 				case 3 % Category.PARAMETER
 					prop_list = 4;
 				case 4 % Category.DATA
-					prop_list = [5 9 10 11 12 13 14 15 16 17 18 19 20 21 22];
+					prop_list = [5 9];
 				case 6 % Category.QUERY
 					prop_list = 8;
 				otherwise
@@ -320,7 +229,7 @@ classdef RamanExperiment < ConcreteElement
 			%CET: Computational Efficiency Trick
 			
 			if nargin == 0
-				prop_number = 22;
+				prop_number = 9;
 				return
 			end
 			
@@ -332,7 +241,7 @@ classdef RamanExperiment < ConcreteElement
 				case 3 % Category.PARAMETER
 					prop_number = 1;
 				case 4 % Category.DATA
-					prop_number = 15;
+					prop_number = 2;
 				case 6 % Category.QUERY
 					prop_number = 1;
 				otherwise
@@ -365,7 +274,7 @@ classdef RamanExperiment < ConcreteElement
 			%
 			% See also getProps, existsTag.
 			
-			check = prop >= 1 && prop <= 22 && round(prop) == prop; %CET: Computational Efficiency Trick
+			check = prop >= 1 && prop <= 9 && round(prop) == prop; %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -403,7 +312,7 @@ classdef RamanExperiment < ConcreteElement
 			%
 			% See also getProps, existsTag.
 			
-			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT'  'RESEARCHER'  'DATE'  'PLANT_NAME'  'PLANT_TYPE'  'PLANT_TYPE_COMMENT'  'PLANT_AGE'  'LEAF_NUMBER'  'GROWTH_MEDIUM'  'STRESS_TYPE'  'SETUP'  'LASER_WAVELENGTH'  'LASER_POWER'  'ACQUISITION_TIME' })); %CET: Computational Efficiency Trick
+			check = any(strcmp(tag, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT' })); %CET: Computational Efficiency Trick
 			
 			if nargout == 1
 				check_out = check;
@@ -436,7 +345,7 @@ classdef RamanExperiment < ConcreteElement
 			%  getPropSettings, getPropDefault, checkProp.
 			
 			if ischar(pointer)
-				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT'  'RESEARCHER'  'DATE'  'PLANT_NAME'  'PLANT_TYPE'  'PLANT_TYPE_COMMENT'  'PLANT_AGE'  'LEAF_NUMBER'  'GROWTH_MEDIUM'  'STRESS_TYPE'  'SETUP'  'LASER_WAVELENGTH'  'LASER_POWER'  'ACQUISITION_TIME' })); % tag = pointer %CET: Computational Efficiency Trick
+				prop = find(strcmp(pointer, { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT' })); % tag = pointer %CET: Computational Efficiency Trick
 			else % numeric
 				prop = pointer;
 			end
@@ -465,7 +374,7 @@ classdef RamanExperiment < ConcreteElement
 				tag = pointer;
 			else % numeric
 				%CET: Computational Efficiency Trick
-				ramanexperiment_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT'  'RESEARCHER'  'DATE'  'PLANT_NAME'  'PLANT_TYPE'  'PLANT_TYPE_COMMENT'  'PLANT_AGE'  'LEAF_NUMBER'  'GROWTH_MEDIUM'  'STRESS_TYPE'  'SETUP'  'LASER_WAVELENGTH'  'LASER_POWER'  'ACQUISITION_TIME' };
+				ramanexperiment_tag_list = { 'ELCLASS'  'NAME'  'DESCRIPTION'  'TEMPLATE'  'ID'  'LABEL'  'NOTES'  'TOSTRING'  'SP_DICT' };
 				tag = ramanexperiment_tag_list{pointer}; % prop = pointer
 			end
 		end
@@ -492,7 +401,7 @@ classdef RamanExperiment < ConcreteElement
 			prop = RamanExperiment.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			ramanexperiment_category_list = { 1  1  1  3  4  2  2  6  4  4  4  4  4  4  4  4  4  4  4  4  4  4 };
+			ramanexperiment_category_list = { 1  1  1  3  4  2  2  6  4 };
 			prop_category = ramanexperiment_category_list{prop};
 		end
 		function prop_format = getPropFormat(pointer)
@@ -518,7 +427,7 @@ classdef RamanExperiment < ConcreteElement
 			prop = RamanExperiment.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			ramanexperiment_format_list = { 2  2  2  8  2  2  2  2  10  5  12  5  5  2  11  11  5  5  5  5  11  11 };
+			ramanexperiment_format_list = { 2  2  2  8  2  2  2  2  10 };
 			prop_format = ramanexperiment_format_list{prop};
 		end
 		function prop_description = getPropDescription(pointer)
@@ -544,7 +453,7 @@ classdef RamanExperiment < ConcreteElement
 			prop = RamanExperiment.getPropProp(pointer);
 			
 			%CET: Computational Efficiency Trick
-			ramanexperiment_description_list = { 'ELCLASS (constant, string) is the class of the Raman spectroscopy experiment.'  'NAME (constant, string) is the name of the Raman spectroscopy experiment.'  'DESCRIPTION (constant, string) is the description of the Raman spectroscopy experiment.'  'TEMPLATE (parameter, item) is the template of the Raman spectroscopy experiment.'  'ID (data, string) is a few-letter code for the Raman spectroscopy experiment.'  'LABEL (metadata, string) is an extended label of the Raman spectroscopy experiment.'  'NOTES (metadata, string) are some specific notes about the Raman spectroscopy experiment.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'SP_DICT (data, idict) contains the aquired Raman spectra.'  'RESEARCHER (data, option) is the researcher name.'  'DATE (data, rvector) is the experiment date.'  'PLANT_NAME (data, option) is the plant name.'  'PLANT_TYPE (data, option) is the plant type'  'PLANT_TYPE_COMMENT (data, string) is the mutant type (when mutant is selected).'  'PLANT_AGE (data, scalar) is the plant age (in weeks).'  'LEAF_NUMBER (data, scalar) is the leaf number.'  'GROWTH_MEDIUM (data, option) is the growth medium.'  'STRESS_TYPE (data, option) is the lant stress type.'  'SETUP (data, option) is the kind of setup employed.'  'LASER_WAVELENGTH (data, option) is the laser wavelength.'  'LASER_POWER (data, scalar) is the laser power.'  'ACQUISITION_TIME (data, scalar) is the Raman spectral acquisition time.' };
+			ramanexperiment_description_list = { 'ELCLASS (constant, string) is the class of the Raman spectroscopy experiment.'  'NAME (constant, string) is the name of the Raman spectroscopy experiment.'  'DESCRIPTION (constant, string) is the description of the Raman spectroscopy experiment.'  'TEMPLATE (parameter, item) is the template of the Raman spectroscopy experiment.'  'ID (data, string) is a few-letter code for the Raman spectroscopy experiment.'  'LABEL (metadata, string) is an extended label of the Raman spectroscopy experiment.'  'NOTES (metadata, string) are some specific notes about the Raman spectroscopy experiment.'  'TOSTRING (query, string) returns a string that represents the concrete element.'  'SP_DICT (data, idict) contains the aquired Raman spectra.' };
 			prop_description = ramanexperiment_description_list{prop};
 		end
 		function prop_settings = getPropSettings(pointer)
@@ -572,32 +481,6 @@ classdef RamanExperiment < ConcreteElement
 			switch prop %CET: Computational Efficiency Trick
 				case 9 % RamanExperiment.SP_DICT
 					prop_settings = 'Spectrum';
-				case 10 % RamanExperiment.RESEARCHER
-					prop_settings = {'--', 'Alice', 'Benny', 'Chung Hao', 'Ekta', 'Gajendra', 'Ganga', 'Javier', 'Mervin', 'Michelle', 'Monika', 'Niha', 'Nivedita', 'Pil Joong', 'Praveen', 'Raju', 'Sally', 'Savita', 'Sayuj', 'Sayyid', 'Shilpi', 'Song Yi', 'Thinh', 'Yangyang', 'Zheng Yong'};
-				case 11 % RamanExperiment.DATE
-					prop_settings = Format.getFormatSettings(12);
-				case 12 % RamanExperiment.PLANT_NAME
-					prop_settings = {'--', 'Algae', 'Amaranth', 'Arabidopsis', 'Bell Pepper', 'Choy Sum', 'Lettuce', 'Kale', 'Pak Choi', 'Tobacco'};
-				case 13 % RamanExperiment.PLANT_TYPE
-					prop_settings = {'--', 'wild type', 'mutant', 'transgenic'};
-				case 14 % RamanExperiment.PLANT_TYPE_COMMENT
-					prop_settings = Format.getFormatSettings(2);
-				case 15 % RamanExperiment.PLANT_AGE
-					prop_settings = Format.getFormatSettings(11);
-				case 16 % RamanExperiment.LEAF_NUMBER
-					prop_settings = Format.getFormatSettings(11);
-				case 17 % RamanExperiment.GROWTH_MEDIUM
-					prop_settings = {'--', 'soil', 'hydroponics'};
-				case 18 % RamanExperiment.STRESS_TYPE
-					prop_settings = {'--', 'bacterial', 'drought', 'fungal', 'high light', 'mechanical damage', 'nutrient', 'salt', 'SAS', 'spraying', 'water-logged'};
-				case 19 % RamanExperiment.SETUP
-					prop_settings = {'--', 'Raman microscope', 'benchtop', 'portable', 'hand-held'};
-				case 20 % RamanExperiment.LASER_WAVELENGTH
-					prop_settings = {'--', '532 nm', '785 nm', '830 nm', '1064 nm'};
-				case 21 % RamanExperiment.LASER_POWER
-					prop_settings = Format.getFormatSettings(11);
-				case 22 % RamanExperiment.ACQUISITION_TIME
-					prop_settings = Format.getFormatSettings(11);
 				case 4 % RamanExperiment.TEMPLATE
 					prop_settings = 'RamanExperiment';
 				otherwise
@@ -629,32 +512,6 @@ classdef RamanExperiment < ConcreteElement
 			switch prop %CET: Computational Efficiency Trick
 				case 9 % RamanExperiment.SP_DICT
 					prop_default = Format.getFormatDefault(10, RamanExperiment.getPropSettings(prop));
-				case 10 % RamanExperiment.RESEARCHER
-					prop_default = Format.getFormatDefault(5, RamanExperiment.getPropSettings(prop));
-				case 11 % RamanExperiment.DATE
-					prop_default = [2000 1 1];
-				case 12 % RamanExperiment.PLANT_NAME
-					prop_default = Format.getFormatDefault(5, RamanExperiment.getPropSettings(prop));
-				case 13 % RamanExperiment.PLANT_TYPE
-					prop_default = Format.getFormatDefault(5, RamanExperiment.getPropSettings(prop));
-				case 14 % RamanExperiment.PLANT_TYPE_COMMENT
-					prop_default = Format.getFormatDefault(2, RamanExperiment.getPropSettings(prop));
-				case 15 % RamanExperiment.PLANT_AGE
-					prop_default = Format.getFormatDefault(11, RamanExperiment.getPropSettings(prop));
-				case 16 % RamanExperiment.LEAF_NUMBER
-					prop_default = Format.getFormatDefault(11, RamanExperiment.getPropSettings(prop));
-				case 17 % RamanExperiment.GROWTH_MEDIUM
-					prop_default = Format.getFormatDefault(5, RamanExperiment.getPropSettings(prop));
-				case 18 % RamanExperiment.STRESS_TYPE
-					prop_default = Format.getFormatDefault(5, RamanExperiment.getPropSettings(prop));
-				case 19 % RamanExperiment.SETUP
-					prop_default = Format.getFormatDefault(5, RamanExperiment.getPropSettings(prop));
-				case 20 % RamanExperiment.LASER_WAVELENGTH
-					prop_default = Format.getFormatDefault(5, RamanExperiment.getPropSettings(prop));
-				case 21 % RamanExperiment.LASER_POWER
-					prop_default = Format.getFormatDefault(11, RamanExperiment.getPropSettings(prop));
-				case 22 % RamanExperiment.ACQUISITION_TIME
-					prop_default = Format.getFormatDefault(11, RamanExperiment.getPropSettings(prop));
 				case 1 % RamanExperiment.ELCLASS
 					prop_default = 'RamanExperiment';
 				case 2 % RamanExperiment.NAME
@@ -735,32 +592,6 @@ classdef RamanExperiment < ConcreteElement
 			switch prop
 				case 9 % RamanExperiment.SP_DICT
 					check = Format.checkFormat(10, value, RamanExperiment.getPropSettings(prop));
-				case 10 % RamanExperiment.RESEARCHER
-					check = Format.checkFormat(5, value, RamanExperiment.getPropSettings(prop));
-				case 11 % RamanExperiment.DATE
-					check = Format.checkFormat(12, value, RamanExperiment.getPropSettings(prop));
-				case 12 % RamanExperiment.PLANT_NAME
-					check = Format.checkFormat(5, value, RamanExperiment.getPropSettings(prop));
-				case 13 % RamanExperiment.PLANT_TYPE
-					check = Format.checkFormat(5, value, RamanExperiment.getPropSettings(prop));
-				case 14 % RamanExperiment.PLANT_TYPE_COMMENT
-					check = Format.checkFormat(2, value, RamanExperiment.getPropSettings(prop));
-				case 15 % RamanExperiment.PLANT_AGE
-					check = Format.checkFormat(11, value, RamanExperiment.getPropSettings(prop));
-				case 16 % RamanExperiment.LEAF_NUMBER
-					check = Format.checkFormat(11, value, RamanExperiment.getPropSettings(prop));
-				case 17 % RamanExperiment.GROWTH_MEDIUM
-					check = Format.checkFormat(5, value, RamanExperiment.getPropSettings(prop));
-				case 18 % RamanExperiment.STRESS_TYPE
-					check = Format.checkFormat(5, value, RamanExperiment.getPropSettings(prop));
-				case 19 % RamanExperiment.SETUP
-					check = Format.checkFormat(5, value, RamanExperiment.getPropSettings(prop));
-				case 20 % RamanExperiment.LASER_WAVELENGTH
-					check = Format.checkFormat(5, value, RamanExperiment.getPropSettings(prop));
-				case 21 % RamanExperiment.LASER_POWER
-					check = Format.checkFormat(11, value, RamanExperiment.getPropSettings(prop));
-				case 22 % RamanExperiment.ACQUISITION_TIME
-					check = Format.checkFormat(11, value, RamanExperiment.getPropSettings(prop));
 				case 4 % RamanExperiment.TEMPLATE
 					check = Format.checkFormat(8, value, RamanExperiment.getPropSettings(prop));
 				otherwise
@@ -799,13 +630,12 @@ classdef RamanExperiment < ConcreteElement
 			switch prop
 				case 9 % RamanExperiment.SP_DICT
 					pr = PanelPropIDictTable('EL', re, 'PROP', 9, ... 
-					    'COLS', [-1 9 5 6 10 12 7], ... 
+					    'COLS', [-1 9 5 6 23 25 ...
+					    10 12 13 14 15 16 17 18 19 ...
+					    7], ... 
 					    'ROWNAME', 'numbered', ...
 					    'MENU_OPEN_ITEMS', true, ...
 						varargin{:});
-					
-				case 11 % RamanExperiment.DATE
-					pr = PanelPropRVectorDate('EL', re, 'PROP', 11);
 					
 				case 5 % RamanExperiment.ID
 					pr = DistapPP_ID('EL', re, 'PROP', 5);
