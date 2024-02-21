@@ -704,13 +704,13 @@ classdef BaselineRemover < REAnalysisModule
 					be = BaselineEstimator('RE_IN', br.get('RE_IN'));
 					
 					% Read RE_OUT of BaselineEstimator
-					re_out = be.get('RE_OUT')
+					re_out = be.get('RE_OUT');
 					
 					% Set the re_out to RE_BASELINES
 					value = re_out;
 					
 					% Set re_out to RE and memorize baselines for GUI output of BaselineRemover
-					br.memorize('BAPF').set('RE', re_out)
+					br.memorize('BAPF').set('RE', re_out);
 					
 					rng(rng_settings_)
 					
@@ -730,7 +730,7 @@ classdef BaselineRemover < REAnalysisModule
 					    sp_in = br.get('RE_IN').get('SP_DICT').get('IT', n);
 					
 					    smooth_intensities = sp_in.get('INTENSITIES');
-					    baselines = br.get('RE_BASELINES').get('SP_DICT').get('IT', n).get('INTENSITIES')
+					    baselines = br.get('RE_BASELINES').get('SP_DICT').get('IT', n).get('INTENSITIES');
 					    baselined_intensities = smooth_intensities - baselines;
 					
 					    sp_out = Spectrum( ...
@@ -738,7 +738,7 @@ classdef BaselineRemover < REAnalysisModule
 					         'WAVELENGTH', br.get('RE_IN').get('SP_DICT').get('IT', n).get('WAVELENGTH'), ...
 					         'ID', br.get('RE_IN').get('SP_DICT').get('IT', n).get('ID'), ...
 					         'LABEL', br.get('RE_IN').get('SP_DICT').get('IT', n).get('LABEL'), ...
-					         'NOTES', br.get('RE_IN').get('SP_DICT').get('IT', n).get('NOTES'))
+					         'NOTES', br.get('RE_IN').get('SP_DICT').get('IT', n).get('NOTES'));
 					
 					    sp_dict_out.get('ADD', sp_out);
 					end 
@@ -779,11 +779,11 @@ classdef BaselineRemover < REAnalysisModule
 					    'WAITBAR', true, ...
 					    'GUICLASS', 'GUIFig', ...
 					    'BUTTON_TEXT', 'Plot estimated baselines', ...
-					    varargin{:});%% ¡prop!
+					    varargin{:});
 					
 					
-					%Parameters for Lieberfit function for baseine estimation:
-					%LFIT_POLYORDER & LFIT_ITER
+					% Parameters for Lieberfit function for baseine estimation:
+					% LFIT_POLYORDER & LFIT_ITER
 					
 				case 3 % BaselineRemover.DESCRIPTION
 					pr = PanelPropStringTextArea('EL', br, 'PROP', br.DESCRIPTION, varargin{:});

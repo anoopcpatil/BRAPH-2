@@ -48,7 +48,6 @@ NOTES (metadata, string) are some specific notes about Baseline Estimator.
 %%%% ¡default!
 'BaselineEstimator notes'
 
-
 %%% ¡prop!
 SP_OUT (result, item) is the baseline for SP_DICT_OUT and RE_OUT of Baseline Estimator.
 %%%% ¡settings!

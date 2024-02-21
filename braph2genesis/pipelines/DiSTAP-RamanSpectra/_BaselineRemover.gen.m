@@ -51,8 +51,6 @@ NOTES (metadata, string) are some specific notes about Baseline Remover.
 %%%% ¡default!
 'BaselineRemover notes'
 
-
-
 %%% ¡prop!
 SP_DICT_OUT (result, idict) is the processed dictionary SP_DICT of RE_IN for RE_OUT. 
 %%%% ¡calculate!
@@ -69,7 +67,7 @@ for n = 1:1:dict_length
     sp_in = br.get('RE_IN').get('SP_DICT').get('IT', n);
 
     smooth_intensities = sp_in.get('INTENSITIES');
-    baselines = br.get('RE_BASELINES').get('SP_DICT').get('IT', n).get('INTENSITIES')
+    baselines = br.get('RE_BASELINES').get('SP_DICT').get('IT', n).get('INTENSITIES');
     baselined_intensities = smooth_intensities - baselines;
 
     sp_out = Spectrum( ...
@@ -77,14 +75,12 @@ for n = 1:1:dict_length
          'WAVELENGTH', br.get('RE_IN').get('SP_DICT').get('IT', n).get('WAVELENGTH'), ...
          'ID', br.get('RE_IN').get('SP_DICT').get('IT', n).get('ID'), ...
          'LABEL', br.get('RE_IN').get('SP_DICT').get('IT', n).get('LABEL'), ...
-         'NOTES', br.get('RE_IN').get('SP_DICT').get('IT', n).get('NOTES'))
+         'NOTES', br.get('RE_IN').get('SP_DICT').get('IT', n).get('NOTES'));
 
     sp_dict_out.get('ADD', sp_out);
 end 
 % Set the updated value of sp_dict_out to SP_DICT_OUT
 value = sp_dict_out;
-
-
 
 %%% ¡prop!
 REPF (gui, item) is a container of the panel figure for the BaselineRemover.
@@ -109,13 +105,13 @@ RE_BASELINES (result, item) is the output Raman Experiment with Raman baselines 
 be = BaselineEstimator('RE_IN', br.get('RE_IN'));
 
 % Read RE_OUT of BaselineEstimator
-re_out = be.get('RE_OUT')
+re_out = be.get('RE_OUT');
 
 % Set the re_out to RE_BASELINES
 value = re_out;
 
 % Set re_out to RE and memorize baselines for GUI output of BaselineRemover
-br.memorize('BAPF').set('RE', re_out)
+br.memorize('BAPF').set('RE', re_out);
 
 
 %%% ¡prop!
@@ -127,11 +123,12 @@ pr = PanelPropItem('EL', br, 'PROP', BaselineRemover.BAPF, ...
     'WAITBAR', true, ...
     'GUICLASS', 'GUIFig', ...
     'BUTTON_TEXT', 'Plot estimated baselines', ...
-    varargin{:});%%% ¡prop!
+    varargin{:});
 
 
-%Parameters for Lieberfit function for baseine estimation:
-%LFIT_POLYORDER & LFIT_ITER
+% Parameters for Lieberfit function for baseine estimation:
+% LFIT_POLYORDER & LFIT_ITER
+
 %%% ¡prop!
 LFIT_POLYORDER (parameter, scalar) is the order of the polynomial for Lieberfit function.
 %%%% ¡default!

@@ -719,11 +719,11 @@ classdef WavelengthCalibrator < REAnalysisModule
 					trimmed_length = size((sp_in.get('WAVELENGTH')),1);
 					
 					% Reference wavelengths for polystyrene signature peaks
-					reference_wavelengths = [620.9 1001.4 1031.8 1602.3]
+					reference_wavelengths = [620.9 1001.4 1031.8 1602.3];
 					
 					% Get the pixel values (wavelength indices) for the corresponding peaks in
 					% the baseline-removed trimmed Raman spectra of the polystyrene sample
-					pix = [wc.get('PIXEL_1') wc.get('PIXEL_2') wc.get('PIXEL_3') wc.get('PIXEL_4')]
+					pix = [wc.get('PIXEL_1') wc.get('PIXEL_2') wc.get('PIXEL_3') wc.get('PIXEL_4')];
 					
 					% Calibrate the raw wavelengths
 					calibrated_wavelengths = interp1(pix, reference_wavelengths, [1:trimmed_length], 'linear', 'extrap'); 

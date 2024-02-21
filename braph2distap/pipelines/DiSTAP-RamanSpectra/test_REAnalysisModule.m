@@ -1374,12 +1374,12 @@ end
 
 %% Test 12: Basic read functions and setting props
 if rand() >= (1 - .01) * BRAPH2TEST.RANDOM
-	m1 = [1 2 3 4 5; 2 4 6 8 10; 3 6 9 12 15; 4 8 12 16 20; 5 10 15 20 25]
-	m2 = m1 + 1
-	m3 = m1 + 2
-	m4 = m1 + 3
-	m5 = m1 + 4
-	m6 = m1 + 5
+	m1 = [1 2 3 4 5; 2 4 6 8 10; 3 6 9 12 15; 4 8 12 16 20; 5 10 15 20 25];
+	m2 = m1 + 1;
+	m3 = m1 + 2;
+	m4 = m1 + 3;
+	m5 = m1 + 4;
+	m6 = m1 + 5;
 	s1 = Spectrum('ID', 'id1', 'LABEL', 'label1', 'NOTES', 'notes1', ...
 	    'WAVELENGTH', [1;2;3;4;5], 'INTENSITIES', m1);
 	s2 = Spectrum('ID', 'id2', 'LABEL', 'label2', 'NOTES', 'notes2', ...

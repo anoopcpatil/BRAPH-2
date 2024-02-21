@@ -753,13 +753,13 @@ classdef REAnalysisModule < ConcreteElement
 					
 					% Copy the processed SP_DICT of RE_IN to 
 					% the SP_DICT of RE_OUT
-					re_out.set('SP_DICT', ream.get('SP_DICT_OUT'))
+					re_out.set('SP_DICT', ream.get('SP_DICT_OUT'));
 					
 					% Set the re_out to RE_OUT of REAnalysisModule
 					value = re_out;
 					
 					% Set re_out to RE and memorize for GUI output of REAnalysisModule
-					ream.memorize('REPF').set('RE', re_out)
+					ream.memorize('REPF').set('RE', re_out);
 					
 					rng(rng_settings_)
 					

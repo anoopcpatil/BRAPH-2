@@ -70,7 +70,7 @@ raw_intensities = sp_in.get('INTENSITIES');
 
 % Apply median filter to raw intensities
 fixed_intensities = medfilt1(raw_intensities'); 
-fixed_intensities = fixed_intensities'
+fixed_intensities = fixed_intensities';
 
 % Create unlocked copy of the spectrum being processed
 % Set the Cosmic-Ray-Noise-removed intensities to the INTENSITIES of the spectrum 
